@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {}
+header{}
+header h1{}
+header p{}
+
+main {}
+main h2{}
+main p{}
+main ul{}
+main li{}
+main a{}
+main img{}
+main h3{}
+
+#about {}
+#projects {}
+.projects-container{}
+#skills {}
+#links {}
+#contact{}
