@@ -5,26 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shelly Fourer | Portfolio</title>
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
 <body>
 <header>
-    <h1 >Hi, my <br> name is Shelly</h1>
-    <p>I'm a Creative web developer and software engineer.
-        <br>I think in code and feel in color.</p>
+    <div class="navbar">
+        <div class = "left-nav">
+        <a href="/" class="logo">SHELLY FOURER</a>
+        <p class="intro-tag">Web Developer • Artist • Problem Solver</p>
+        </div>
+        <nav>
+            <a href="#about">ABOUT ME</a>
+            <a href="#projects">PORTFOLIO</a>
+            <a href="#contact">CONTACTS</a>
+        </nav>
+    </div>
+
+    <div class="hero-text">
+        <h1 class="text1">Hi, my name <br> is <span class="emph"> SHELLY</span> </h1>
+        <h1 class="text2">I create <span class="emph">UNIQUE</span> <br> experiences</h1>
+    </div>
+    <p>I'm a Web Developer and Artist<br>that thinks in <strong> code </strong> and feels in <strong> color </strong></p>
+    <a href="#projects" class="cta-btn">View My Work</a>
+    <div class="scroll-down">
+        <span>&#8595;</span>
+    </div>
 </header>
 
 <main>
     <section id="about">
         <h2>About Me</h2>
         <p>
-            I'm Shelly — a <strong> multidisciplinary creative </strong> and a <strong>
-            software engineering student </strong>.
-            With a background in fine arts, music, and film/theater, and a deep love
-            for math and science, I blend logic with emotion to build visually
-            striking and meaningful digital experiences. My work is where storytelling
-            meets structure — driven by purpose, powered by design, and
-            always reaching to move people.
+            I’m Shelly — a <strong>multidisciplinary creative</strong> and <strong>software engineering student</strong> passionate about building things that speak to both the mind and the heart.
         </p>
+        <p>
+            My background in fine arts, music, and theater/filmmaking has shaped the way I approach technology — not just as a tool, but as a medium for storytelling, expression, and connection. Whether I’m sketching out a user interface, writing code, or composing a visual narrative, I care deeply about how things <em>look</em>, <em>feel</em>, and <em>function</em>.
+        </p>
+        <p>
+            At the same time, my love for math and science grounds me in logic, precision, and structure. This balance allows me to design systems that are not only beautiful and intuitive, but also robust and purposeful.
+        </p>
+        <p>
+            I believe great digital experiences happen where creativity and clarity meet — where design is driven by empathy, and technology is human-centered. My goal is always to make something meaningful — something that resonates, solves problems, and leaves a lasting impression.
+        </p>
+        <div class="language-icons">
+    <span title="C++">
+        <svg width="40" height="40" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#00599C"/><text x="24" y="30" text-anchor="middle" font-size="18" fill="#fff" font-family="Arial" font-weight="bold">C++</text></svg>
+    </span>
+            <span title="HTML5">
+        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#E44D26" d="M9 4l3 34 12 4 12-4 3-34z"/><path fill="#F16529" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16" fill="#fff" font-family="Arial" font-weight="bold">HTML</text></svg>
+    </span>
+            <span title="CSS3">
+        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#1572B6" d="M9 4l3 34 12 4 12-4 3-34z"/><path fill="#33A9DC" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16" fill="#fff" font-family="Arial" font-weight="bold">CSS</text></svg>
+    </span>
+            <span title="JavaScript">
+        <svg width="40" height="40" viewBox="0 0 48 48"><rect width="48" height="48" rx="8" fill="#F7DF1E"/><text x="24" y="30" text-anchor="middle" font-size="16" fill="#222" font-family="Arial" font-weight="bold">JS</text></svg>
+    </span>
+        </div>
     </section>
+
 
     <section id="projects">
         <h2>Featured Projects</h2>
@@ -32,15 +71,6 @@
         </div>
     </section>
 
-    <section id="skills">
-        <h2>My Skills</h2>
-        <ul>
-            <li>C++</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-        </ul>
-    </section>
 
     <section id="links">
         <h2>Find Me Here</h2>
