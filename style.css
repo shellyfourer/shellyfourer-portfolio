@@ -14,7 +14,6 @@ body {
     color: #e4d4f4;
     min-height: 100vh;
     line-height: 1.6;
-
 }
 
 header {
@@ -25,25 +24,39 @@ header {
     height: 100vh;
     padding: 2rem 1rem;
     text-align: center;
-    background-color: #0b0014;
 }
 
+/* Navbar */
 .navbar {
     width: 100%;
+    background-color: #0b0014;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    padding: 1.2rem 2rem 0.5rem 2rem;
+    padding: 0.5rem 2rem 0.5rem 2rem;
     z-index: 10;
     box-sizing: border-box;
-    background-color: #0b0014;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.left-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+    text-align: left;
+}
+
 .logo {
+    display: block;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    align-items: center;
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -56,23 +69,21 @@ header {
     transition: opacity 0.2s;
 }
 
+
 .logo:hover {
     opacity: 0.7;
 }
 
-.nav-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
 .intro-tag {
+    margin-top: 0;
+    padding-top: 0;
     font-size: 0.95rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #b98aff;
-    margin-top: 0.2rem;
-    margin-bottom: 0rem;
+    margin-left: 0;
+    padding-left: 0;
+    margin-bottom: 0;
     opacity: 0.8;
 }
 
@@ -94,32 +105,95 @@ header {
     color: #a86cf4;
 }
 
+/* Hero Section */
+
+
 header .hero-text {
   position: relative;
   width: 100%;
   height: 7.5rem;
 }
+header h1 {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100%;
+  transform: translateX(-50%);
+  text-align: center;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
 
-.scroll-down {
-    position: absolute;
-    left: 50%;
-    bottom: 2.5rem;
-    transform: translateX(-50%);
-    z-index: 5;
-    animation: bounce 2s infinite;
-    cursor: pointer;
 }
 
-.scroll-down span {
-    font-size: 2.5rem;
-    color: #a86cf4;
-    opacity: 0.8;
-    user-select: none;
+header h1 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #e4d4f4;
+    line-height: 1.2;
 }
 
-@keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(16px); }
+header h1.text1 {
+  animation: text1Out 2s cubic-bezier(.77,0,.18,1) forwards;
+  animation-delay: 0s;
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+header h1.text2 {
+  animation: text2In 2s cubic-bezier(.77,0,.18,1) forwards;
+  animation-delay: 2s;
+  z-index: 1;
+}
+
+
+.text1 .emph, .text2 .emph {
+    font-style: italic;
+    font-weight: 600;
+    text-decoration: underline;
+    background: linear-gradient(93deg, #8338EC 49.3%, #B923FF 87.76%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes text1Out {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    80% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-30px);
+    }
+}
+
+@keyframes text2In {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+    20% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+header p {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+    color: #ccc;
+    max-width: 600px;
+    line-height: 1.6;
 }
 
 .cta-btn {
@@ -145,96 +219,28 @@ header .hero-text {
     transform: translateY(-2px) scale(1.04);
     box-shadow: 0 8px 32px #a86cf488;
 }
-header h1 {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 100%;
-  transform: translateX(-50%);
-  text-align: center;
-  opacity: 0;
-  margin: 0;
-  pointer-events: none;
+
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(16px); }
 }
 
-header h1.text1 {
-  animation: text1Out 2s cubic-bezier(.77,0,.18,1) forwards;
-  animation-delay: 0s;
-  z-index: 2;
-  opacity: 1;
-  pointer-events: auto;
+.scroll-down {
+    position: absolute;
+    left: 50%;
+    bottom: 2.5rem;
+    transform: translateX(-50%);
+    z-index: 5;
+    animation: bounce 2s infinite;
+    cursor: pointer;
 }
 
-header h1.text2 {
-  animation: text2In 2s cubic-bezier(.77,0,.18,1) forwards;
-  animation-delay: 2s;
-  z-index: 1;
-}
-
-@keyframes text1Out {
-  0% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  80% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px);
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-30px);
-  }
-}
-
-@keyframes text2In {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(30px);
-  }
-  20% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-
-header h1 {
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: #e4d4f4;
-    line-height: 1.2;
-}
-
-.text1 .emph {
-    font-style: italic;
-    font-weight: 600;
-    text-decoration: underline;
-    background: linear-gradient(93deg, #8338EC 49.3%, #B923FF 87.76%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.text2 .emph {
-    font-style: italic;
-    font-weight: 600;
-    text-decoration: underline;
-    background: linear-gradient(93deg, #8338EC 49.3%, #B923FF 87.76%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-header p {
-    margin-top: 2rem;
-    font-size: 1.4rem;
-    color: #ccc;
-    max-width: 600px;
-    line-height: 1.6;
+.scroll-down span {
+    font-size: 2.5rem;
+    color: #a86cf4;
+    opacity: 0.8;
+    user-select: none;
 }
 
 
@@ -242,11 +248,7 @@ header p {
 
 
 
-
-
-
-
-
+/*
 
 main {
     padding: 2rem;
@@ -356,6 +358,9 @@ footer {
     font-size: 0.9rem;
     color: #aaa;
 }
+
+
+ */
 
 
 
