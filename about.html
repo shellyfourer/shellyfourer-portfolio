@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>About </title>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+<div id="header-container"></div>
+<main>
+    <section id="about">
+
+        <h2>About me</h2>
+        <p>
+            I’m Shelly — a <strong>multidisciplinary creative</strong> and <strong>software engineering student</strong>
+            passionate about building things that speak to both the mind and the heart.
+        </p>
+        <p>
+            My background in fine arts, music, and theater/filmmaking has shaped the way I approach technology — not
+            just as a tool, but as a medium for storytelling, expression, and connection. Whether I’m sketching out a
+            user interface, writing code, or composing a visual narrative, I care deeply about how things <em>look</em>,
+            <em>feel</em>, and <em>function</em>.
+        </p>
+        <p>
+            At the same time, my love for math and science grounds me in logic, precision, and structure. This balance
+            allows me to design systems that are not only beautiful and intuitive, but also robust and purposeful.
+        </p>
+        <p>
+            I believe great digital experiences happen where creativity and clarity meet — where design is driven by
+            empathy, and technology is human-centered. My goal is always to make something meaningful — something that
+            resonates, solves problems, and leaves a lasting impression.
+        </p>
+        <div class="language-icons">
+    <span title="C++">
+        <svg width="40" height="40" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#00599C"/><text x="24"
+                                                                                                             y="30"
+                                                                                                             text-anchor="middle"
+                                                                                                             font-size="18"
+                                                                                                             fill="#fff"
+                                                                                                             font-family="Arial"
+                                                                                                             font-weight="bold">C++</text></svg>
+    </span>
+            <span title="HTML5">
+        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#E44D26" d="M9 4l3 34 12 4 12-4 3-34z"/><path
+                fill="#F16529" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16"
+                                                                 fill="#fff" font-family="Arial"
+                                                                 font-weight="bold">HTML</text></svg>
+    </span>
+            <span title="CSS3">
+        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#1572B6" d="M9 4l3 34 12 4 12-4 3-34z"/><path
+                fill="#33A9DC" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16"
+                                                                 fill="#fff" font-family="Arial"
+                                                                 font-weight="bold">CSS</text></svg>
+    </span>
+            <span title="JavaScript">
+        <svg width="40" height="40" viewBox="0 0 48 48"><rect width="48" height="48" rx="8" fill="#F7DF1E"/><text x="24"
+                                                                                                                  y="30"
+                                                                                                                  text-anchor="middle"
+                                                                                                                  font-size="16"
+                                                                                                                  fill="#222"
+                                                                                                                  font-family="Arial"
+                                                                                                                  font-weight="bold">JS</text></svg>
+    </span>
+        </div>
+    </section>
+</main>
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header-container').innerHTML = data;
+        });
+</script>
+</body>
+</html>
