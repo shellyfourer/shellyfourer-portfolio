@@ -1,29 +1,53 @@
+:root {
+    --font-primary: 'Montserrat', sans-serif;
+    --color-bg: #0b0014;
+    --color-text: #e4d4f4;
+    --color-accent1: #8338EC;
+    --color-accent2: #B923FF;
+    --color-accent-gradient: linear-gradient(93deg, var(--color-accent1) 49.3%, var(--color-accent2) 87.76%);
+    --color-hover: linear-gradient(93deg, var(--color-accent2) 49.3%, var(--color-accent1) 87.76%);
+    --box-shadow-accent: #a86cf455;
+    --box-shadow-accent-hover: #a86cf488;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    font-size: 100%;
-}
-
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #0b0014;
-    color: #e4d4f4;
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     min-height: 100vh;
     line-height: 1.6;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    padding: 2rem 1rem;
-    text-align: center;
+.cta-btn {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 0.9rem 2.2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--color-accent-gradient);
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 4px 24px var(--box-shadow-accent);
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.07rem;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    z-index: 2;
+    position: relative;
+    text-transform: none;
+}
+
+.cta-btn:hover {
+    background: var(--color-hover);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 32px var(--box-shadow-accent-hover);
 }
 
 .contact-icons {
@@ -37,17 +61,27 @@ main {
     gap: 20px;
 }
 
-.contact-icons svg {
+.contact-icons img {
+    width: 2.5rem;
+    height: auto;
+    max-width: 100%;
     opacity: 0.5;
-    width: 40px;
-    height: 40px;
     display: block;
     vertical-align: middle;
 }
 
-.contact-icons a:hover svg {
+.contact-icons a:hover img {
     opacity: 0.8;
-    fill: #a86cf4;
+    transform: translateY(-2px) scale(1.04);
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .hero-text {
@@ -66,10 +100,6 @@ h1 {
     opacity: 0;
     margin: 0;
     pointer-events: none;
-
-}
-
-h1 {
     font-size: 3.5rem;
     font-weight: 300;
     color: #e4d4f4;
@@ -89,7 +119,6 @@ h1.text2 {
     animation-delay: 2s;
     z-index: 1;
 }
-
 
 .text1 .emph, .text2 .emph {
     font-style: italic;
@@ -139,36 +168,33 @@ p {
     line-height: 1.6;
 }
 
-.cta-btn {
-    display: inline-block;
-    margin-top: 2.5rem;
-    padding: 0.9em 2.2em;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #fff;
-    background: linear-gradient(93deg, #8338EC 49.3%, #B923FF 87.76%);
-    border: none;
-    border-radius: 2em;
-    box-shadow: 0 4px 24px #a86cf455;
-    cursor: pointer;
-    text-decoration: none;
-    letter-spacing: 0.07em;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    z-index: 2;
-    position: relative;
-}
-
-.cta-btn:hover {
-    background: linear-gradient(93deg, #B923FF 49.3%, #8338EC 87.76%);
-    transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 8px 32px #a86cf488;
-}
-
 @keyframes bounce {
     0%, 100% {
         transform: translateX(-50%) translateY(0);
     }
     50% {
         transform: translateX(-50%) translateY(16px);
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-text {
+        height: 4.5rem;
+        min-height: 3.5rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1rem;
+        margin-top: 1.2rem;
+    }
+
+    .contact-icons {
+        flex-direction: row;
+    }
+    .contact-icons img {
+        width: 1.6rem;
+        max-width: 1.6rem;
     }
 }

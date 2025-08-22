@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Shelly Fourer</title>
     <link rel="stylesheet" href="landing.css"/>
+    <link rel="stylesheet" href="header.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -15,14 +16,13 @@
 <main>
     <div class="contact-icons">
         <a href="https://github.com/shellyfourer" target="_blank">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-label="GitHub Icon">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.334-5.466-5.93 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.873.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.624-5.475 5.921.43.371.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 22.092 24 17.592 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
+            <img src="assets/github-mark.svg" alt="GitHub Icon">
         </a>
         <a href="https://www.linkedin.com/in/shellyfourer" target="_blank">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-label="LinkedIn Icon">
-                <path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.07-.93-2-2-2s-2 .93-2 2v4.5h-3v-9h3v1.22c.41-.63 1.36-1.22 2.5-1.22 2.07 0 3.5 1.68 3.5 4.03v5.97z"/>
-            </svg>
+            <img src="assets/linkedin-icon.svg" alt="LinkedIn Icon">
+        </a>
+        <a href="mailto: shellyfourer@gmail.com">
+            <img src="assets/email-icon.svg" alt="Email Icon">
         </a>
     </div>
 
@@ -30,19 +30,15 @@
         <h1 class="text1">Hi, my name <br> is <span class="emph"> SHELLY</span></h1>
         <h1 class="text2">I create <span class="emph">UNIQUE</span> <br> experiences</h1>
     </div>
+
     <p>I'm a Web Developer and Artist<br>that thinks in <strong> code </strong> and feels in <strong> color </strong>
     </p>
+
     <a href="contacts.html" class="cta-btn">Contact me</a>
+
 </main>
-<script>
 
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-        });
-
-</script>
 <script src="script.js"></script>
+
 </body>
 </html>

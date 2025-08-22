@@ -10,23 +10,9 @@
     pointer-events: none;
 }
 
-#header-container .navbar {
-    pointer-events: auto;
-}
-
-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    padding: 2rem 1rem;
-    text-align: center;
-}
-
 .navbar {
     width: 100%;
-    background-color: #0b0014;
+    background-color: var(--color-bg);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -37,6 +23,7 @@ header {
     z-index: 10;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: auto;
 }
 
 .left-nav {
@@ -47,25 +34,27 @@ header {
     text-align: left;
 }
 
-.logo {
-    display: block;
+.logo, .intro-tag {
     margin-left: 0;
     padding-left: 0;
     margin-bottom: 0;
+}
+
+.logo {
+    display: block;
     padding-bottom: 0;
     align-items: center;
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.08em;
-    color: #e4d4f4;
+    color: var(--color-text);
     text-decoration: none;
-    background: linear-gradient(93deg, #8338EC 49.3%, #B923FF 87.76%);
+    background: var(--color-accent-gradient);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: opacity 0.2s;
 }
-
 
 .logo:hover {
     opacity: 0.7;
@@ -78,9 +67,6 @@ header {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #b98aff;
-    margin-left: 0;
-    padding-left: 0;
-    margin-bottom: 0;
     opacity: 0.8;
 }
 
@@ -89,8 +75,18 @@ header {
     gap: 2rem;
 }
 
+.navbar nav ul {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
 .navbar nav a {
-    color: #e4d4f4;
+    color: var(--color-text);
     text-decoration: none;
     font-weight: 500;
     font-size: 1rem;
@@ -100,4 +96,33 @@ header {
 
 .navbar nav a:hover {
     color: #a86cf4;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.5rem 1rem;
+        gap: 0.5rem;
+    }
+    .left-nav {
+        align-items: flex-start;
+        width: 100%;
+    }
+    .logo {
+        font-size: 1rem;
+    }
+    .intro-tag {
+        font-size: 0.8rem;
+    }
+    .navbar nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: flex-start;
+    }
+    .navbar nav a {
+        font-size: 0.95rem;
+        padding: 0.3rem 0;
+    }
 }
