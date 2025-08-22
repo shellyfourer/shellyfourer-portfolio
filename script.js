@@ -5,6 +5,8 @@ fetch('header.html')
         const navbar = document.querySelector('.navbar');
         const main = document.querySelector('main');
         if (navbar && main) {
-            main.style.paddingTop = navbar.offsetHeight + 'px';
+            const navbarHeight = navbar.offsetHeight;
+            main.style.paddingTop = navbarHeight + 'px';
+            main.style.height = `calc(100vh - ${navbarHeight}px)`;
         }
     });
