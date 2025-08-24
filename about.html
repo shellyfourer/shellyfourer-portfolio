@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>About </title>
+    <title>About</title>
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="header.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 
 <body>
 <div id="header-container"></div>
@@ -34,46 +34,9 @@
             empathy, and technology is human-centered. My goal is always to make something meaningful — something that
             resonates, solves problems, and leaves a lasting impression.
         </p>
-        <div class="language-icons">
-    <span title="C++">
-        <svg width="40" height="40" viewBox="0 0 48 48"><circle cx="24" cy="24" r="22" fill="#00599C"/><text x="24"
-                                                                                                             y="30"
-                                                                                                             text-anchor="middle"
-                                                                                                             font-size="18"
-                                                                                                             fill="#fff"
-                                                                                                             font-family="Arial"
-                                                                                                             font-weight="bold">C++</text></svg>
-    </span>
-            <span title="HTML5">
-        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#E44D26" d="M9 4l3 34 12 4 12-4 3-34z"/><path
-                fill="#F16529" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16"
-                                                                 fill="#fff" font-family="Arial"
-                                                                 font-weight="bold">HTML</text></svg>
-    </span>
-            <span title="CSS3">
-        <svg width="40" height="40" viewBox="0 0 48 48"><path fill="#1572B6" d="M9 4l3 34 12 4 12-4 3-34z"/><path
-                fill="#33A9DC" d="M24 40V8h15.9l-2.7 30z"/><text x="24" y="30" text-anchor="middle" font-size="16"
-                                                                 fill="#fff" font-family="Arial"
-                                                                 font-weight="bold">CSS</text></svg>
-    </span>
-            <span title="JavaScript">
-        <svg width="40" height="40" viewBox="0 0 48 48"><rect width="48" height="48" rx="8" fill="#F7DF1E"/><text x="24"
-                                                                                                                  y="30"
-                                                                                                                  text-anchor="middle"
-                                                                                                                  font-size="16"
-                                                                                                                  fill="#222"
-                                                                                                                  font-family="Arial"
-                                                                                                                  font-weight="bold">JS</text></svg>
-    </span>
-        </div>
+
     </section>
 </main>
-<script>
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-        });
-</script>
+<script src="script.js"></script>
 </body>
 </html>

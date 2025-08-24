@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About </title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Projects</title>
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="header.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 <div id="header-container"></div>
 <main>
+
 <section id="projects">
-    <h2>Featured Projects</h2>
-    <div class="projects-container">
-    </div>
+    <h2> Working on</h2>
+    <div id="current-repo-preview"></div>
+    <h2>Featured projects</h2>
+    <div id="github-repo-preview"></div>
+
 </section>
+
 </main>
-<script>
-
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
-        });
-
-</script>
 <script src="script.js"></script>
-</body>
-</html>
 </body>
 </html>
