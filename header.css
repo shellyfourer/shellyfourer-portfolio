@@ -22,8 +22,9 @@
     padding: 0.5rem 2rem 0.5rem 2rem;
     z-index: 10;
     box-sizing: border-box;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 .left-nav {
