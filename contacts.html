@@ -8,13 +8,25 @@
     <link rel="stylesheet" href="header.css" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 <div id="header-container"></div>
 <main>
-<section id="contact">
-  <h2>Contact Me</h2>
-  <p>Email: <a href="mailto:shellyfourer@gmail.com">shellyfourer@gmail.com</a></p>
-</section>
+    <section id="contact">
+      <h2>Get in touch</h2>
+        <form id="contact-form" action="#" method="post" autocomplete="off">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
 </main>
 <script src="script.js"></script>
 </body>

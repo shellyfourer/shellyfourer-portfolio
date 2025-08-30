@@ -1,4 +1,4 @@
-// Load header and adjust main-padding
+//Load header and adjust main-padding
 fetch('header.html')
     .then(response => response.text())
     .then(data => {
@@ -8,23 +8,26 @@ fetch('header.html')
         if (navbar && main) {
             const navbarHeight = navbar.offsetHeight;
             main.style.paddingTop = navbarHeight + 'px';
-            main.style.height = `calc(100vh - ${navbarHeight}px)`; // Optional: comment out if causing issues
+            /*main.style.height = `calc(100vh - ${navbarHeight}px)`;*/
         }
-
-        //Hide navbar on scroll down, show on scroll up
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            if (!navbar) return;
-            if (window.scrollY > lastScrollY && window.scrollY > 50) {
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                navbar.style.transform = 'translateY(0)';
-            }
-            lastScrollY = window.scrollY;
-        });
     });
 
 
+//Scroll Lock
+function updateScrollLock() {
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight = window.innerHeight;
+    if (docHeight <= winHeight) {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'visible';
+        document.documentElement.style.overflow = 'visible';
+    }
+}
+
+window.addEventListener('load', updateScrollLock);
+window.addEventListener('resize', updateScrollLock);
 
 //Showcase Repositories
 const showcaseRepos = [

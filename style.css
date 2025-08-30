@@ -34,19 +34,15 @@ main {
     align-items: center;
     justify-content: center;
     text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    box-sizing: border-box;
-    padding: 0.5rem 1rem;
-
 }
 
 section {
     width: 100%;
-}
-
-#about {
-    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    box-sizing: border-box;
+    text-align: left;
 }
 
 h2 {
@@ -54,10 +50,11 @@ h2 {
     text-align: left;
     font-weight: 600;
     background: var(--color-accent-gradient);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-decoration: none;
+    display: inline-block; /*shrinks h2 to fit text so gradient is clipped*/
 }
 
 p {
@@ -73,6 +70,8 @@ strong, em {
     font-style: inherit;
     font-weight: 600;
 }
+
+/*Portfolio section*/
 
 .repo-card {
     background: #1a1024;
@@ -101,8 +100,75 @@ strong, em {
     font-size: 0.9rem;
 }
 
+/*Contacts section*/
+
+#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#contact-form {
+    margin-top: 2rem;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+#contact-form label {
+    font-size: 1rem;
+    color: var(--color-accent2);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+    text-align: left;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #b98aff;
+    background: #1a1024;
+    color: var(--color-text);
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    resize: vertical;
+    transition: border 0.2s;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    outline: none;
+    border: 1.5px solid var(--color-accent1);
+}
+
+#contact-form button[type="submit"] {
+    background: var(--color-accent-gradient);
+    color: #fff;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    transition: filter 0.2s;
+}
+
+#contact-form button[type="submit"]:hover {
+    background: var(--color-hover);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 32px var(--box-shadow-accent-hover);
+}
+
+/*Media Queries for responsiveness*/
+
 @media (max-width: 600px) {
-    main {
+    section {
         width: 100%;
         max-width: 100%;
         margin: 0;
