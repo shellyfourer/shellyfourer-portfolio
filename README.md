@@ -39,8 +39,8 @@ This portfolio website serves as a central hub for my projects and growth as a d
 
 - [x] Landing page setup  
 - [x] Navigation between pages  
-- [ ] Responsive design for all devices  
-- [ ] Add project showcases (with links and demos)  
+- [x] Responsive design for all devices  
+- [x] Add project showcases (with links and demos)  
 - [ ] Improve animations & visuals  
 - [ ] Custom domain (future)  
 
