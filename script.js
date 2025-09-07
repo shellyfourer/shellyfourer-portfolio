@@ -49,7 +49,8 @@ fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
     });
 
 const currentProject = [
-    "shellyfourer-portfolio"
+    "shellyfourer-portfolio",
+    "E-commerce-template",
 ];
 
 fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
