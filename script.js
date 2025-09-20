@@ -12,23 +12,6 @@ fetch('header.html')
         }
     });
 
-
-//Scroll Lock
-function updateScrollLock() {
-    const docHeight = document.documentElement.scrollHeight;
-    const winHeight = window.innerHeight;
-    if (docHeight <= winHeight) {
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'visible';
-        document.documentElement.style.overflow = 'visible';
-    }
-}
-
-window.addEventListener('load', updateScrollLock);
-window.addEventListener('resize', updateScrollLock);
-
 //Showcase Repositories
 const showcaseRepos = [
     "pacman-clone",
@@ -66,3 +49,4 @@ fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
             </div>
         `).join('');
     });
+

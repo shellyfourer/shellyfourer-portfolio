@@ -27,6 +27,9 @@ body {
     line-height: 1.6;
 }
 
+body:has(#contact) {
+    overflow: hidden;
+}
 main {
     min-height: 100vh;
     display: flex;
