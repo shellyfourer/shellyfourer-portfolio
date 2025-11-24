@@ -15,6 +15,7 @@ fetch('header.html')
 //Showcase Repositories
 const showcaseRepos = [
     "pacman-clone",
+    "music-player",
 ];
 
 fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
@@ -32,6 +33,7 @@ fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
     });
 
 const currentProject = [
+    "kristina-blog",
     "shellyfourer-portfolio",
     "E-commerce-template",
 ];
@@ -49,4 +51,8 @@ fetch('https://api.github.com/users/shellyfourer/repos?per_page=100')
             </div>
         `).join('');
     });
+
+
+
+
 
