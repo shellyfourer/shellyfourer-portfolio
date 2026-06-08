@@ -1,23 +1,23 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+'use client'
+import { useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'motion/react'
 
 export function CustomCursor() {
-  const [visible, setVisible] = useState(false);
-  const mouseX = useMotionValue(-100);
-  const mouseY = useMotionValue(-100);
-  const ringX = useSpring(mouseX, { stiffness: 150, damping: 18, mass: 0.5 });
-  const ringY = useSpring(mouseY, { stiffness: 150, damping: 18, mass: 0.5 });
+  const [visible, setVisible] = useState(false)
+  const mouseX = useMotionValue(-100)
+  const mouseY = useMotionValue(-100)
+  const ringX = useSpring(mouseX, { stiffness: 150, damping: 18, mass: 0.5 })
+  const ringY = useSpring(mouseY, { stiffness: 150, damping: 18, mass: 0.5 })
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-      if (!visible) setVisible(true);
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [mouseX, mouseY, visible]);
+      mouseX.set(e.clientX)
+      mouseY.set(e.clientY)
+      if (!visible) setVisible(true)
+    }
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [mouseX, mouseY, visible])
 
   return (
     <div className="pointer-events-none hidden md:block">
@@ -26,8 +26,8 @@ export function CustomCursor() {
         style={{
           x: mouseX,
           y: mouseY,
-          translateX: "-50%",
-          translateY: "-50%",
+          translateX: '-50%',
+          translateY: '-50%',
           opacity: visible ? 1 : 0,
         }}
       />
@@ -36,11 +36,11 @@ export function CustomCursor() {
         style={{
           x: ringX,
           y: ringY,
-          translateX: "-50%",
-          translateY: "-50%",
+          translateX: '-50%',
+          translateY: '-50%',
           opacity: visible ? 1 : 0,
         }}
       />
     </div>
-  );
+  )
 }
