@@ -1,3 +1,5 @@
+import { GitBranch } from 'lucide-react'
+
 export default function Footer() {
   return (
     <footer
@@ -13,21 +15,7 @@ export default function Footer() {
         <div className="flex items-center flex-1 h-full">
           {/* Branch — accent-filled pill */}
           <div className="flex items-center gap-1.5 px-2.5 h-full bg-accent/20 hover:bg-accent/30 transition-colors">
-            <svg
-              width="11"
-              height="11"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="6" cy="6" r="3" />
-              <circle cx="6" cy="18" r="3" />
-              <path d="M6 9v6" />
-              <circle cx="18" cy="9" r="3" />
-              <path d="M6 6h5a7 7 0 0 1 7 7v3" />
-            </svg>
+            <GitBranch className="w-3 h-3" />
             <span>main</span>
           </div>
 
