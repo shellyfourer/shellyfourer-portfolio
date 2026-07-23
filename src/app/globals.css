@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* ── Colors ── */
+  --color-background: #0b001a;
+  --color-text: #e4d4f4;
+
+  --color-accent: #a86cf4; /* primary purple accent */
+  --color-accent-2: #8338ec; /* deeper violet — gradient start, borders */
+  --color-accent-3: #b923ff; /* vivid violet — gradient end */
+
+  --color-border: #6c5587; /* muted purple for UI chrome borders */
+
+  --color-surface: #0d0120; /* card / window backgrounds */
+  --color-surface-raised: #110122; /* header, footer, window chrome */
+
+  --color-mac-red: #ff5f57; /* traffic-light close */
+  --color-mac-yellow: #febc2e; /* traffic-light minimize */
+  --color-mac-green: #28c840; /* traffic-light expand + branch dot */
+
+  --color-syn-keyword: #c792ea; /* code block: keyword (const, export) */
+  --color-syn-key: #80cbc4; /* code block: object key */
+  --color-syn-string: #c3e88d; /* code block: string literals */
+  --color-syn-number: #f78c6c; /* code block: numeric literals */
+  --color-syn-function: #82aaff; /* code block: function names */
+  --color-syn-type: #ffcb6b; /* code block: type annotations */
+  --color-syn-comment: #4a5878; /* code block: inline comments */
+  --color-syn-operator: #89ddff; /* code block: operators / brackets */
+
+  /* ── Status bar ── */
+  --color-status-bar: #1a0035; /* VS Code-style status bar bg */
+
+  /* ── Fonts ── */
+  --font-sans: 'Montserrat', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/*
+ * :root — design constants that are NOT Tailwind tokens.
+ * Useful for one-off values, raw CSS, or JS access via getComputedStyle.
+ * Color values are intentionally omitted here — they live in @theme above.
+ */
+:root {
+  /* ── Typography — custom sizes (used as arbitrary values in components) ── */
+  --fs-nano: 9px; /* TS badge in header tabs          → text-[9px]  */
+  --fs-micro: 10px; /* tab × button, scroll indicator   → text-[10px] */
+  --fs-tiny: 11px; /* header & footer mono text        → text-[11px] */
+
+  /* ── Tracking (letter-spacing) ── */
+  --tracking-heading: -1.6px; /* h2 section headings (about, projects…) */
+  --tracking-hero: -3.2px; /* h1 hero headline */
+  --tracking-subtitle: -1.2px; /* hero subtitle paragraph */
+  --tracking-spread: 0.2em; /* scroll indicator "SCROLL" */
+
+  /* ── Leading (line-height) ── */
+  --leading-code: 1.75rem; /* leading-7 — terminal / code block rows */
+
+  /* ── Border radius ── */
+  --radius-badge: 2px; /* rounded-xs — TS badge */
+  --radius-btn: 4px; /* rounded    — btn-brand */
+  --radius-window: 8px; /* rounded-lg — IDE/terminal mock windows */
+  --radius-card: 12px; /* rounded-xl — project card */
+
+  /* ── Elevation / shadow ── */
+  --shadow-glow: 0 0 24px rgba(168, 108, 244, 0.25); /* btn-brand hover */
+  --shadow-glow-sm: 0 0 14px rgba(168, 108, 244, 0.15);
+
+  /* ── Geometry ── */
+  --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
+  --section-h: calc(100svh - 90px); /* full-height sections — sm */
+  --section-h-md: calc(100svh - 122px); /* full-height sections — md (+ 28px menu bar) */
+  --section-h-lg: calc(100svh - 148px); /* full-height sections — lg (+ 28px menu bar) */
+}
+
+/* ── Scanlines ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.035) 3px,
+    rgba(0, 0, 0, 0.035) 4px
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Animations ── */
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Suppress default cursor on pointer devices — CustomCursor replaces it */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+}
+
+/* ── Utilities ── */
+
+@utility text-default-gradient {
+  @apply bg-linear-90 from-accent-2 to-accent-3 bg-clip-text text-transparent;
+  display: inline-block;
+  @apply subpixel-antialiased;
+}
+
+@utility btn-brand {
+  @apply inline-flex items-center
+    px-[1.8rem] py-[0.8rem]
+    font-mono text-sm font-medium tracking-wide
+    text-accent
+    rounded
+    border border-accent/35
+    cursor-pointer
+    transition-[background,border-color,box-shadow,color]
+    duration-200;
+
+  &::before {
+    content: '> ';
+    color: rgba(168, 108, 244, 0.65);
+    transition: color 200ms ease;
+  }
+
+  &::after {
+    content: '_';
+    margin-left: 2px;
+    opacity: 0;
+    animation: blink 1s step-end infinite;
+    transition: opacity 150ms ease;
+  }
+
+  &:hover {
+    @apply text-text border-accent;
+    background: linear-gradient(135deg, rgba(131, 56, 236, 0.15) 0%, rgba(185, 35, 255, 0.12) 100%);
+    box-shadow: var(--shadow-glow);
+
+    &::before {
+      color: rgba(168, 108, 244, 0.8);
+    }
+    &::after {
+      opacity: 1;
+    }
+  }
+}
