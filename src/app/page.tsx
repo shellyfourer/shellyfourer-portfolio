@@ -5,6 +5,7 @@ import ProjectSection from '@/components/home/ProjectSection'
 import BlogSection from '@/components/home/BlogSection'
 import ContactSection from '@/components/home/ContactSection'
 import { SectionReveal } from '@/components/shared/SectionReveal'
+import { SocialsSection } from '@/components/home/SocialsSection'
 
 export default function Home() {
   return (
@@ -17,6 +18,9 @@ export default function Home() {
         </SectionReveal>
         <SectionReveal>
           <ProjectSection />
+        </SectionReveal>
+        <SectionReveal>
+          <SocialsSection />
         </SectionReveal>
         <SectionReveal>
           <BlogSection />

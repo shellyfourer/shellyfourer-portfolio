@@ -6,6 +6,7 @@ import { FaReact } from 'react-icons/fa'
 const navItems = [
   { label: 'about.tsx', href: '/#about', section: 'about' },
   { label: 'projects.tsx', href: '/#projects', section: 'projects' },
+  { label: 'socials.tsx', href: '/#socials', section: 'socials' },
   { label: 'blog.tsx', href: '/#blog', section: 'blog' },
   { label: 'contact.tsx', href: '/#contact', section: 'contact' },
 ]
