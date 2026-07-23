@@ -33,7 +33,7 @@ export default function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="hidden md:flex absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 3, duration: 1 }}
@@ -54,8 +54,8 @@ export default function HeroSection() {
         </motion.svg>
       </motion.div>
 
-      {/* Socials — bottom left */}
-      <div className="flex md:flex-col items-start justify-center px-6 lg:px-16 gap-5 absolute bottom-0 pb-5 lg:pb-10 left-0">
+      {/* Socials — bottom left, desktop only */}
+      <div className="hidden md:flex md:flex-col items-start justify-center px-6 lg:px-16 gap-5 absolute bottom-0 pb-5 lg:pb-10 left-0">
         <div className="flex md:flex-col items-center gap-5 text-accent/40">
           <a
             href="https://github.com/shellyfourer"

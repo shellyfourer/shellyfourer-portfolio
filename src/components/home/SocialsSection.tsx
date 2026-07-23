@@ -31,7 +31,11 @@ export async function SocialsSection() {
       {/* Feed */}
       <div>
         {/* Instagram label */}
-        <Link href="https://www.instagram.com/byshellyfourer" target="_blank" rel="noopener noreferrer">
+        <Link
+          href="https://www.instagram.com/byshellyfourer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <div className="flex items-center gap-2 font-mono text-xs text-text/40 mb-4 hover:text-accent transition duration-300">
             <svg className="w-4 h-4 fill-accent shrink-0" viewBox="0 0 24 24">
               <path d={INSTAGRAM_ICON} />
