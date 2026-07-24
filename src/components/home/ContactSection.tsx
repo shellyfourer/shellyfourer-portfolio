@@ -5,7 +5,7 @@ export default function ContactSection() {
     <section
       id="contact"
       className="flex flex-col items-center justify-center gap-10 px-6 lg:px-16
-        h-[calc(100svh-90px)] md:h-[calc(100svh-122px)] lg:h-[calc(100svh-148px)]"
+        h-screen-nav"
     >
       {/* Terminal-style label */}
       <p className="font-mono text-sm text-text/40 tracking-wide select-none" aria-hidden="true">

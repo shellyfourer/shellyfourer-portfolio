@@ -105,9 +105,25 @@
 :root {
   /* Geometry */
   --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
-  --section-h: calc(100svh - 90px); /* full-height sections — sm */
-  --section-h-md: calc(100svh - 122px); /* full-height sections — md (+ menu bar) */
-  --section-h-lg: calc(100svh - 148px); /* full-height sections — lg (+ menu bar) */
+  --navbar-h: 90px;
+}
+@media (min-width: 768px) {
+  :root {
+    --navbar-h: 122px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --navbar-h: 148px;
+  }
+}
+
+@utility h-screen-nav {
+  height: calc(100svh - var(--navbar-h));
+}
+
+@utility min-h-screen-nav {
+  min-height: calc(100svh - var(--navbar-h));
 }
 
 /* Scanlines */

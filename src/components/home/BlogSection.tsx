@@ -6,7 +6,7 @@ export default function BlogSection() {
       id="blog"
       className="flex items-center
             px-6 md:pr-24 lg:pl-16 lg:pr-40
-            h-[calc(100svh-90px)] md:h-[calc(100svh-122px)] lg:h-[calc(100svh-148px)]"
+            h-screen-nav"
     >
       <div className="grid md:grid-cols-2 gap-10 lg:gap-16 w-full items-center">
         {/* Left — text */}

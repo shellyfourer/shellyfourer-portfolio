@@ -7,7 +7,7 @@ export default function ProjectSection() {
       id="projects"
       className="flex flex-col justify-center gap-8
             px-6 md:pr-24 lg:pl-16 lg:pr-40
-            h-[calc(100svh-90px)] md:h-[calc(100svh-122px)] lg:h-[calc(100svh-148px)]"
+            h-screen-nav"
     >
       {/* Heading */}
       <div className="flex flex-col gap-5">

@@ -1,34 +1,66 @@
 'use client'
-import HeroText from '@/components/home/HeroText'
 import { motion } from 'motion/react'
+import AboutHeroText from '@/components/about/AboutHeroText'
 
-export default function HeroSection() {
+const chips = ['fine_arts', 'music', 'theater_&_film', 'math_&_science', 'code']
+
+export default function AboutHero() {
   return (
     <section
       className="relative flex flex-col items-center justify-center overflow-hidden
-            h-screen-nav
-            px-6 md:px-16 gap-6 snap-none"
+        h-screen-nav
+        px-6 md:px-16 gap-6"
     >
-      {/* Center content */}
       <div className="flex flex-col items-center gap-4 md:gap-5">
-        {/* Code tag with blinking cursor */}
+        {/* Eyebrow */}
         <motion.p
           className="font-mono text-sm md:text-base text-accent/50 tracking-wide select-none"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <span className="text-accent/30">&lt;</span>
-          creative_dev
-          <span className="text-accent/30"> /&gt;</span>
-          <span className="cursor-blink text-accent/50 ml-0.5">_</span>
+          ~ % cat about/shelly.md
         </motion.p>
 
-        <HeroText />
+        {/* Headline */}
+        <AboutHeroText />
 
-        <p className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-text p-2.5">
-          I&#39;m a Web Developer and Artist <br /> that thinks in code and feels in color
-        </p>
+        {/* Bio */}
+        <motion.p
+          className="text-base text-foreground leading-relaxed text-center max-w-2xl"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.3 }}
+        >
+          I&apos;m studying software engineering while building Shopify, WordPress, and custom web
+          apps through{' '}
+          <a
+            href="https://roket.lt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-accent/80 hover:text-accent transition-colors"
+          >
+            Roket Agency
+          </a>
+          , + taking on full-stack projects for my own clients.
+        </motion.p>
+
+        {/* Chips */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.5 }}
+        >
+          {chips.map((chip) => (
+            <span
+              key={chip}
+              className="font-mono text-xs text-accent/80 border border-accent/40 rounded px-3 py-1.5"
+            >
+              {chip}
+            </span>
+          ))}
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -36,7 +68,7 @@ export default function HeroSection() {
         className="hidden md:flex absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 3, duration: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
       >
         <span className="text-[10px] tracking-[0.2em] uppercase text-accent/40">Scroll</span>
         <motion.svg
@@ -54,7 +86,7 @@ export default function HeroSection() {
         </motion.svg>
       </motion.div>
 
-      {/* Socials — bottom left, desktop only */}
+      {/* Social icons - bottom left, desktop only */}
       <div className="hidden md:flex md:flex-col items-start justify-center px-6 lg:px-16 gap-5 absolute bottom-0 pb-5 lg:pb-10 left-0">
         <div className="flex md:flex-col items-center gap-5 text-accent/40">
           <a
@@ -77,7 +109,6 @@ export default function HeroSection() {
               />
             </svg>
           </a>
-
           <a
             href="https://linkedin.com/in/shellyfourer"
             target="_blank"
@@ -98,7 +129,6 @@ export default function HeroSection() {
               />
             </svg>
           </a>
-
           <a
             href="mailto:shellyfourer@gmail.com"
             aria-label="Email"
