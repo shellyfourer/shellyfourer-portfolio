@@ -5,6 +5,8 @@ import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
 import { CustomCursor } from '@/components/shared/CustomCursor'
 import { GrainOverlay } from '@/components/shared/GrainOverlay'
+import { Analytics } from "@vercel/analytics/next"
+import React from "react";
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,12 +30,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background flex flex-col min-h-svh`}
+      >
         <CustomCursor />
         <GrainOverlay />
         <Header />
-        <main>{children}</main>
+        <main className="flex-1 flex flex-col">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )

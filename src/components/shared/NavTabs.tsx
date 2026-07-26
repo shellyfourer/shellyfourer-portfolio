@@ -16,10 +16,11 @@ export function NavTabs() {
   const [observedSection, setObservedSection] = useState('')
   const pathname = usePathname()
 
-  const activeSection = pathname === '/about' ? 'about' : observedSection
+  const activeSection =
+    pathname === '/about' ? 'about' : pathname === '/projects' ? 'projects' : observedSection
 
   useEffect(() => {
-    if (pathname === '/about') return
+    if (pathname === '/about' || pathname === '/projects') return
 
     const observer = new IntersectionObserver(
       (entries) => {
