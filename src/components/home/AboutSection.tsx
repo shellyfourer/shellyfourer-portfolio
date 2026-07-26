@@ -8,9 +8,9 @@ export default function AboutSection() {
             px-6 xl:pl-16 xl:pr-40
             min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
-      <div className="grid md:grid-cols-2 gap-10 lg:gap-16 w-full items-center">
+      <div className="flex flex-col xl:grid xl:grid-cols-2 gap-10 lg:gap-16 w-full">
         {/* Text */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 xl:col-start-1 xl:row-start-1">
           <p className="font-mono text-sm text-accent/65 tracking-wide select-none">
             <span className="text-accent/30">{'//'} </span>about_me
           </p>
@@ -25,14 +25,11 @@ export default function AboutSection() {
             I&#39;m Shelly, a multidisciplinary creative and software engineering student.
             Passionate about building things that speak to both the mind and the heart.
           </p>
-          <Link href="/about" className="btn-brand self-start">
-            Learn more
-          </Link>
         </div>
 
-        {/* IDE window with explorer + terminal panel */}
+        {/* IDE window with explorer + terminal panel — spans both rows on xl */}
         <div
-          className="md:flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface"
+          className="flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface xl:col-start-2 xl:row-start-1 xl:row-span-2"
           aria-hidden="true"
         >
           {/* Window chrome */}
@@ -54,7 +51,7 @@ export default function AboutSection() {
           {/* Split: Explorer + Code */}
           <div className="flex flex-1">
             {/* File Explorer panel */}
-            <div className="w-28 shrink-0 border-r border-border/15 py-1 font-mono text-[10px] bg-surface-raised/25 leading-6">
+            <div className="hidden md:block w-28 shrink-0 border-r border-border/15 py-1 font-mono text-[10px] bg-surface-raised/25 leading-6">
               <div className="px-3 py-0.5 text-[9px] uppercase tracking-widest text-foreground/20 mb-0.5">
                 Explorer
               </div>
@@ -135,6 +132,13 @@ export default function AboutSection() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Button — after terminal on mobile/tablet, below text on xl */}
+        <div className="xl:col-start-1 xl:row-start-2 xl:self-start">
+          <Link href="/about" className="btn-brand">
+            Learn more
+          </Link>
         </div>
       </div>
     </section>
