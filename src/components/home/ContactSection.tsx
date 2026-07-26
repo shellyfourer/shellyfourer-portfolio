@@ -5,7 +5,7 @@ export default function ContactSection() {
     <section
       id="contact"
       className="flex flex-col items-center justify-center gap-10 px-6 lg:px-16
-        h-screen-nav"
+        min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       {/* Terminal-style label */}
       <p

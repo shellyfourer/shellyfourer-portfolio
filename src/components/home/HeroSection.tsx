@@ -4,6 +4,7 @@ import { HeroScrollIndicator } from '@/components/shared/HeroScrollIndicator'
 import { FaInstagram } from 'react-icons/fa'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
+import { AnimatedFadeIn } from '@/components/shared/AnimatedFadeIn'
 
 const accent =
   'pb-[0.2em] -mb-[0.2em] pr-[0.2em] -mr-[0.2em] ' +
@@ -40,9 +41,12 @@ export default function HeroSection() {
           }
         />
 
-        <p className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-foreground p-2.5">
+        <AnimatedFadeIn
+          className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-foreground p-2.5"
+          delay={0}
+        >
           I&#39;m a Web Developer and Artist <br /> that thinks in code and feels in color
-        </p>
+        </AnimatedFadeIn>
       </div>
 
       <HeroScrollIndicator delay={3} />

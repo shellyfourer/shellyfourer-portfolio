@@ -5,11 +5,11 @@ export default function AboutSection() {
     <section
       id="about"
       className="flex flex-row items-center
-            px-6 md:pr-24 lg:pl-16 lg:pr-40
-            h-screen-nav"
+            px-6 xl:pl-16 xl:pr-40
+            min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       <div className="grid md:grid-cols-2 gap-10 lg:gap-16 w-full items-center">
-        {/* Left — text */}
+        {/* Text */}
         <div className="flex flex-col gap-8">
           <p className="font-mono text-sm text-accent/65 tracking-wide select-none">
             <span className="text-accent/30">{'//'} </span>about_me
@@ -30,7 +30,7 @@ export default function AboutSection() {
           </Link>
         </div>
 
-        {/* Right — IDE window with explorer + terminal panel */}
+        {/* IDE window with explorer + terminal panel */}
         <div
           className="md:flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface"
           aria-hidden="true"
@@ -132,47 +132,6 @@ export default function AboutSection() {
                 <div className="mt-1">
                   <span className="inline-block w-2 h-[0.85em] bg-accent/50 cursor-blink align-middle" />
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom terminal panel */}
-          <div className="border-t border-border/20 bg-surface-raised/40">
-            {/* Panel tab bar */}
-            <div className="flex items-center gap-4 px-4 py-1 border-b border-border/10 font-mono text-[10px]">
-              <span className="text-accent/75 border-b border-accent/50 pb-0.5 -mb-1">
-                Terminal
-              </span>
-              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">
-                Problems
-              </span>
-              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">
-                Output
-              </span>
-              <div className="ml-auto flex items-center gap-1 text-foreground/20">
-                <span className="text-success/55">✓</span>
-                <span>0</span>
-                <span className="text-warning/40 ml-1">⚠</span>
-                <span>0</span>
-              </div>
-            </div>
-            {/* Terminal output */}
-            <div className="px-4 py-2 font-mono text-[10px] leading-5">
-              <div className="flex items-center gap-1.5 text-foreground/45">
-                <span className="text-accent/60">shellyfourer</span>
-                <span className="text-foreground/30">~/portfolio</span>
-                <span className="text-accent-deep/65">%</span>
-                <span>npx ts-node shelly.ts</span>
-              </div>
-              <div className="mt-0.5 text-foreground/30">
-                {`{ role: 'developer + artist', status: 'always building' }`}
-              </div>
-              <div className="text-success/55 mt-0.5">✓ Process exited with code 0</div>
-              <div className="flex items-center gap-1.5 mt-1">
-                <span className="text-accent/60">shellyfourer</span>
-                <span className="text-foreground/30">~/portfolio</span>
-                <span className="text-accent-deep/65">%</span>
-                <span className="cursor-blink text-accent/60">_</span>
               </div>
             </div>
           </div>
