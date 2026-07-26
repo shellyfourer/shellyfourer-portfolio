@@ -1,19 +1,20 @@
 'use client'
-
 import { motion, AnimatePresence } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
-export default function AnimatedHeroHeadline() {
-  const [step, setStep] = useState<'intro' | 'create'>('intro')
+interface Props {
+  intro: ReactNode
+  outro: ReactNode
+  delay?: number
+}
+
+export function AnimatedCyclingHeadline({ intro, outro, delay = 2000 }: Props) {
+  const [step, setStep] = useState<'intro' | 'outro'>('intro')
 
   useEffect(() => {
-    const t = setTimeout(() => setStep('create'), 2000) // delay before switch
+    const t = setTimeout(() => setStep('outro'), delay)
     return () => clearTimeout(t)
-  }, [])
-
-  const accentSpan =
-    'pb-[0.2em] -mb-[0.2em] pr-[0.2em] -mr-[0.2em] ' +
-    'relative inline-block font-serif text-default-gradient font-normal italic uppercase tracking-[-1.6px]'
+  }, [delay])
 
   const baseH1 = 'text-display text-center'
 
@@ -29,20 +30,18 @@ export default function AnimatedHeroHeadline() {
             exit={{ opacity: 0, y: -12, filter: 'blur(50px)' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            Hi, my name <br /> is <span className={accentSpan}>Shelly</span>
+            {intro}
           </motion.h1>
         ) : (
           <motion.h1
-            key="create"
+            key="outro"
             className={baseH1}
             initial={{ opacity: 0, y: 12, filter: 'blur(50px)' }}
             animate={{ opacity: 1, y: 0, filter: 'none' }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            I create <span className={accentSpan}>UNIQUE</span>
-            <br />
-            experiences
+            {outro}
           </motion.h1>
         )}
       </AnimatePresence>
