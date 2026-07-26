@@ -16,12 +16,12 @@ export default function BlogSection() {
           </p>
           <div className="flex flex-col gap-4">
             <div className="flex items-stretch gap-2.5">
-              <span className="w-0.5 bg-accent-2 shrink-0" />
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-[-1.6px]">
+              <span className="w-0.5 bg-accent-deep shrink-0" />
+              <h2 className="text-h2">
                 Coming soon
               </h2>
             </div>
-            <p className="text-lg font-medium text-text/70 leading-relaxed">
+            <p className="text-lead font-medium text-foreground/70 leading-relaxed">
               A space where I reflect on learning, building, and growing as a developer and
               creative.
             </p>
@@ -38,75 +38,75 @@ export default function BlogSection() {
         >
           {/* Window chrome */}
           <div className="flex items-center gap-1.5 px-4 py-3 border-b border-border/20 bg-surface-raised">
-            <span className="w-3 h-3 rounded-full bg-mac-red/70" />
-            <span className="w-3 h-3 rounded-full bg-mac-yellow/70" />
-            <span className="w-3 h-3 rounded-full bg-mac-green/70" />
-            <span className="ml-4 font-mono text-xs text-text/30">Terminal</span>
-            <div className="ml-auto font-mono text-[10px] text-text/20">1: Local</div>
+            <span className="w-3 h-3 rounded-full bg-danger/70" />
+            <span className="w-3 h-3 rounded-full bg-warning/70" />
+            <span className="w-3 h-3 rounded-full bg-success/70" />
+            <span className="ml-4 font-mono text-xs text-foreground/30">Terminal</span>
+            <div className="ml-auto font-mono text-[10px] text-foreground/20">1: Local</div>
           </div>
 
           {/* Terminal body */}
           <div className="p-5 font-mono text-xs leading-6">
             {/* ls posts/ */}
-            <div className="flex items-center gap-1.5 text-text/50">
+            <div className="flex items-center gap-1.5 text-foreground/50">
               <span className="text-accent/60">shellyfourer</span>
-              <span className="text-text/30">~/portfolio/blog</span>
-              <span className="text-accent-2/70">%</span>
+              <span className="text-foreground/30">~/portfolio/blog</span>
+              <span className="text-accent-deep/70">%</span>
               <span>ls -la posts/</span>
             </div>
-            <div className="mt-0.5 text-text/20">total 0</div>
-            <div className="text-text/20">No posts yet.</div>
+            <div className="mt-0.5 text-foreground/20">total 0</div>
+            <div className="text-foreground/20">No posts yet.</div>
 
             {/* git log */}
-            <div className="flex items-center gap-1.5 mt-3 text-text/50">
+            <div className="flex items-center gap-1.5 mt-3 text-foreground/50">
               <span className="text-accent/60">shellyfourer</span>
-              <span className="text-text/30">~/portfolio/blog</span>
-              <span className="text-accent-2/70">%</span>
+              <span className="text-foreground/30">~/portfolio/blog</span>
+              <span className="text-accent-deep/70">%</span>
               <span>git log --oneline posts/</span>
             </div>
             <div className="mt-0.5 flex flex-col gap-0.5">
-              <div className="text-text/35">
-                <span className="text-syn-function/70">a3f92c1</span>
-                <span className="text-mac-yellow/45 ml-2">feat:</span>
-                <span className="text-text/30 ml-1">scaffold blog structure</span>
+              <div className="text-foreground/35">
+                <span className="text-syntax-function/70">a3f92c1</span>
+                <span className="text-warning/45 ml-2">feat:</span>
+                <span className="text-foreground/30 ml-1">scaffold blog structure</span>
               </div>
-              <div className="text-text/30">
-                <span className="text-syn-function/50">b71e449</span>
-                <span className="text-text/25 ml-2">plan first post topics</span>
+              <div className="text-foreground/30">
+                <span className="text-syntax-function/50">b71e449</span>
+                <span className="text-foreground/25 ml-2">plan first post topics</span>
               </div>
-              <div className="text-text/30">
-                <span className="text-syn-function/50">c58d220</span>
-                <span className="text-mac-green/40 ml-2">init:</span>
-                <span className="text-text/25 ml-1">blog module</span>
+              <div className="text-foreground/30">
+                <span className="text-syntax-function/50">c58d220</span>
+                <span className="text-success/40 ml-2">init:</span>
+                <span className="text-foreground/25 ml-1">blog module</span>
               </div>
             </div>
 
             {/* cat status.md */}
-            <div className="flex items-center gap-1.5 mt-3 text-text/50">
+            <div className="flex items-center gap-1.5 mt-3 text-foreground/50">
               <span className="text-accent/60">shellyfourer</span>
-              <span className="text-text/30">~/portfolio/blog</span>
-              <span className="text-accent-2/70">%</span>
+              <span className="text-foreground/30">~/portfolio/blog</span>
+              <span className="text-accent-deep/70">%</span>
               <span>cat status.md</span>
             </div>
             <div className="mt-0.5 border-l border-accent/20 pl-2 flex flex-col gap-0 text-[10px]">
-              <div className="text-syn-string/60"># Blog Status</div>
-              <div className="text-text/25">
-                <span className="text-syn-key/60">status</span>
-                <span className="text-text/20">: </span>
-                <span className="text-syn-string/50">&quot;coming soon&quot;</span>
+              <div className="text-syntax-string/60"># Blog Status</div>
+              <div className="text-foreground/25">
+                <span className="text-syntax-key/60">status</span>
+                <span className="text-foreground/20">: </span>
+                <span className="text-syntax-string/50">&quot;coming soon&quot;</span>
               </div>
-              <div className="text-text/25">
-                <span className="text-syn-key/60">eta</span>
-                <span className="text-text/20">: </span>
-                <span className="text-syn-string/50">&quot;when it&apos;s ready&quot;</span>
+              <div className="text-foreground/25">
+                <span className="text-syntax-key/60">eta</span>
+                <span className="text-foreground/20">: </span>
+                <span className="text-syntax-string/50">&quot;when it&apos;s ready&quot;</span>
               </div>
             </div>
 
             {/* Active prompt */}
-            <div className="flex items-center gap-1.5 mt-3 text-text/50">
+            <div className="flex items-center gap-1.5 mt-3 text-foreground/50">
               <span className="text-accent/60">shellyfourer</span>
-              <span className="text-text/30">~/portfolio/blog</span>
-              <span className="text-accent-2/70">%</span>
+              <span className="text-foreground/30">~/portfolio/blog</span>
+              <span className="text-accent-deep/70">%</span>
               <span className="cursor-blink text-accent/65">_</span>
             </div>
           </div>

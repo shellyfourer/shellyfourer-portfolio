@@ -16,16 +16,16 @@ export default function MediaCard({ post }: { post: InstagramPost }) {
       {/* Terminal chrome */}
       <div className="flex items-center gap-3 px-4 py-2.5 border-b border-border/20 bg-surface-raised shrink-0">
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-mac-red/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-mac-yellow/70" />
-          <span className="w-2.5 h-2.5 rounded-full bg-mac-green/70" />
+          <span className="w-2.5 h-2.5 rounded-full bg-danger/70" />
+          <span className="w-2.5 h-2.5 rounded-full bg-warning/70" />
+          <span className="w-2.5 h-2.5 rounded-full bg-success/70" />
         </div>
-        <span className="font-mono text-xs text-text/30 truncate">
+        <span className="font-mono text-xs text-foreground/30 truncate">
           {post.caption ?? 'instagram post'}
         </span>
         <div className="ml-auto flex items-center gap-1.5 shrink-0">
-          <span className="w-1.5 h-1.5 rounded-full bg-mac-green/80" />
-          <span className="font-mono text-[10px] text-text/30">live</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-success/80" />
+          <span className="font-mono text-[10px] text-foreground/30">live</span>
         </div>
       </div>
 

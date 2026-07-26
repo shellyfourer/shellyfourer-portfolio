@@ -27,20 +27,20 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         className="absolute inset-0"
       />
       <div className="relative flex flex-col items-center gap-10">
-        <nav className="flex flex-col gap-5 uppercase font-medium text-lg text-text">
-          <Link href="/public" onClick={onClose} className="hover:text-accent-2 transition-colors">
+        <nav className="flex flex-col gap-5 uppercase font-medium text-lg text-foreground">
+          <Link href="/public" onClick={onClose} className="hover:text-accent-deep transition-colors">
             Home
           </Link>
-          <Link href="/public" onClick={onClose} className="hover:text-accent-2 transition-colors">
+          <Link href="/public" onClick={onClose} className="hover:text-accent-deep transition-colors">
             About
           </Link>
-          <Link href="/public" onClick={onClose} className="hover:text-accent-2 transition-colors">
+          <Link href="/public" onClick={onClose} className="hover:text-accent-deep transition-colors">
             Projects
           </Link>
-          <Link href="/public" onClick={onClose} className="hover:text-accent-2 transition-colors">
+          <Link href="/public" onClick={onClose} className="hover:text-accent-deep transition-colors">
             Blog
           </Link>
-          <Link href="/public" onClick={onClose} className="hover:text-accent-2 transition-colors">
+          <Link href="/public" onClick={onClose} className="hover:text-accent-deep transition-colors">
             Contact
           </Link>
         </nav>

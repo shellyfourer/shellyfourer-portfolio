@@ -41,8 +41,8 @@ export function NavTabs() {
         const active = activeSection === section
         const linkClass = active
           ? 'border-accent'
-          : 'border-border/15 text-text/50 hover:text-text/75'
-        const iconClass = active ? 'text-accent' : 'text-accent-2/55'
+          : 'border-border/15 text-foreground/50 hover:text-foreground/75'
+        const iconClass = active ? 'text-accent' : 'text-accent-deep/55'
 
         return (
           <Link

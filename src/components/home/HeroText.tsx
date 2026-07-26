@@ -15,8 +15,7 @@ export default function AnimatedHeroHeadline() {
     'pb-[0.2em] -mb-[0.2em] pr-[0.2em] -mr-[0.2em] ' +
     'relative inline-block font-[Georgia] text-default-gradient font-normal italic uppercase tracking-[-1.6px]'
 
-  const baseH1 =
-    'text-5xl md:text-6xl lg:text-7xl font-medium text-center tracking-[-3.2px] leading-none'
+  const baseH1 = 'text-display text-center'
 
   return (
     <div className="relative">

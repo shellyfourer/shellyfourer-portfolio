@@ -21,8 +21,8 @@ export async function SocialsSection() {
           <span className="text-accent/30">{'//'} </span>socials
         </p>
         <div className="flex items-stretch gap-2.5">
-          <span className="w-0.5 bg-accent-2 shrink-0" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-[-1.6px]">
+          <span className="w-0.5 bg-accent-deep shrink-0" />
+          <h2 className="text-h2">
             My journey in the world of software engineering
           </h2>
         </div>
@@ -36,7 +36,7 @@ export async function SocialsSection() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="flex items-center gap-2 font-mono text-xs text-text/40 mb-4 hover:text-accent transition duration-300">
+          <div className="flex items-center gap-2 font-mono text-xs text-foreground/40 mb-4 hover:text-accent transition duration-300">
             <svg className="w-4 h-4 fill-accent shrink-0" viewBox="0 0 24 24">
               <path d={INSTAGRAM_ICON} />
             </svg>

@@ -26,7 +26,7 @@ export default function HeroSection() {
 
         <HeroText />
 
-        <p className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-text p-2.5">
+        <p className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-foreground p-2.5">
           I&#39;m a Web Developer and Artist <br /> that thinks in code and feels in color
         </p>
       </div>

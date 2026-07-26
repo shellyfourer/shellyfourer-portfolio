@@ -37,22 +37,6 @@
   --color-syntax-comment: #4a5878;
   --color-syntax-operator: #89ddff;
 
-  /* (migrate components, then delete) */
-  --color-text: var(--color-foreground);
-  --color-accent-2: var(--color-accent-deep);
-  --color-accent-3: var(--color-accent-vivid);
-  --color-status-bar: var(--color-surface-accent);
-  --color-mac-red: var(--color-danger);
-  --color-mac-yellow: var(--color-warning);
-  --color-mac-green: var(--color-success);
-  --color-syn-keyword: var(--color-syntax-keyword);
-  --color-syn-key: var(--color-syntax-key);
-  --color-syn-string: var(--color-syntax-string);
-  --color-syn-number: var(--color-syntax-number);
-  --color-syn-function: var(--color-syntax-function);
-  --color-syn-type: var(--color-syntax-type);
-  --color-syn-comment: var(--color-syntax-comment);
-  --color-syn-operator: var(--color-syntax-operator);
 
   /* Type scale
    *  token     mobile → desktop  use

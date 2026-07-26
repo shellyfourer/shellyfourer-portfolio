@@ -8,12 +8,12 @@ const monoFontClass = 'font-mono text-[12px]'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 flex flex-col bg-surface border-b border-border/30 text-text select-none">
+    <header className="sticky top-0 z-50 flex flex-col bg-surface border-b border-border/30 text-foreground select-none">
       <div className="flex items-center gap-4 p-3 border-b border-border/30">
         <div className="hidden md:flex items-center gap-2">
-          <span className={`${macDotClass} bg-mac-red`} />
-          <span className={`${macDotClass} bg-mac-yellow`} />
-          <span className={`${macDotClass} bg-mac-green`} />
+          <span className={`${macDotClass} bg-danger`} />
+          <span className={`${macDotClass} bg-warning`} />
+          <span className={`${macDotClass} bg-success`} />
         </div>
 
         <Link
@@ -23,7 +23,7 @@ export default function Header() {
           shelly-portfolio
         </Link>
 
-        <div className={`hidden md:flex items-center gap-2 ${monoFontClass} text-text/90`}>
+        <div className={`hidden md:flex items-center gap-2 ${monoFontClass} text-foreground/90`}>
           <GitBranch className="size-3" />
           <span>main</span>
         </div>
