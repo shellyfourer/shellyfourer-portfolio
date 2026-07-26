@@ -26,7 +26,7 @@ export default function Philosophy() {
         by imagination. The best work happens when you stop pretending there&apos;s a difference.
       </p>
 
-      <Link href="/#projects" className="btn-brand">
+      <Link href="/projects" className="btn-brand">
         See my work
       </Link>
     </section>

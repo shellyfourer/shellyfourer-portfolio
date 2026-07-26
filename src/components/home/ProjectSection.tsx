@@ -61,7 +61,7 @@ export default function ProjectSection() {
         </div>
       </div>
 
-      <Link href="/" className="btn-brand self-start">
+      <Link href="/projects" className="btn-brand self-start">
         See more
       </Link>
     </section>

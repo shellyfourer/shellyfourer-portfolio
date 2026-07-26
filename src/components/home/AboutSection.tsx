@@ -24,7 +24,7 @@ export default function AboutSection() {
             I&#39;m Shelly, a multidisciplinary creative and software engineering student.
             Passionate about building things that speak to both the mind and the heart.
           </p>
-          <Link href="/" className="btn-brand self-start">
+          <Link href="/about" className="btn-brand self-start">
             Learn more
           </Link>
         </div>
