@@ -16,7 +16,35 @@ const CATEGORIES: { label: string; value: Category }[] = [
 
 function categoryCount(cat: Category) {
   if (cat === 'all') return projects.length
-  return projects.filter(p => p.category === cat).length
+  return projects.filter((p) => p.category === cat).length
+}
+
+function WipPlaceholder({ title, size = 'md' }: { title: string; size?: 'sm' | 'md' }) {
+  const isSm = size === 'sm'
+  return (
+    <div
+      className="w-full h-full flex flex-col items-center justify-center relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(-45deg, #1a0035, #8338ec, #3d0070, #b923ff, #1a0035)',
+        backgroundSize: '400% 400%',
+        animation: 'wip-gradient 8s ease infinite',
+      }}
+    >
+      <div className="absolute inset-0 bg-black/10" />
+      <div className="relative flex flex-col items-center gap-1.5 px-6 text-center">
+        <span
+          className={`font-sans font-medium tracking-[0.2em] uppercase ${isSm ? 'text-[9px]' : 'text-[11px]'} text-white/55`}
+        >
+          coming soon
+        </span>
+        <span
+          className={`font-sans font-semibold tracking-tight ${isSm ? 'text-xs' : 'text-base'} text-white/90`}
+        >
+          {title}
+        </span>
+      </div>
+    </div>
+  )
 }
 
 function SmallCard({ project }: { project: Project }) {
@@ -28,7 +56,9 @@ function SmallCard({ project }: { project: Project }) {
           <span className="w-2 h-2 rounded-full bg-warning/70" />
           <span className="w-2 h-2 rounded-full bg-success/70" />
         </div>
-        <span className="font-mono text-[11px] text-foreground/35 truncate">{project.filepath}</span>
+        <span className="font-mono text-[11px] text-foreground/35 truncate">
+          {project.filepath}
+        </span>
       </div>
       <div className="h-[270px] bg-[#140826] flex items-center justify-center overflow-hidden">
         {project.image ? (
@@ -38,9 +68,7 @@ function SmallCard({ project }: { project: Project }) {
             className="w-full h-full object-cover object-top"
           />
         ) : (
-          <span className="font-mono text-xs text-foreground/35">
-            {project.url ? `[ ${project.url} ]` : `[ ${project.title} ]`}
-          </span>
+          <WipPlaceholder title={project.title} size="sm" />
         )}
       </div>
     </div>
@@ -73,9 +101,7 @@ function FocusedCard({ project }: { project: Project }) {
             className="w-full h-full object-cover object-top"
           />
         ) : (
-          <span className="font-mono text-sm text-foreground/35">
-            {project.url ? `[ ${project.url} ]` : `[ ${project.title} ]`}
-          </span>
+          <WipPlaceholder title={project.title} />
         )}
       </div>
 
@@ -101,7 +127,7 @@ export default function ProjectsCarousel() {
   const [direction, setDirection] = useState(0)
 
   const filtered =
-    activeCategory === 'all' ? projects : projects.filter(p => p.category === activeCategory)
+    activeCategory === 'all' ? projects : projects.filter((p) => p.category === activeCategory)
   const total = filtered.length
   const currentIndex = Math.min(indexByCategory[activeCategory] ?? 0, total - 1)
   const current = filtered[currentIndex] ?? filtered[0]
@@ -110,22 +136,22 @@ export default function ProjectsCarousel() {
 
   const setCurrentIndex = useCallback(
     (updater: number | ((i: number) => number)) => {
-      setIndexByCategory(prev => {
+      setIndexByCategory((prev) => {
         const next = typeof updater === 'function' ? updater(prev[activeCategory] ?? 0) : updater
         return { ...prev, [activeCategory]: next }
       })
     },
-    [activeCategory],
+    [activeCategory]
   )
 
   const goNext = useCallback(() => {
     setDirection(1)
-    setCurrentIndex(i => (i + 1) % total)
+    setCurrentIndex((i) => (i + 1) % total)
   }, [total, setCurrentIndex])
 
   const goPrev = useCallback(() => {
     setDirection(-1)
-    setCurrentIndex(i => (i - 1 + total) % total)
+    setCurrentIndex((i) => (i - 1 + total) % total)
   }, [total, setCurrentIndex])
 
   useEffect(() => {
@@ -157,7 +183,7 @@ export default function ProjectsCarousel() {
 
       {/* Category tabs */}
       <div className="flex items-center gap-2.5 flex-wrap px-6 md:px-16 mt-4">
-        {CATEGORIES.map(cat => {
+        {CATEGORIES.map((cat) => {
           const isActive = activeCategory === cat.value
           return (
             <button
@@ -229,7 +255,7 @@ export default function ProjectsCarousel() {
               <span className="text-syntax-string/80">&quot;{current.role}&quot;</span>
             </p>
             <div className="flex flex-wrap justify-center gap-2">
-              {current.stack.map(s => (
+              {current.stack.map((s) => (
                 <span
                   key={s}
                   className="font-mono text-xs text-foreground/70 border border-border/30 rounded px-3 py-1"

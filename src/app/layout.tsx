@@ -5,8 +5,8 @@ import Header from '@/components/shared/Header'
 import Footer from '@/components/shared/Footer'
 import { CustomCursor } from '@/components/shared/CustomCursor'
 import { GrainOverlay } from '@/components/shared/GrainOverlay'
-import { Analytics } from "@vercel/analytics/next"
-import React from "react";
+import { Analytics } from '@vercel/analytics/next'
+import React from 'react'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
