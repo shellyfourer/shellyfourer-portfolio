@@ -22,9 +22,7 @@ export async function SocialsSection() {
         </p>
         <div className="flex items-stretch gap-2.5">
           <span className="w-0.5 bg-accent-deep shrink-0" />
-          <h2 className="text-h2">
-            My journey in the world of software engineering
-          </h2>
+          <h2 className="text-h2">My journey in the world of software engineering</h2>
         </div>
       </div>
 

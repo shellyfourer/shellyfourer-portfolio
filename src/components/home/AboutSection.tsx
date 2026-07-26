@@ -4,7 +4,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="flex items-center
+      className="flex flex-row items-center
             px-6 md:pr-24 lg:pl-16 lg:pr-40
             h-screen-nav"
     >
@@ -17,7 +17,8 @@ export default function AboutSection() {
           <div className="flex items-stretch gap-2.5">
             <span className="w-0.5 bg-accent-deep shrink-0" />
             <h2 className="text-h2">
-              I build digital experiences where logic meets intuition
+              I build digital experiences where logic meets{' '}
+              <span className="font-serif italic text-default-gradient">intuition</span>
             </h2>
           </div>
           <p className="text-lead font-medium text-foreground/80 leading-relaxed">
@@ -31,7 +32,7 @@ export default function AboutSection() {
 
         {/* Right — IDE window with explorer + terminal panel */}
         <div
-          className="hidden md:flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface"
+          className="md:flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface"
           aria-hidden="true"
         >
           {/* Window chrome */}
@@ -142,8 +143,12 @@ export default function AboutSection() {
               <span className="text-accent/75 border-b border-accent/50 pb-0.5 -mb-1">
                 Terminal
               </span>
-              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">Problems</span>
-              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">Output</span>
+              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">
+                Problems
+              </span>
+              <span className="text-foreground/25 hover:text-foreground/40 transition-colors">
+                Output
+              </span>
               <div className="ml-auto flex items-center gap-1 text-foreground/20">
                 <span className="text-success/55">✓</span>
                 <span>0</span>

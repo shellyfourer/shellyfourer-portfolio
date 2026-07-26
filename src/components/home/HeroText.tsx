@@ -13,7 +13,7 @@ export default function AnimatedHeroHeadline() {
 
   const accentSpan =
     'pb-[0.2em] -mb-[0.2em] pr-[0.2em] -mr-[0.2em] ' +
-    'relative inline-block font-[Georgia] text-default-gradient font-normal italic uppercase tracking-[-1.6px]'
+    'relative inline-block font-serif text-default-gradient font-normal italic uppercase tracking-[-1.6px]'
 
   const baseH1 = 'text-display text-center'
 

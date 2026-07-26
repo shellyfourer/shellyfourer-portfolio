@@ -8,7 +8,10 @@ export default function ContactSection() {
         h-screen-nav"
     >
       {/* Terminal-style label */}
-      <p className="font-mono text-sm text-foreground/40 tracking-wide select-none" aria-hidden="true">
+      <p
+        className="font-mono text-sm text-foreground/40 tracking-wide select-none"
+        aria-hidden="true"
+      >
         <span className="text-accent/60">shellyfourer</span>
         <span className="text-foreground/30"> ~/portfolio</span>
         <span className="text-accent-deep/65"> % </span>
@@ -16,13 +19,11 @@ export default function ContactSection() {
       </p>
 
       {/* Heading */}
-      <h2 className="text-h2 text-center">
-        Are you interested in my work?
-      </h2>
+      <h2 className="text-h2 text-center">Are you interested in my work?</h2>
 
       {/* Terminal window */}
       <div
-        className="w-full max-w-lg rounded-lg border border-border/30 overflow-hidden bg-surface"
+        className="w-full max-w-lg rounded-lg border border-border/30 overflow-hidden bg-surface lg:rotate-[1.5deg]"
         aria-hidden="true"
       >
         {/* Window chrome */}
@@ -73,7 +74,7 @@ export default function ContactSection() {
             <span className="text-accent/60">shellyfourer</span>
             <span className="text-foreground/30">~/portfolio</span>
             <span className="text-accent-deep/70">%</span>
-            <span className="cursor-blink text-accent/65">_</span>
+            <span className="text-accent-deep/70">█</span>
           </div>
         </div>
       </div>
