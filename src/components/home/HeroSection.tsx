@@ -1,14 +1,13 @@
 import { AnimatedEyebrow } from '@/components/shared/AnimatedEyebrow'
-import { AnimatedCyclingHeadline } from '@/components/shared/AnimatedCyclingHeadline'
+import { AnimatedHeadline } from '@/components/shared/AnimatedHeadline'
+import { AnimatedFadeIn } from '@/components/shared/AnimatedFadeIn'
 import { HeroScrollIndicator } from '@/components/shared/HeroScrollIndicator'
 import { FaInstagram } from 'react-icons/fa'
 import { FaLinkedin } from 'react-icons/fa'
 import { FaGithub } from 'react-icons/fa'
-import { AnimatedFadeIn } from '@/components/shared/AnimatedFadeIn'
 
 const accent =
-  'pb-[0.2em] -mb-[0.2em] pr-[0.2em] -mr-[0.2em] ' +
-  'relative inline-block font-serif text-default-gradient font-normal italic uppercase tracking-[-1.6px]'
+  'font-serif italic bg-linear-to-r from-accent-deep to-accent-vivid bg-clip-text text-transparent'
 
 export default function HeroSection() {
   return (
@@ -18,34 +17,24 @@ export default function HeroSection() {
             px-6 md:px-16 gap-6 snap-none"
     >
       {/* Center content */}
-      <div className="flex flex-col items-center gap-4 md:gap-5">
+      <div className="flex flex-col items-center gap-4 md:gap-6">
         <AnimatedEyebrow className="font-mono text-sm text-accent select-none">
           <span className="text-accent/30">&lt;</span>
-          creative_dev
-          <span className="text-accent/30"> /&gt;</span>
+          Shelly Fourer · creative_dev <span className="text-accent/30">/&gt;</span>
           <span className="cursor-blink text-accent/50 ml-0.5">_</span>
         </AnimatedEyebrow>
 
-        <AnimatedCyclingHeadline
-          intro={
-            <>
-              Hi, my name <br /> is <span className={accent}>Shelly</span>
-            </>
-          }
-          outro={
-            <>
-              I create <span className={accent}>UNIQUE</span>
-              <br />
-              experiences
-            </>
-          }
-        />
+        <AnimatedHeadline className="text-h1 text-center " delay={0.25}>
+          feel in <span className={accent}>code</span>, think in{' '}
+          <span className={accent}>color</span>.
+        </AnimatedHeadline>
 
         <AnimatedFadeIn
-          className="text-lg md:text-xl lg:text-2xl tracking-[-1.2px] text-center text-foreground p-2.5"
-          delay={0}
+          className="text-base text-foreground leading-relaxed text-center max-w-xl"
+          delay={0.5}
         >
-          I&#39;m a Web Developer and Artist <br /> that thinks in code and feels in color
+          Fine arts, music, theater, film academy before code. Engineering student shipping
+          full-stack products - and it shows.
         </AnimatedFadeIn>
       </div>
 

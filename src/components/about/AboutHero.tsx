@@ -5,7 +5,8 @@ import { HeroScrollIndicator } from '@/components/shared/HeroScrollIndicator'
 import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
 
 const chips = ['fine_arts', 'music', 'theater_&_film', 'math_&_science', 'code']
-
+const accent =
+  'font-serif italic bg-linear-to-r from-accent-deep to-accent-vivid bg-clip-text text-transparent'
 export default function AboutHero() {
   return (
     <section
@@ -20,14 +21,7 @@ export default function AboutHero() {
         </AnimatedEyebrow>
 
         <AnimatedHeadline className="text-h1 text-center">
-          half{' '}
-          <span className="font-serif italic bg-linear-to-r from-accent-deep to-accent-vivid bg-clip-text text-transparent">
-            artist
-          </span>
-          , half{' '}
-          <span className="font-serif italic bg-linear-to-r from-accent-deep to-accent-vivid bg-clip-text text-transparent">
-            engineer
-          </span>
+          half <span className={accent}>artist</span>, half <span className={accent}>engineer</span>
           .
         </AnimatedHeadline>
 

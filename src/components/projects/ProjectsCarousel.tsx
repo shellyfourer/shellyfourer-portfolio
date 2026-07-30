@@ -37,9 +37,7 @@ function WipPlaceholder({ title, size = 'md' }: { title: string; size?: 'sm' | '
         >
           coming soon
         </span>
-        <span
-          className={`font-sans font-semibold tracking-tight ${isSm ? 'text-xs' : 'text-base'} text-white/90`}
-        >
+        <span className={`font-sans font-semibold ${isSm ? 'text-xs' : 'text-base'} text-white/90`}>
           {title}
         </span>
       </div>
