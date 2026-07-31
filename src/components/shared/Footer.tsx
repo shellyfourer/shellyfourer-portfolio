@@ -3,14 +3,18 @@ import { GitBranch } from 'lucide-react'
 export default function Footer() {
   return (
     <footer
-      className="font-mono text-[11px] select-none"
+      className="relative overflow-hidden font-mono text-[11px] select-none"
       style={{
         background: '#1A0035',
         borderTop: '1px solid rgba(108,85,135,0.3)',
         color: '#C4A8E4',
       }}
     >
-      <div className="flex flex-wrap items-center h-6 px-0 gap-0">
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px glass-shimmer pointer-events-none"
+      />
+      <div className="relative flex flex-wrap items-center h-6 px-0 gap-0">
         {/* ── Left group ── */}
         <div className="flex items-center flex-1 h-full">
           {/* Branch — accent-filled pill */}

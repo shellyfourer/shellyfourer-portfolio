@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/shared/Header'
@@ -16,6 +16,10 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 const BASE_URL = 'https://shellyfourer.com'
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
