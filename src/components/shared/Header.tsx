@@ -19,12 +19,17 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] select-none backdrop-blur-xl pt-[env(safe-area-inset-top)]">
+    <header className="fixed top-0 left-0 right-0 z-[60] select-none backdrop-blur-xl will-change-transform pt-[env(safe-area-inset-top)]">
       <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
-      {/* top border: static white rim */}
+      {/* solid fill for the notch/safe-area zone — prevents iOS cut-through */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
+        className="absolute inset-x-0 top-0 h-[env(safe-area-inset-top)] bg-background pointer-events-none"
+      />
+      {/* top rim: sits just below the safe area, at the visible glass edge */}
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-[env(safe-area-inset-top)] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
       />
       {/* bottom border: animated shimmer */}
       <div

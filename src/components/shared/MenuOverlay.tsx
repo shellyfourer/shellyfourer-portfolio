@@ -88,7 +88,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
             href={href}
             {...(key !== 'email' && { target: '_blank', rel: 'noopener noreferrer' })}
             aria-label={ariaLabel}
-            className="text-foreground hover:text-accent transition-colors duration-150"
+            className="text-accent/40 hover:text-accent transition-colors duration-150"
           >
             <Icon className="w-5 h-5" aria-hidden />
           </a>

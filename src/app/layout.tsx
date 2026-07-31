@@ -88,7 +88,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background">
       <body
         className={`${bricolageGrotesque.variable} antialiased bg-background flex flex-col min-h-svh`}
       >
