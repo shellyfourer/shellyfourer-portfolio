@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { socials } from '@/lib/socials'
 
 export default function ContactSection() {
@@ -26,9 +25,6 @@ export default function ContactSection() {
             Open to collaborations, freelance work, and conversations about ideas. If something here
             resonated — reach out.
           </p>
-          <Link href="mailto:shellyfourer@gmail.com" className="btn-brand self-start">
-            send_message
-          </Link>
         </div>
 
         {/* Right — social link cards */}

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Heart, MessageCircle } from 'lucide-react'
 import { InstagramPost } from '@/lib/types/instagram'
 import { LazyVideo } from '@/components/shared/LazyVideo'
@@ -43,11 +44,7 @@ export default function MediaCard({ post }: { post: InstagramPost }) {
               className="w-full h-full object-cover"
             />
           ) : (
-            <img
-              src={post.media_url}
-              alt={post.caption ?? ''}
-              className="w-full h-full object-cover"
-            />
+            <Image src={post.media_url} alt={post.caption ?? ''} fill className="object-cover" />
           )}
         </div>
 
