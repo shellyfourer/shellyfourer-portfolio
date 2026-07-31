@@ -19,7 +19,7 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 select-none backdrop-blur-xl pt-[env(safe-area-inset-top)]">
+    <header className="fixed top-0 left-0 right-0 z-[60] select-none backdrop-blur-xl pt-[env(safe-area-inset-top)]">
       <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
       {/* top border: static white rim */}
       <div
