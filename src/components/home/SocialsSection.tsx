@@ -12,7 +12,7 @@ export async function SocialsSection() {
     <section
       id="socials"
       className="flex flex-col justify-center gap-8
-        px-6 md:pr-24 lg:pl-16 lg:pr-40
+        px-6 xl:pl-16 xl:pr-40
         min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       {/* Heading */}
@@ -43,7 +43,7 @@ export async function SocialsSection() {
         </Link>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {posts.map((post) => (
             <MediaCard key={post.id} post={post} />
           ))}

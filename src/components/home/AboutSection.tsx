@@ -21,7 +21,7 @@ export default function AboutSection() {
               <span className="font-serif italic text-default-gradient">intuition</span>
             </h2>
           </div>
-          <p className="text-lead font-medium text-foreground/80 leading-relaxed">
+          <p className="text-base text-foreground/55">
             I&#39;m Shelly, a multidisciplinary creative and software engineering student.
             Passionate about building things that speak to both the mind and the heart.
           </p>
@@ -29,7 +29,7 @@ export default function AboutSection() {
 
         {/* IDE window with explorer + terminal panel — spans both rows on xl */}
         <div
-          className="flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface xl:col-start-2 xl:row-start-1 xl:row-span-2"
+          className="hidden sm:flex flex-col rounded-lg border border-border/30 overflow-hidden bg-surface xl:col-start-2 xl:row-start-1 xl:row-span-2"
           aria-hidden="true"
         >
           {/* Window chrome */}

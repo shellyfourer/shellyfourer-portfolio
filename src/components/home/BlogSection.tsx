@@ -5,8 +5,8 @@ export default function BlogSection() {
     <section
       id="blog"
       className="flex items-center
-            px-6 md:px-12 lg:pl-16 lg:pr-40
-            min-h-screen-nav py-20 lg:py-0 lg:h-screen-nav"
+           px-6 xl:pl-16 xl:pr-40
+            min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 w-full items-center">
         {/* Left — text + pill (mobile/tablet) + button */}
@@ -19,28 +19,15 @@ export default function BlogSection() {
               <span className="w-0.5 bg-accent-deep shrink-0" />
               <h2 className="text-h2">Coming soon</h2>
             </div>
-            <p className="text-lead font-medium text-foreground/70 leading-relaxed">
+            <p className="text-base text-foreground/55">
               A space where I reflect on learning, building, and growing as a developer and
               creative.
             </p>
           </div>
-
-          {/* Pill — inline on mobile/tablet, hidden at lg (shown in right column instead) */}
-          <div className="lg:hidden">
-            <div className="inline-flex bg-surface-raised/90 border border-border/30 rounded-xl px-5 py-3.5 font-mono text-sm text-foreground/60 whitespace-nowrap">
-              <span className="text-accent-deep/70">~ %</span>
-              {' tail -f thoughts.log '}
-              <span className="text-accent-deep/70">█</span>
-            </div>
-          </div>
-
-          <Link href="/" className="btn-brand self-start">
-            Read
-          </Link>
         </div>
 
         {/* Right — floating draft cards, desktop only */}
-        <div className="hidden lg:block relative h-72" aria-hidden="true">
+        <div className="hidden sm:block relative h-72" aria-hidden="true">
           {/* Pill — tail command */}
           <div className="-rotate-[1.5deg] absolute top-0 left-0">
             <div className="bg-surface-raised/90 border border-border/30 rounded-xl px-5 py-3.5 font-mono text-sm text-foreground/60 whitespace-nowrap">

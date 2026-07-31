@@ -4,8 +4,9 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center gap-10 px-6 lg:px-16
-        min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
+      className="flex flex-col items-center justify-center
+            px-6 xl:pl-16 xl:pr-40
+            min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       {/* Terminal-style label */}
       <p
@@ -23,7 +24,7 @@ export default function ContactSection() {
 
       {/* Terminal window */}
       <div
-        className="w-full max-w-lg rounded-lg border border-border/30 overflow-hidden bg-surface lg:rotate-[1.5deg]"
+        className="w-full max-w-lg rounded-lg border border-border/30 overflow-hidden bg-surface"
         aria-hidden="true"
       >
         {/* Window chrome */}
