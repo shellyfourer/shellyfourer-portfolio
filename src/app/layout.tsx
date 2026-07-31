@@ -15,9 +15,67 @@ const bricolageGrotesque = Bricolage_Grotesque({
   weight: ['400', '500', '600', '700', '800'],
 })
 
+const BASE_URL = 'https://shellyfourer.com'
+
 export const metadata: Metadata = {
-  title: 'Shelly Fourer',
-  description: 'Web Developer and Artist',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'Shelly Fourer - Software Engineer & Creative',
+    template: '%s | Shelly Fourer',
+  },
+  description:
+    'Software Engineering student and creative developer. I work across three ecosystems: TypeScript/Next.js for web and agency work, Java/Spring Boot for backend systems, and C++ for fundamentals and systems programming. Also an artist.',
+  keywords: [
+    'software engineer',
+    'software engineering student',
+    'creative developer',
+    'full-stack developer',
+    'frontend engineer',
+    'backend developer',
+    'web developer',
+    'Shopify developer',
+    'WordPress developer',
+    'Next.js',
+    'React',
+    'TypeScript',
+    'Java',
+    'Spring Boot',
+    'C++',
+    'systems programming',
+    'PostgreSQL',
+    'Docker',
+    'Shelly Fourer',
+    'portfolio',
+    'Lithuania',
+  ],
+  authors: [{ name: 'Shelly Fourer', url: BASE_URL }],
+  creator: 'Shelly Fourer',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: BASE_URL,
+    siteName: 'Shelly Fourer',
+    title: 'Shelly Fourer - Software Engineer & Creative',
+    description:
+      'Software Engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++ - and an artist. Thinking in code, feeling in color.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shelly Fourer - Software Engineer & Creative',
+    description:
+      'Software Engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++ - and an artist. Thinking in code, feeling in color.',
+    creator: '@byshellyfourer',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-snippet': -1,
+      'max-image-preview': 'large',
+    },
+  },
 }
 
 export default function RootLayout({
