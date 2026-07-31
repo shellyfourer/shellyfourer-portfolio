@@ -10,7 +10,7 @@ export default function Footer() {
         color: '#C4A8E4',
       }}
     >
-      <div className="flex items-center h-6 px-0 gap-0">
+      <div className="flex flex-wrap items-center h-6 px-0 gap-0">
         {/* ── Left group ── */}
         <div className="flex items-center flex-1 h-full">
           {/* Branch — accent-filled pill */}
@@ -85,15 +85,6 @@ export default function Footer() {
           <span className="h-3.5 w-px bg-white/10 mx-0.5" />
 
           {/* IDE info chips */}
-          <span className="hidden lg:flex px-2.5 h-full items-center opacity-40 hover:opacity-70 hover:bg-white/5 transition-all">
-            Ln 247, Col 1
-          </span>
-          <span className="hidden lg:flex px-2.5 h-full items-center opacity-40 hover:opacity-70 hover:bg-white/5 transition-all">
-            Spaces: 2
-          </span>
-          <span className="px-2.5 h-full flex items-center opacity-40 hover:opacity-70 hover:bg-white/5 transition-all">
-            UTF-8
-          </span>
           <span className="px-2.5 h-full flex items-center opacity-55 hover:opacity-80 hover:bg-white/5 transition-all">
             TypeScript React
           </span>

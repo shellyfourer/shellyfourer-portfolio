@@ -9,7 +9,7 @@ import { SocialsSection } from '@/components/home/SocialsSection'
 
 export default function Home() {
   return (
-    <div className="font-sans text-text">
+    <div className="font-sans text-foreground">
       <div className="relative">
         <ExploreRail />
         <HeroSection />

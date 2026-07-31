@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { FaReact } from 'react-icons/fa'
 
 const navItems = [
@@ -12,13 +13,19 @@ const navItems = [
 ]
 
 export function NavTabs() {
-  const [activeSection, setActiveSection] = useState('')
+  const [observedSection, setObservedSection] = useState('')
+  const pathname = usePathname()
+
+  const activeSection =
+    pathname === '/about' ? 'about' : pathname === '/projects' ? 'projects' : observedSection
 
   useEffect(() => {
+    if (pathname === '/about' || pathname === '/projects') return
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) setActiveSection(entry.target.id)
+          if (entry.isIntersecting) setObservedSection(entry.target.id)
         }
       },
       { threshold: 0.5 }
@@ -26,7 +33,7 @@ export function NavTabs() {
     const sections = document.querySelectorAll('section[id]')
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
-  }, [])
+  }, [pathname])
 
   return (
     <nav className="hidden md:flex font-mono overflow-x-auto">
@@ -34,8 +41,8 @@ export function NavTabs() {
         const active = activeSection === section
         const linkClass = active
           ? 'border-accent'
-          : 'border-border/15 text-text/50 hover:text-text/75'
-        const iconClass = active ? 'text-accent' : 'text-accent-2/55'
+          : 'border-border/15 text-foreground/50 hover:text-foreground/75'
+        const iconClass = active ? 'text-accent' : 'text-accent-deep/55'
 
         return (
           <Link

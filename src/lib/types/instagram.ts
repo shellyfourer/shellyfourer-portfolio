@@ -5,4 +5,6 @@ export interface InstagramPost {
   permalink: string
   thumbnail_url?: string
   caption?: string
+  like_count?: number
+  comments_count?: number
 }

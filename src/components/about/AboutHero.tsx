@@ -2,43 +2,59 @@ import { AnimatedEyebrow } from '@/components/shared/AnimatedEyebrow'
 import { AnimatedHeadline } from '@/components/shared/AnimatedHeadline'
 import { AnimatedFadeIn } from '@/components/shared/AnimatedFadeIn'
 import { HeroScrollIndicator } from '@/components/shared/HeroScrollIndicator'
-import { FaInstagram } from 'react-icons/fa'
-import { FaLinkedin } from 'react-icons/fa'
-import { FaGithub } from 'react-icons/fa'
+import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
 
+const chips = ['fine_arts', 'music', 'theater_&_film', 'math_&_science', 'code']
 const accent =
   'font-serif italic bg-linear-to-r from-accent-deep to-accent-vivid bg-clip-text text-transparent'
-
-export default function HeroSection() {
+export default function AboutHero() {
   return (
     <section
       className="relative flex flex-col items-center justify-center overflow-hidden
-            h-screen-nav
-            px-6 md:px-16 gap-6 snap-none"
+        h-screen-nav
+        px-6 md:px-16 gap-6"
     >
-      {/* Center content */}
-      <div className="flex flex-col items-center gap-4 md:gap-6">
+      <div className="flex flex-col items-center gap-4 md:gap-5">
         <AnimatedEyebrow className="font-mono text-sm text-accent select-none">
-          <span className="text-accent/30">&lt;</span>
-          Shelly Fourer · creative_dev <span className="text-accent/30">/&gt;</span>
-          <span className="cursor-blink text-accent/50 ml-0.5">_</span>
+          ~ % cat about/shelly.md
+          <span className="cursor-blink text-accent/50 ml-0.5"> _</span>
         </AnimatedEyebrow>
 
-        <AnimatedHeadline className="text-h1 text-center " delay={0.25}>
-          feel in <span className={accent}>code</span>, think in{' '}
-          <span className={accent}>color</span>.
+        <AnimatedHeadline className="text-h1 text-center">
+          half <span className={accent}>artist</span>, half <span className={accent}>engineer</span>
+          .
         </AnimatedHeadline>
 
         <AnimatedFadeIn
-          className="text-base text-foreground leading-relaxed text-center max-w-xl"
-          delay={0.5}
+          className="text-base text-foreground leading-relaxed text-center max-w-2xl"
+          delay={0.3}
         >
-          Fine arts, music, theater, film academy before code. Engineering student shipping
-          full-stack products - and it shows.
+          I&apos;m studying software engineering while building Shopify, WordPress, and custom web
+          apps through{' '}
+          <a
+            href="https://roket.lt"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-accent/80 hover:text-accent transition-colors"
+          >
+            Roket Agency
+          </a>
+          , + taking on full-stack projects for my own clients.
+        </AnimatedFadeIn>
+
+        <AnimatedFadeIn className="flex flex-wrap justify-center gap-2" delay={0.5}>
+          {chips.map((chip) => (
+            <span
+              key={chip}
+              className="font-mono text-xs text-accent/80 border border-accent/40 rounded px-3 py-1.5"
+            >
+              {chip}
+            </span>
+          ))}
         </AnimatedFadeIn>
       </div>
 
-      <HeroScrollIndicator delay={3} />
+      <HeroScrollIndicator delay={1} />
 
       {/* Socials - bottom left, desktop only */}
 

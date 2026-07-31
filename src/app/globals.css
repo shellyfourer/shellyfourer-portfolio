@@ -1,79 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Lora:ital,wght@1,400;1,500&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  /* ── Colors ── */
-  --color-background: #0b001a;
-  --color-text: #e4d4f4;
-
-  --color-accent: #a86cf4; /* primary purple accent */
-  --color-accent-2: #8338ec; /* deeper violet — gradient start, borders */
-  --color-accent-3: #b923ff; /* vivid violet — gradient end */
-
-  --color-border: #6c5587; /* muted purple for UI chrome borders */
-
-  --color-surface: #0d0120; /* card / window backgrounds */
-  --color-surface-raised: #110122; /* header, footer, window chrome */
-
-  --color-mac-red: #ff5f57; /* traffic-light close */
-  --color-mac-yellow: #febc2e; /* traffic-light minimize */
-  --color-mac-green: #28c840; /* traffic-light expand + branch dot */
-
-  --color-syn-keyword: #c792ea; /* code block: keyword (const, export) */
-  --color-syn-key: #80cbc4; /* code block: object key */
-  --color-syn-string: #c3e88d; /* code block: string literals */
-  --color-syn-number: #f78c6c; /* code block: numeric literals */
-  --color-syn-function: #82aaff; /* code block: function names */
-  --color-syn-type: #ffcb6b; /* code block: type annotations */
-  --color-syn-comment: #4a5878; /* code block: inline comments */
-  --color-syn-operator: #89ddff; /* code block: operators / brackets */
-
-  /* ── Status bar ── */
-  --color-status-bar: #1a0035; /* VS Code-style status bar bg */
-
-  /* ── Fonts ── */
-  --font-sans: 'Montserrat', sans-serif;
+  /* Fonts */
+  --font-sans: 'Bricolage Grotesque', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-}
+  --font-serif: 'Lora', Georgia, serif; /* italic accent words only */
 
-/*
- * :root — design constants that are NOT Tailwind tokens.
- * Useful for one-off values, raw CSS, or JS access via getComputedStyle.
- * Color values are intentionally omitted here — they live in @theme above.
- */
-:root {
-  /* ── Typography — custom sizes (used as arbitrary values in components) ── */
-  --fs-nano: 9px; /* TS badge in header tabs          → text-[9px]  */
-  --fs-micro: 10px; /* tab × button, scroll indicator   → text-[10px] */
-  --fs-tiny: 11px; /* header & footer mono text        → text-[11px] */
+  /* Color surfaces */
+  --color-background: #0b001a;
+  --color-surface: #0d0120; /* windows, cards */
+  --color-surface-raised: #110122; /* window chrome, header */
+  --color-surface-accent: #1a0035; /* VS Code-style status bar */
 
-  /* ── Tracking (letter-spacing) ── */
-  --tracking-heading: -1.6px; /* h2 section headings (about, projects…) */
-  --tracking-hero: -3.2px; /* h1 hero headline */
-  --tracking-subtitle: -1.2px; /* hero subtitle paragraph */
-  --tracking-spread: 0.2em; /* scroll indicator "SCROLL" */
+  /* Color content */
+  --color-foreground: #e4d4f4; /* all text — vary with /95 /70 /50 /35 */
+  --color-border: #6c5587; /* UI chrome borders — pair with /30 */
 
-  /* ── Leading (line-height) ── */
-  --leading-code: 1.75rem; /* leading-7 — terminal / code block rows */
+  /* Color accent */
+  --color-accent: #a86cf4; /* interactive, labels, focus */
+  --color-accent-deep: #8338ec; /* gradient start, bars */
+  --color-accent-vivid: #b923ff; /* gradient end */
 
-  /* ── Border radius ── */
-  --radius-badge: 2px; /* rounded-xs — TS badge */
-  --radius-btn: 4px; /* rounded    — btn-brand */
-  --radius-window: 8px; /* rounded-lg — IDE/terminal mock windows */
-  --radius-card: 12px; /* rounded-xl — project card */
+  /* Color status */
+  --color-success: #28c840; /* live dot, branch dot, ✓ output */
+  --color-warning: #febc2e; /* wip chips, commit types */
+  --color-danger: #ff5f57; /* errors, close buttons */
 
-  /* ── Elevation / shadow ── */
+  /* ── Color (code & terminal content only) */
+  --color-syntax-keyword: #c792ea;
+  --color-syntax-key: #80cbc4;
+  --color-syntax-string: #c3e88d;
+  --color-syntax-number: #f78c6c;
+  --color-syntax-function: #82aaff;
+  --color-syntax-type: #ffcb6b;
+  --color-syntax-comment: #4a5878;
+  --color-syntax-operator: #89ddff;
+
+  /* Type scale
+   *  token     mobile → desktop  use
+   *  display   36 → 72            hero headline only
+   *  h1        32 → 64            page hero
+   *  h2        24 → 40            section heading
+   *  h3        24/32              card / sub-heading
+   *  lead      20/32              intro paragraph
+   *  base      16/24              body (Tailwind default)
+   *  sm        14/24              captions, sub-lines, mono UI
+   *  xs        12/16              metadata, chrome (readability floor)
+   */
+
+  --text-display: clamp(2.25rem, 1.46rem + 3.38vw, 4.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--font-weight: 500;
+
+  --text-h1: clamp(2rem, 1.3rem + 3vw, 4rem);
+  --text-h1--line-height: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
+  --text-h1--font-weight: 700;
+
+  --text-h2: clamp(1.5rem, 1.046rem + 1.94vw, 2.5rem);
+  --text-h2--line-height: clamp(2rem, 1.546rem + 1.94vw, 3rem);
+  --text-h2--font-weight: 500;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
+  --text-h3--font-weight: 500;
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 2rem;
+
+  /* Align Tailwind defaults to the 8px grid */
+  --text-sm--line-height: 1.5rem; /* 14/24 (Tailwind default is 14/20) */
+
+  /* Radius */
+  --radius-window: 0.5rem; /* IDE / terminal mock windows → rounded-window */
+  --radius-card: 0.625rem; /* project cards → rounded-card */
+
+  /*  Elevation  */
   --shadow-glow: 0 0 24px rgba(168, 108, 244, 0.25); /* btn-brand hover */
   --shadow-glow-sm: 0 0 14px rgba(168, 108, 244, 0.15);
-
-  /* ── Geometry ── */
-  --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
-  --section-h: calc(100svh - 90px); /* full-height sections — sm */
-  --section-h-md: calc(100svh - 122px); /* full-height sections — md (+ 28px menu bar) */
-  --section-h-lg: calc(100svh - 148px); /* full-height sections — lg (+ 28px menu bar) */
+  --shadow-focus-card: 0 0 40px rgba(168, 108, 244, 0.18); /* carousel focus */
 }
 
-/* ── Scanlines ── */
+:root {
+  /* Geometry */
+  --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
+  --navbar-h: 90px;
+}
+@media (min-width: 768px) {
+  :root {
+    --navbar-h: 122px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --navbar-h: 148px;
+  }
+}
+
+@utility h-screen-nav {
+  height: calc(100svh - var(--navbar-h));
+}
+
+@utility min-h-screen-nav {
+  min-height: calc(100svh - var(--navbar-h));
+}
+
+/* Scanlines */
 body::after {
   content: '';
   position: fixed;
@@ -89,7 +121,19 @@ body::after {
   z-index: 9998;
 }
 
-/* ── Animations ── */
+/* Animations */
+
+@keyframes wip-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 @keyframes blink {
   0%,
@@ -113,28 +157,28 @@ body::after {
   }
 }
 
-/* ── Utilities ── */
+/* Utilities */
 
 @utility text-default-gradient {
-  @apply bg-linear-90 from-accent-2 to-accent-3 bg-clip-text text-transparent;
+  @apply bg-linear-90 from-accent-deep to-accent-vivid bg-clip-text text-transparent;
   display: inline-block;
   @apply subpixel-antialiased;
 }
 
 @utility btn-brand {
   @apply inline-flex items-center
-    px-[1.8rem] py-[0.8rem]
+    px-6 py-3
     font-mono text-sm font-medium tracking-wide
-    text-accent
+    text-accent/90
     rounded
-    border border-accent/35
+    border border-accent/40
     cursor-pointer
     transition-[background,border-color,box-shadow,color]
     duration-200;
 
   &::before {
     content: '> ';
-    color: rgba(168, 108, 244, 0.65);
+    color: --alpha(var(--color-accent) / 65%);
     transition: color 200ms ease;
   }
 
@@ -147,12 +191,16 @@ body::after {
   }
 
   &:hover {
-    @apply text-text border-accent;
-    background: linear-gradient(135deg, rgba(131, 56, 236, 0.15) 0%, rgba(185, 35, 255, 0.12) 100%);
+    @apply text-foreground border-accent;
+    background: linear-gradient(
+      135deg,
+      --alpha(var(--color-accent-deep) / 15%) 0%,
+      --alpha(var(--color-accent-vivid) / 12%) 100%
+    );
     box-shadow: var(--shadow-glow);
 
     &::before {
-      color: rgba(168, 108, 244, 0.8);
+      color: --alpha(var(--color-accent) / 80%);
     }
     &::after {
       opacity: 1;

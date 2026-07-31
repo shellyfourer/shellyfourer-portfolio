@@ -13,7 +13,7 @@ export async function SocialsSection() {
       id="socials"
       className="flex flex-col justify-center gap-8
         px-6 md:pr-24 lg:pl-16 lg:pr-40
-        h-[calc(100svh-90px)] md:h-[calc(100svh-122px)] lg:h-[calc(100svh-148px)]"
+        min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       {/* Heading */}
       <div className="flex flex-col gap-5">
@@ -21,18 +21,20 @@ export async function SocialsSection() {
           <span className="text-accent/30">{'//'} </span>socials
         </p>
         <div className="flex items-stretch gap-2.5">
-          <span className="w-0.5 bg-accent-2 shrink-0" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-[-1.6px]">
-            My journey in the world of software engineering
-          </h2>
+          <span className="w-0.5 bg-accent-deep shrink-0" />
+          <h2 className="text-h2">My journey in the world of software engineering</h2>
         </div>
       </div>
 
       {/* Feed */}
       <div>
         {/* Instagram label */}
-        <Link href="https://www.instagram.com/byshellyfourer" target="_blank" rel="noopener noreferrer">
-          <div className="flex items-center gap-2 font-mono text-xs text-text/40 mb-4 hover:text-accent transition duration-300">
+        <Link
+          href="https://www.instagram.com/byshellyfourer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="flex items-center gap-2 font-mono text-xs text-foreground/40 mb-4 hover:text-accent transition duration-300">
             <svg className="w-4 h-4 fill-accent shrink-0" viewBox="0 0 24 24">
               <path d={INSTAGRAM_ICON} />
             </svg>
