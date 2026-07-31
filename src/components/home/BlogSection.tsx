@@ -27,7 +27,7 @@ export default function BlogSection() {
         </div>
 
         {/* Right — floating draft cards, desktop only */}
-        <div className="hidden sm:block relative h-72" aria-hidden="true">
+        <div className="relative h-72" aria-hidden="true">
           {/* Pill — tail command */}
           <div className="-rotate-[1.5deg] absolute top-0 left-0">
             <div className="bg-surface-raised/90 border border-border/30 rounded-xl px-5 py-3.5 font-mono text-sm text-foreground/60 whitespace-nowrap">
