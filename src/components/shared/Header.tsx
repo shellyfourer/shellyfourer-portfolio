@@ -19,13 +19,7 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] select-none backdrop-blur-xl will-change-transform pt-[env(safe-area-inset-top)]">
-      <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
-      {/* solid fill for the notch/safe-area zone — prevents iOS cut-through */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-0 h-[env(safe-area-inset-top)] bg-background pointer-events-none"
-      />
+    <header className="fixed top-0 left-0 right-0 z-[60] select-none bg-surface/30 backdrop-blur-xl will-change-transform">
       {/* top rim: sits just below the safe area, at the visible glass edge */}
       <div
         aria-hidden
@@ -37,7 +31,7 @@ export default function Header() {
         className="absolute inset-x-0 bottom-0 h-px glass-shimmer pointer-events-none"
       />
 
-      <div className="relative flex flex-col text-foreground">
+      <div className="relative flex flex-col text-foreground pt-[env(safe-area-inset-top)]">
         <div className="flex items-center gap-4 p-3 border-b border-border/15">
           <div className="hidden md:flex items-center gap-2">
             <span className={`${macDotClass} bg-danger`} />

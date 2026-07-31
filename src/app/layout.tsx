@@ -95,7 +95,7 @@ export default function RootLayout({
         <CustomCursor />
         <GrainOverlay />
         <Header />
-        <div className="shrink-0 h-11 md:h-[var(--navbar-h)]" aria-hidden />
+        <div className="shrink-0 h-11" aria-hidden />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />
         <Analytics />
