@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import Image from 'next/image'
 import { projects, type Project, type ProjectCategory } from '@/lib/projects'
@@ -91,7 +91,7 @@ function FocusedCard({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="h-[260px] md:h-[320px] bg-[#140826] flex items-center justify-center overflow-hidden">
+      <div className="h-[180px] sm:h-[220px] md:h-[320px] bg-[#140826] flex items-center justify-center overflow-hidden">
         {project.image ? (
           <Image
             src={project.image}
@@ -123,6 +123,7 @@ export default function ProjectsCarousel() {
   const [activeCategory, setActiveCategory] = useState<Category>('all')
   const [indexByCategory, setIndexByCategory] = useState<Partial<Record<Category, number>>>({})
   const [direction, setDirection] = useState(0)
+  const touchStartX = useRef<number | null>(null)
 
   const filtered =
     activeCategory === 'all' ? projects : projects.filter((p) => p.category === activeCategory)
@@ -165,54 +166,61 @@ export default function ProjectsCarousel() {
   }, [goNext, goPrev, current])
 
   return (
-    <section className="relative flex flex-col flex-1 overflow-hidden">
+    <section
+      className="relative flex flex-col flex-1 overflow-hidden"
+      onTouchStart={(e) => {
+        touchStartX.current = e.touches[0].clientX
+      }}
+      onTouchEnd={(e) => {
+        if (touchStartX.current === null) return
+        const delta = touchStartX.current - e.changedTouches[0].clientX
+        if (Math.abs(delta) > 40) delta > 0 ? goNext() : goPrev()
+        touchStartX.current = null
+      }}
+    >
       {/* Eyebrow */}
-      <div className="flex items-center justify-between px-6 md:px-16 pt-8 md:pt-10">
-        <p className="font-mono text-sm text-foreground/45">
-          <span className="text-accent/60">shellyfourer</span>
-          {' ~/projects '}
-          <span className="text-accent-deep/80">%</span>
-          {' ls --group=category'}
+      <div className="flex items-center justify-between px-6 md:px-16 pt-5 md:pt-10 shrink-0">
+        <p className="font-mono text-sm text-accent select-none">
+          ~ % ls projects/<span className="cursor-blink text-accent/50 ml-0.5">_</span>
         </p>
-        <p className="hidden md:block font-mono text-xs text-foreground/50">
+        <p className="hidden md:block font-mono text-xs text-accent/50">
           {'[←][→] browse   ·   [enter] open'}
         </p>
+        <p className="md:hidden font-mono text-xs text-accent/50">swipe to browse</p>
       </div>
 
-      {/* Category tabs */}
-      <div className="flex items-center gap-2.5 flex-wrap px-6 md:px-16 mt-4">
-        {CATEGORIES.map((cat) => {
-          const isActive = activeCategory === cat.value
-          return (
-            <button
-              key={cat.value}
-              onClick={() => setActiveCategory(cat.value)}
-              className={`font-mono text-xs px-4 py-2.5 rounded border transition-colors ${
-                isActive
-                  ? 'bg-accent/12 border-accent/80 text-accent/95'
-                  : 'border-border/30 text-foreground/35 hover:border-border/50 hover:text-foreground/55'
-              }`}
-            >
-              {cat.label} ({categoryCount(cat.value)})
-            </button>
-          )
-        })}
-      </div>
+      {/* Tabs + card + info — centered as a unit with fixed 24px gaps */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-6 px-6 overflow-hidden">
+        {/* Tabs */}
+        <div className="flex sm:justify-center gap-2 w-full max-w-[720px] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0">
+          {CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.value
+            return (
+              <button
+                key={cat.value}
+                onClick={() => setActiveCategory(cat.value)}
+                className={`shrink-0 font-mono text-xs px-4 py-2.5 rounded border transition-colors ${
+                  isActive
+                    ? 'bg-accent/12 border-accent/80 text-accent/95'
+                    : 'border-border/30 text-foreground/35 hover:border-border/50 hover:text-foreground/55'
+                }`}
+              >
+                {cat.label} ({categoryCount(cat.value)})
+              </button>
+            )
+          })}
+        </div>
 
-      {/* Carousel */}
-      <div className="flex-1 flex items-center justify-center px-6 overflow-hidden">
-        <div className="relative w-full max-w-[720px]">
-          {/* Offset shadow card */}
+        {/* Card */}
+        <div className="relative w-full max-w-[720px] shrink-0">
           <div className="absolute inset-0 translate-x-4 translate-y-4 border border-accent-deep/30 rounded-card pointer-events-none" />
 
-          {/* Prev peek */}
           {total > 1 && (
             <div className="hidden xl:block absolute top-1/2 -translate-y-1/2 right-full translate-x-32 opacity-45 pointer-events-none z-0">
               <SmallCard project={prevProject} />
             </div>
           )}
 
-          {/* Focused card */}
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current.id}
@@ -226,84 +234,86 @@ export default function ProjectsCarousel() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Next peek */}
           {total > 1 && (
             <div className="hidden xl:block absolute top-1/2 -translate-y-1/2 left-full -translate-x-32 opacity-45 pointer-events-none z-0">
               <SmallCard project={nextProject} />
             </div>
           )}
         </div>
-      </div>
 
-      {/* Project info + nav */}
-      <div className="flex flex-col items-center gap-3 pb-8 md:pb-10 px-6 text-center">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={current.id + '-info'}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="flex flex-col items-center gap-2"
-          >
-            <h2 className="text-h2 text-foreground/95">{current.title}</h2>
-            <p className="font-serif italic text-base text-foreground/70">{current.subtitle}</p>
-            <p className="font-mono text-sm text-foreground/40">
-              <span className="text-syntax-key/90">role:</span>{' '}
-              <span className="text-syntax-string/80">&quot;{current.role}&quot;</span>
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {current.stack.map((s) => (
-                <span
-                  key={s}
-                  className="font-mono text-xs text-foreground/70 border border-border/30 rounded px-3 py-1"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        {/* Info + nav */}
+        <div className="flex flex-col items-center gap-2 md:gap-3 text-center shrink-0">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={current.id + '-info'}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col items-center gap-1.5 md:gap-2"
+            >
+              <h2 className="text-h3 md:text-h2 text-foreground/95">{current.title}</h2>
+              <p className="font-serif italic text-base text-foreground/70">{current.subtitle}</p>
+              <p className="font-mono text-sm text-foreground/40">
+                <span className="text-syntax-key/90">role:</span>{' '}
+                <span className="text-syntax-string/80">&quot;{current.role}&quot;</span>
+              </p>
+              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
+                {current.stack.map((s, i) => (
+                  <span
+                    key={s}
+                    className={`font-mono text-xs text-foreground/70 border border-border/30 rounded px-2.5 py-0.5 ${i >= 3 ? 'hidden md:inline-flex' : ''}`}
+                  >
+                    {s}
+                  </span>
+                ))}
+                {current.stack.length > 3 && (
+                  <span className="md:hidden font-mono text-xs text-foreground/40 border border-border/20 rounded px-2.5 py-0.5">
+                    ...
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
 
-        {/* Nav controls */}
-        <div className="flex items-center gap-5 mt-1">
-          <button
-            onClick={goPrev}
-            aria-label="Previous project"
-            className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
-          >
-            ←
-          </button>
-
-          <div className="flex items-center gap-2">
-            {filtered.map((_, i) => (
+          <div className="flex flex-col items-center gap-2 mt-1">
+            <div className="flex items-center gap-4">
               <button
-                key={i}
-                aria-label={`Go to project ${i + 1}`}
-                onClick={() => {
-                  setDirection(i > currentIndex ? 1 : -1)
-                  setCurrentIndex(i)
-                }}
-                className={`h-[3px] rounded-sm transition-all duration-300 ${
-                  i === currentIndex
-                    ? 'w-7 bg-linear-to-r from-accent-deep to-accent-vivid'
-                    : 'w-5 bg-border/35 hover:bg-border/55'
-                }`}
-              />
-            ))}
+                onClick={goPrev}
+                aria-label="Previous project"
+                className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
+              >
+                ←
+              </button>
+              <div className="flex items-center gap-1.5">
+                {filtered.map((_, i) => (
+                  <button
+                    key={i}
+                    aria-label={`Go to project ${i + 1}`}
+                    onClick={() => {
+                      setDirection(i > currentIndex ? 1 : -1)
+                      setCurrentIndex(i)
+                    }}
+                    className={`h-[3px] rounded-sm transition-all duration-300 ${
+                      i === currentIndex
+                        ? 'w-5 bg-linear-to-r from-accent-deep to-accent-vivid'
+                        : 'w-3 bg-border/35 hover:bg-border/55'
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={goNext}
+                aria-label="Next project"
+                className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
+              >
+                →
+              </button>
+            </div>
+            <span className="font-mono text-xs text-foreground/50">
+              {String(currentIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
           </div>
-
-          <span className="font-mono text-xs text-foreground/50">
-            {String(currentIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </span>
-
-          <button
-            onClick={goNext}
-            aria-label="Next project"
-            className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
-          >
-            →
-          </button>
         </div>
       </div>
     </section>

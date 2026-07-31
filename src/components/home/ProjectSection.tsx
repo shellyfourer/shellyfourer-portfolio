@@ -12,8 +12,8 @@ export default function ProjectSection() {
     <section
       id="projects"
       className="flex flex-col justify-center gap-8
-            px-6 md:px-12 lg:pl-16 lg:pr-40
-            min-h-screen-nav py-20 lg:py-0 lg:h-screen-nav"
+            px-6 xl:pl-16 xl:pr-40
+            min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
       {/* Section heading */}
       <div className="flex flex-col gap-5">

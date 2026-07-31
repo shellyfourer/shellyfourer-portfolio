@@ -24,21 +24,28 @@ export default function HeroSection() {
           <span className="cursor-blink text-accent/50 ml-0.5">_</span>
         </AnimatedEyebrow>
 
-        <AnimatedHeadline className="text-h1 text-center " delay={0.25}>
+        {/* Desktop version */}
+        <AnimatedHeadline className="hidden sm:block text-h1 text-center " delay={0.25}>
           feel in <span className={accent}>code</span>, think in{' '}
           <span className={accent}>color</span>.
         </AnimatedHeadline>
 
+        {/* Mobile version */}
+
+        <AnimatedHeadline className="sm:hidden text-h1 text-center " delay={0.25}>
+          feel in <span className={accent}>code</span>, <br /> think in{' '}
+          <span className={accent}>color</span>.
+        </AnimatedHeadline>
+
         <AnimatedFadeIn
-          className="text-base text-foreground leading-relaxed text-center max-w-xl"
+          className="text-base text-foreground leading-relaxed text-center"
           delay={0.5}
         >
-          Fine arts, music, theater, film academy before code. Engineering student shipping
-          full-stack products - and it shows.
+          Creative Software Engineering student shipping full-stack products - and it shows.
         </AnimatedFadeIn>
       </div>
 
-      <HeroScrollIndicator delay={3} />
+      <HeroScrollIndicator delay={1} />
 
       {/* Socials - bottom left, desktop only */}
 
