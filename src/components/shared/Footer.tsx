@@ -1,26 +1,25 @@
 import { GitBranch } from 'lucide-react'
+import Link from 'next/link'
+import { socials } from '@/lib/socials'
 
 export default function Footer() {
   return (
-    <footer
-      className="font-mono text-[11px] select-none"
-      style={{
-        background: '#1A0035',
-        borderTop: '1px solid rgba(108,85,135,0.3)',
-        color: '#C4A8E4',
-      }}
-    >
-      <div className="flex flex-wrap items-center h-6 px-0 gap-0">
-        {/* ── Left group ── */}
+    <footer className="relative font-mono text-[11px] select-none backdrop-blur-xl border-t border-border/20 text-foreground/60">
+      <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 top-0 h-px glass-shimmer pointer-events-none"
+      />
+
+      <div className="relative flex flex-wrap items-center h-6 px-0 gap-0">
+        {/* Left group */}
         <div className="flex items-center flex-1 h-full">
-          {/* Branch — accent-filled pill */}
           <div className="flex items-center gap-1.5 px-2.5 h-full bg-accent/20 hover:bg-accent/30 transition-colors">
             <GitBranch className="w-3 h-3" />
             <span>main</span>
           </div>
 
-          {/* Errors / warnings */}
-          <div className="flex items-center gap-2.5 px-3 h-full hover:bg-white/5 transition-colors opacity-60">
+          <div className="flex items-center gap-2.5 px-3 h-full opacity-60">
             <span className="flex items-center gap-1">
               <svg
                 width="11"
@@ -56,38 +55,31 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* ── Right group ── */}
+        {/* Right group */}
         <div className="flex items-center h-full">
-          {/* Social links */}
-          <a
-            href="https://github.com/shellyfourer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2.5 h-full flex items-center opacity-50 hover:opacity-90 hover:bg-white/5 transition-all"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/shellyfourer"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-2.5 h-full flex items-center opacity-50 hover:opacity-90 hover:bg-white/5 transition-all"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:shellyfourer@gmail.com"
-            className="px-2.5 h-full flex items-center opacity-50 hover:opacity-90 hover:bg-white/5 transition-all"
-          >
-            Email
-          </a>
+          {socials.map(({ key, label, href, Icon, ariaLabel }) => (
+            <a
+              key={key}
+              href={href}
+              target={key === 'email' ? undefined : '_blank'}
+              rel={key === 'email' ? undefined : 'noopener noreferrer'}
+              aria-label={ariaLabel}
+              className="px-2.5 h-full flex items-center gap-1.5 opacity-50 hover:opacity-90 hover:bg-white/5 transition-all"
+            >
+              <Icon className="w-3 h-3" />
+              <span className="hidden lg:inline">{label}</span>
+            </a>
+          ))}
 
           <span className="h-3.5 w-px bg-white/10 mx-0.5" />
 
-          {/* IDE info chips */}
-          <span className="px-2.5 h-full flex items-center opacity-55 hover:opacity-80 hover:bg-white/5 transition-all">
-            TypeScript React
-          </span>
+          <Link
+            href="/privacy"
+            className="px-2.5 h-full flex items-center opacity-40 hover:opacity-70 hover:bg-white/5 transition-all"
+          >
+            privacy policy
+          </Link>
+
           <span className="hidden lg:flex px-2.5 h-full items-center opacity-25 text-[10px]">
             © {new Date().getFullYear()} Shelly Fourer
           </span>

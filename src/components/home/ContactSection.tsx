@@ -1,89 +1,53 @@
-import Link from 'next/link'
+import { socials } from '@/lib/socials'
 
 export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="flex flex-col items-center justify-center
+      className="flex flex-col justify-center
             px-6 xl:pl-16 xl:pr-40
             min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
     >
-      {/* Terminal-style label */}
-      <p
-        className="font-mono text-sm text-foreground/40 tracking-wide select-none"
-        aria-hidden="true"
-      >
-        <span className="text-accent/60">shellyfourer</span>
-        <span className="text-foreground/30"> ~/portfolio</span>
-        <span className="text-accent-deep/65"> % </span>
-        <span className="text-foreground/55">./reach_out.sh</span>
-      </p>
-
-      {/* Heading */}
-      <h2 className="text-h2 text-center">Are you interested in my work?</h2>
-
-      {/* Terminal window */}
-      <div
-        className="w-full max-w-lg rounded-lg border border-border/30 overflow-hidden bg-surface"
-        aria-hidden="true"
-      >
-        {/* Window chrome */}
-        <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-border/20 bg-surface-raised">
-          <span className="w-3 h-3 rounded-full bg-danger/70" />
-          <span className="w-3 h-3 rounded-full bg-warning/70" />
-          <span className="w-3 h-3 rounded-full bg-success/70" />
-          <span className="ml-4 font-mono text-xs text-foreground/30">Terminal</span>
-          <span className="ml-auto font-mono text-[10px] text-foreground/20">1: Local</span>
+      <div className="flex flex-col xl:grid xl:grid-cols-2 gap-10 lg:gap-16 w-full">
+        {/* Left — heading + description + CTA */}
+        <div className="flex flex-col gap-8">
+          <p className="font-mono text-sm text-accent/65 tracking-wide select-none">
+            <span className="text-accent/30">{'//'} </span>contact_me
+          </p>
+          <div className="flex items-stretch gap-2.5">
+            <span className="w-0.5 bg-accent-deep shrink-0" />
+            <h2 className="text-h2">
+              Let&apos;s build something{' '}
+              <span className="font-serif italic text-default-gradient">worth building</span>
+            </h2>
+          </div>
+          <p className="text-base text-foreground/55">
+            Open to collaborations, freelance work, and conversations about ideas. If something here
+            resonated — reach out.
+          </p>
         </div>
 
-        {/* Terminal body */}
-        <div className="p-5 font-mono text-xs leading-6">
-          {/* --list command */}
-          <div className="flex items-center gap-1.5 text-foreground/50">
-            <span className="text-accent/60">shellyfourer</span>
-            <span className="text-foreground/30">~/portfolio</span>
-            <span className="text-accent-deep/70">%</span>
-            <span>./reach_out.sh --list</span>
-          </div>
-          <div className="mt-1.5 flex flex-col gap-1 text-foreground/45 ml-1">
-            <div className="flex gap-3 min-w-0">
-              <span className="text-syntax-key w-16 shrink-0">email</span>
-              <span className="text-syntax-string/80 truncate">shellyfourer@gmail.com</span>
-            </div>
-            <div className="flex gap-3 min-w-0">
-              <span className="text-syntax-key w-16 shrink-0">github</span>
-              <span className="text-syntax-function/75 truncate">github.com/shellyfourer</span>
-            </div>
-            <div className="flex gap-3 min-w-0">
-              <span className="text-syntax-key w-16 shrink-0">linkedin</span>
-              <span className="text-syntax-function/75 truncate">linkedin.com/in/shellyfourer</span>
-            </div>
-          </div>
-
-          {/* --send command */}
-          <div className="flex items-center gap-1.5 mt-4 text-foreground/50">
-            <span className="text-accent/60">shellyfourer</span>
-            <span className="text-foreground/30">~/portfolio</span>
-            <span className="text-accent-deep/70">%</span>
-            <span>./reach_out.sh --send</span>
-          </div>
-          <div className="mt-1 text-foreground/30">Launching email client...</div>
-          <div className="text-success/55 mt-0.5">✓ Ready. Waiting for your message.</div>
-
-          {/* Active prompt */}
-          <div className="flex items-center gap-1.5 mt-3 text-foreground/50">
-            <span className="text-accent/60">shellyfourer</span>
-            <span className="text-foreground/30">~/portfolio</span>
-            <span className="text-accent-deep/70">%</span>
-            <span className="text-accent-deep/70">█</span>
-          </div>
+        {/* Right — social link cards */}
+        <div className="flex flex-col justify-center gap-3">
+          {socials.map(({ key, label, handle, href, Icon }) => (
+            <a
+              key={key}
+              href={href}
+              {...(key !== 'email' && { target: '_blank', rel: 'noopener noreferrer' })}
+              className="group flex items-center gap-4 px-5 py-4 rounded-lg border border-border/30 bg-surface hover:border-accent/40 hover:bg-accent/[0.04] transition-all"
+            >
+              <Icon className="w-5 h-5 text-accent/50 group-hover:text-accent transition-colors shrink-0" />
+              <div className="flex flex-col min-w-0">
+                <span className="font-mono text-xs text-foreground/35 tracking-wide">{label}</span>
+                <span className="font-mono text-sm text-foreground/80 truncate">{handle}</span>
+              </div>
+              <span className="ml-auto font-mono text-xs text-foreground/25 group-hover:text-accent/50 transition-colors">
+                ↗
+              </span>
+            </a>
+          ))}
         </div>
       </div>
-
-      {/* CTA */}
-      <Link href="mailto:shellyfourer@gmail.com" className="btn-brand">
-        send_message
-      </Link>
     </section>
   )
 }

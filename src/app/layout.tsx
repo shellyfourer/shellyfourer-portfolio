@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/shared/Header'
@@ -16,6 +16,10 @@ const bricolageGrotesque = Bricolage_Grotesque({
 })
 
 const BASE_URL = 'https://shellyfourer.com'
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -84,13 +88,14 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-background">
       <body
         className={`${bricolageGrotesque.variable} antialiased bg-background flex flex-col min-h-svh`}
       >
         <CustomCursor />
         <GrainOverlay />
         <Header />
+        <div className="shrink-0 h-11 md:h-[var(--navbar-h)]" aria-hidden />
         <main className="flex-1 flex flex-col">{children}</main>
         <Footer />
         <Analytics />

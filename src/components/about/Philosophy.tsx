@@ -17,11 +17,11 @@ export default function Philosophy() {
         .
       </h2>
 
-      <p className="text-base text-foreground/55 leading-relaxed max-w-lg mb-3">
+      <p className="text-base text-foreground/55 max-w-lg mb-3">
         Some people see software as code. Some see it as business. I see it as another creative
         medium — one where the constraints are different, but the thinking is the same.
       </p>
-      <p className="text-base text-foreground/55 leading-relaxed max-w-lg mb-10">
+      <p className="text-base text-foreground/55 max-w-lg mb-10">
         Engineering and creativity aren&apos;t opposites. One is constrained by physics. The other
         by imagination. The best work happens when you stop pretending there&apos;s a difference.
       </p>

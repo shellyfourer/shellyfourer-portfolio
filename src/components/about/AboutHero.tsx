@@ -2,7 +2,7 @@ import { AnimatedEyebrow } from '@/components/shared/AnimatedEyebrow'
 import { AnimatedHeadline } from '@/components/shared/AnimatedHeadline'
 import { AnimatedFadeIn } from '@/components/shared/AnimatedFadeIn'
 import { HeroScrollIndicator } from '@/components/shared/HeroScrollIndicator'
-import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { socialLinks } from '@/lib/socials'
 
 const chips = ['fine_arts', 'music', 'theater_&_film', 'math_&_science', 'code']
 const accent =
@@ -60,35 +60,18 @@ export default function AboutHero() {
 
       <div className="hidden xl:flex xl:flex-col items-start justify-center px-16 gap-5 absolute bottom-0 pb-10 left-0">
         <div className="flex xl:flex-col items-center gap-5 text-accent/40">
-          <a
-            href="https://github.com/shellyfourer"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="grid place-items-center w-8 h-8 md:w-10 md:h-10 hover:text-accent transition-colors"
-          >
-            <FaGithub className="w-8 h-8 md:w-10 md:h-10" />
-          </a>
-
-          <a
-            href="https://linkedin.com/in/shellyfourer"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="grid place-items-center w-8 h-8 md:w-10 md:h-10 hover:text-accent transition-colors"
-          >
-            <FaLinkedin className="w-8 h-8 md:w-10 md:h-10" />
-          </a>
-
-          <a
-            href="https://instagram.com/byshellyfourer"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            className="grid place-items-center w-8 h-8 md:w-10 md:h-10 hover:text-accent transition-colors"
-          >
-            <FaInstagram className="w-8 h-8 md:w-10 md:h-10" />
-          </a>
+          {socialLinks.map(({ key, href, ariaLabel, Icon }) => (
+            <a
+              key={key}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={ariaLabel}
+              className="grid place-items-center w-8 h-8 md:w-10 md:h-10 hover:text-accent transition-colors"
+            >
+              <Icon className="w-8 h-8 md:w-10 md:h-10" />
+            </a>
+          ))}
         </div>
       </div>
     </section>

@@ -123,6 +123,15 @@ body::after {
 
 /* Animations */
 
+@keyframes shimmer-sweep {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
 @keyframes wip-gradient {
   0% {
     background-position: 0% 50%;
@@ -158,6 +167,27 @@ body::after {
 }
 
 /* Utilities */
+
+@utility glass-shimmer {
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    --alpha(var(--color-accent-deep) / 60%) 30%,
+    --alpha(var(--color-accent-vivid) / 100%) 50%,
+    --alpha(var(--color-accent-deep) / 60%) 70%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  box-shadow:
+    0 0 40px 0px rgba(185, 35, 255, 0.22),
+    0 0 80px 0px rgba(131, 56, 236, 0.14);
+  animation: shimmer-sweep 4s cubic-bezier(0.37, 0, 0.63, 1) infinite alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 50% 0%;
+  }
+}
 
 @utility text-default-gradient {
   @apply bg-linear-90 from-accent-deep to-accent-vivid bg-clip-text text-transparent;
