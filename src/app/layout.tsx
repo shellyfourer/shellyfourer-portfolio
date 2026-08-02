@@ -18,8 +18,7 @@ const bricolageGrotesque = Bricolage_Grotesque({
 const BASE_URL = 'https://shellyfourer.com'
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
+  themeColor: '#0b001a',
 }
 
 export const metadata: Metadata = {

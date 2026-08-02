@@ -45,7 +45,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   return createPortal(
     <motion.div
       id="mobile-menu"
-      className="md:hidden fixed inset-0 z-[55] flex flex-col backdrop-blur-xl text-foreground"
+      className="md:hidden fixed inset-0 z-[55] flex flex-col bg-surface/30 backdrop-blur-xl text-foreground"
       role="dialog"
       aria-modal="true"
       aria-label="Site menu"
@@ -54,8 +54,6 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       exit={{ opacity: 0, filter: 'blur(10px)' }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
     >
-      <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
-
       <div className="relative z-10 flex flex-col justify-center flex-1 px-8 gap-1">
         {navItems.map(({ label, section }, i) => (
           <motion.button
