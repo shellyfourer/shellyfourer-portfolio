@@ -20,7 +20,7 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-[60] select-none flex flex-col text-foreground pt-[env(safe-area-inset-top)]">
+    <header className="sticky top-0 z-[60] select-none flex flex-col text-foreground">
       {/* Glass layer on a child so the sticky element itself avoids the WebKit backdrop-filter compositing bug */}
       <div
         aria-hidden

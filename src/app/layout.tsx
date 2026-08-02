@@ -19,7 +19,6 @@ const BASE_URL = 'https://shellyfourer.com'
 
 export const viewport: Viewport = {
   themeColor: '#0b001a',
-  viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
