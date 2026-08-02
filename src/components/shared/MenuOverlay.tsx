@@ -21,9 +21,18 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   const pathname = usePathname()
   const router = useRouter()
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
+    const scrollY = window.scrollY
+    const body = document.body
+    body.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.width = '100%'
     return () => {
-      document.body.style.overflow = ''
+      body.style.overflow = ''
+      body.style.position = ''
+      body.style.top = ''
+      body.style.width = ''
+      window.scrollTo(0, scrollY)
     }
   }, [])
 
