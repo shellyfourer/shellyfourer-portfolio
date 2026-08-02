@@ -19,6 +19,7 @@ const BASE_URL = 'https://shellyfourer.com'
 
 export const viewport: Viewport = {
   themeColor: '#0b001a',
+  viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
@@ -94,8 +95,9 @@ export default function RootLayout({
       >
         <CustomCursor />
         <GrainOverlay />
+
         <Header />
-        <main className="relative z-0 flex-1 flex flex-col">{children}</main>
+        <main className="relative z-0 flex-1 flex flex-col pt-[var(--navbar-h)]">{children}</main>
         <Footer />
         <Analytics />
       </body>

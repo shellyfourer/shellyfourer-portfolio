@@ -4,7 +4,7 @@ import { socials } from '@/lib/socials'
 
 export default function Footer() {
   return (
-    <footer className="relative font-mono text-[11px] select-none bg-surface/30 backdrop-blur-xl border-t border-border/20 text-foreground/60">
+    <footer className="relative z-[10000] border-t border-border/20 bg-surface font-mono text-[11px] text-foreground/60 select-none">
       <div
         aria-hidden
         className="absolute inset-x-0 top-0 h-px glass-shimmer pointer-events-none"
