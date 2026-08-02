@@ -96,7 +96,7 @@ export default function RootLayout({
         <CustomCursor />
         <GrainOverlay />
         <Header />
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="relative z-0 flex-1 flex flex-col">{children}</main>
         <Footer />
         <Analytics />
       </body>
