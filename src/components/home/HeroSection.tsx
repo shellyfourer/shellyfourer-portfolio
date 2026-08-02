@@ -12,7 +12,7 @@ export default function HeroSection() {
     <section
       className="relative flex flex-col items-center justify-center overflow-hidden
             h-screen-nav
-            px-6 md:px-16 gap-6 snap-none"
+            px-6 md:px-16 pb-12 md:pb-16 gap-8 snap-none"
     >
       {/* Center content */}
       <div className="flex flex-col items-center gap-4 md:gap-6">
@@ -39,7 +39,8 @@ export default function HeroSection() {
           className="text-base text-foreground leading-relaxed text-center"
           delay={0.5}
         >
-          Creative Software Engineering student shipping full-stack products - and it shows.
+          Software Engineering student crafting full-stack experiences with strong systems thinking
+          and creative execution.
         </AnimatedFadeIn>
       </div>
 
