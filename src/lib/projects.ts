@@ -1,11 +1,12 @@
 import type { StaticImageData } from 'next/image'
 
-import imgKristinaFourer from '../../public/project1.png'
-import imgLyon from '../../public/project2.png'
-import imgPortfolio from '../../public/project3.png'
-import imgMakeYourOwn from '../../public/project4.png'
+import imgTrainWithLyon from '../../public/projects/trainwithlyon.png'
+import imgKristinaFourer from '../../public/projects/kristinafourer.png'
+import imgPortfolio from '../../public/projects/shellyfourer.png'
+import imgMakeYourOwn from '../../public/projects/makeyourown.png'
+import imgPinkpharma from '../../public/projects/pinkpharma.png'
+import imgFilladerm from '../../public/projects/filladerm.png'
 // import img1stop from '../../public/1stop.png'
-// import imgPinkpharma from '../../public/pinkpharma.png'
 // import imgKelioniuIntelektas from '../../public/kelioniuintelektas.png'
 // import imgCrossSellPms from '../../public/cross-sell-pms.png'
 // import imgPacman from '../../public/pacman.png'
@@ -33,6 +34,20 @@ export type Project = {
 export const projects: Project[] = [
   // designed+built
   {
+    id: 'trainwithlyon',
+    title: 'trainwithlyon.com',
+    subtitle: 'elite corporate personal trainer in London',
+    role: 'design + photoshoot + development — end to end',
+    stack: ['Next.js', 'TypeScript', 'Tailwind', 'Resend', 'Instagram API'],
+    category: 'designed+built',
+    filepath: '~/projects/designed+built/trainwithlyon.tsx',
+    url: 'trainwithlyon.com',
+    href: 'https://trainwithlyon.com',
+    image: imgTrainWithLyon,
+    version: 'v1.0.0',
+    status: 'live',
+  },
+  {
     id: 'kristina-fourer',
     title: 'kristinafourer.com',
     subtitle: 'a personal blog with a voice of its own',
@@ -43,20 +58,6 @@ export const projects: Project[] = [
     url: 'kristinafourer.com',
     href: 'https://kristinafourer.com',
     image: imgKristinaFourer,
-    version: 'v1.0.0',
-    status: 'live',
-  },
-  {
-    id: 'trainwithlyon',
-    title: 'trainwithlyon.com',
-    subtitle: 'elite corporate personal trainer in London',
-    role: 'design + photoshoot + development — end to end',
-    stack: ['Next.js', 'TypeScript', 'Tailwind', 'Resend', 'Instagram API'],
-    category: 'designed+built',
-    filepath: '~/projects/designed+built/trainwithlyon.tsx',
-    url: 'trainwithlyon.com',
-    href: 'https://trainwithlyon.com',
-    image: imgLyon,
     version: 'v1.0.0',
     status: 'live',
   },
@@ -76,7 +77,7 @@ export const projects: Project[] = [
   {
     id: 'cross-sell-pms',
     title: 'cross-sell pms',
-    subtitle: 'property management system with cross-sell automation',
+    subtitle: 'product management system with cross-sell automation',
     role: 'design + development — end to end',
     stack: ['Next.js', 'TypeScript', 'Spring Boot', 'Java 21', 'MySQL', 'Docker', 'JUnit 5'],
     category: 'designed+built',
@@ -90,7 +91,7 @@ export const projects: Project[] = [
   {
     id: 'tax-manager',
     title: 'freelance tax manager',
-    subtitle: 'real-time tax calculator for Lithuanian freelancers — multi-country planned',
+    subtitle: 'income and tax manager for Lithuanian freelancers — multi-country planned',
     role: 'design + development — end to end',
     stack: [
       'Next.js',
@@ -147,10 +148,11 @@ export const projects: Project[] = [
     stack: ['WordPress', 'PHP', 'Elementor', 'JavaScript', 'CSS'],
     category: 'e-commerce',
     filepath: '~/projects/e-commerce/pinkpharma.php',
-    url: 'wip @ roket.lt',
-    // image: imgPinkpharma,
-    version: 'v2.0.0-wip',
-    status: 'wip',
+    url: 'pinkpharma.lt',
+    href: 'https://pinkpharma.lt',
+    image: imgPinkpharma,
+    version: 'v2.0.0',
+    status: 'live',
   },
   {
     id: 'kelioniuintelektas',
@@ -164,6 +166,32 @@ export const projects: Project[] = [
     // image: imgKelioniuIntelektas,
     version: 'v2.0.0-wip',
     status: 'wip',
+  },
+  {
+    id: 'cellseed',
+    title: 'cellseed.com',
+    subtitle: 'shopify build in progress',
+    role: 'shopify development @ roket.lt',
+    stack: ['Shopify', 'Liquid', 'JavaScript', 'CSS'],
+    category: 'e-commerce',
+    filepath: '~/projects/e-commerce/cellseed.liquid',
+    url: 'wip @ roket.lt',
+    version: 'v1.0.0-wip',
+    status: 'wip',
+  },
+  {
+    id: 'filladerm',
+    title: 'filladerm.com',
+    subtitle: 'new WordPress pages built as part of roket agency delivery',
+    role: 'wordpress development @ roket agency',
+    stack: ['WordPress', 'PHP', 'Elementor', 'JavaScript', 'CSS'],
+    category: 'e-commerce',
+    filepath: '~/projects/e-commerce/filladerm.php',
+    url: 'filladerm.com',
+    href: 'https://filladerm.com',
+    image: imgFilladerm,
+    version: 'v1.0.0',
+    status: 'live',
   },
   {
     id: 'confidential',
