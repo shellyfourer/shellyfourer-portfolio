@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { GitBranch } from 'lucide-react'
 import { HamburgerMenu } from '@/components/shared/HamburgerMenu'
 import { NavTabs } from '@/components/shared/NavTabs'
+import React from 'react'
 
 const macDotClass = 'size-3 rounded-full'
 const monoFontClass = 'font-mono text-[12px]'
