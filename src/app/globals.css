@@ -84,7 +84,7 @@
 :root {
   /* Geometry */
   --grain-dot-size: 28px;
-  --navbar-h: 90px;
+  --navbar-h: calc(90px + env(safe-area-inset-top));
   scroll-padding-top: var(--navbar-h);
 }
 

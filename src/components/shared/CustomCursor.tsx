@@ -22,7 +22,7 @@ export function CustomCursor() {
   return (
     <div className="pointer-events-none hidden md:block">
       <motion.div
-        className="fixed top-0 left-0 z-[9999] w-2 h-2 rounded-full bg-accent"
+        className="fixed top-0 left-0 z-[10010] w-2 h-2 rounded-full bg-accent"
         style={{
           x: mouseX,
           y: mouseY,
@@ -32,7 +32,7 @@ export function CustomCursor() {
         }}
       />
       <motion.div
-        className="fixed top-0 left-0 z-[9999] w-9 h-9 rounded-full border border-accent/40"
+        className="fixed top-0 left-0 z-[10010] w-9 h-9 rounded-full border border-accent/40"
         style={{
           x: ringX,
           y: ringY,

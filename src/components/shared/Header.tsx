@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
 import { GitBranch } from 'lucide-react'
 import { HamburgerMenu } from '@/components/shared/HamburgerMenu'
 import { NavTabs } from '@/components/shared/NavTabs'
@@ -21,13 +20,13 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-[60] select-none bg-surface/30 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-[10000] flex flex-col select-none bg-surface pt-[env(safe-area-inset-top)] text-foreground">
+      {/* Bottom shimmer border */}
       <div
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-px glass-shimmer pointer-events-none"
       />
-
-      <div className="relative flex flex-col text-foreground">
+      <div className="flex flex-col">
         <div className="flex items-center gap-4 p-3 border-b border-border/15">
           <div className="hidden md:flex items-center gap-2">
             <span className={`${macDotClass} bg-danger`} />
