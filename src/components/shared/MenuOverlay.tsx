@@ -54,10 +54,8 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       exit={{ opacity: 0, filter: 'blur(10px)' }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
     >
-      {/* Glass base matching header/footer */}
       <div aria-hidden className="absolute inset-0 bg-surface/30 pointer-events-none" />
 
-      {/* nav */}
       <div className="relative z-10 flex flex-col justify-center flex-1 px-8 gap-1">
         {navItems.map(({ label, section }, i) => (
           <motion.button
@@ -75,7 +73,6 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         ))}
       </div>
 
-      {/* socials */}
       <motion.div
         className="relative z-10 flex items-center gap-6 px-8 pb-12"
         initial={{ opacity: 0 }}

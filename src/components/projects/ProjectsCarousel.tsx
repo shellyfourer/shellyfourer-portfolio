@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import Image from 'next/image'
 import { projects, type Project, type ProjectCategory } from '@/lib/projects'
@@ -91,7 +91,7 @@ function FocusedCard({ project }: { project: Project }) {
         </div>
       </div>
 
-      <div className="h-[180px] sm:h-[220px] md:h-[320px] bg-[#140826] flex items-center justify-center overflow-hidden">
+      <div className="h-[190px] sm:h-[240px] md:h-[320px] bg-[#140826] flex items-center justify-center overflow-hidden">
         {project.image ? (
           <Image
             src={project.image}
@@ -103,9 +103,11 @@ function FocusedCard({ project }: { project: Project }) {
         )}
       </div>
 
-      <div className="border-t border-border/20 flex items-center justify-between px-4 py-2.5">
-        <span className="font-mono text-xs text-foreground/50">{project.url || project.title}</span>
-        <span className="font-mono text-xs text-foreground/35">{project.version}</span>
+      <div className="border-t border-border/20 flex items-center gap-3 px-4 py-2.5 min-w-0">
+        <span className="font-mono text-xs text-foreground/50 truncate min-w-0 flex-1">
+          {project.url || project.title}
+        </span>
+        <span className="font-mono text-xs text-foreground/35 shrink-0">{project.version}</span>
       </div>
     </div>
   )
@@ -123,7 +125,6 @@ export default function ProjectsCarousel() {
   const [activeCategory, setActiveCategory] = useState<Category>('all')
   const [indexByCategory, setIndexByCategory] = useState<Partial<Record<Category, number>>>({})
   const [direction, setDirection] = useState(0)
-  const touchStartX = useRef<number | null>(null)
 
   const filtered =
     activeCategory === 'all' ? projects : projects.filter((p) => p.category === activeCategory)
@@ -166,52 +167,39 @@ export default function ProjectsCarousel() {
   }, [goNext, goPrev, current])
 
   return (
-    <section
-      className="relative flex flex-col flex-1 overflow-hidden"
-      onTouchStart={(e) => {
-        touchStartX.current = e.touches[0].clientX
-      }}
-      onTouchEnd={(e) => {
-        if (touchStartX.current === null) return
-        const delta = touchStartX.current - e.changedTouches[0].clientX
-        if (Math.abs(delta) > 40) {
-          if (delta > 0) goNext()
-          else goPrev()
-        }
-        touchStartX.current = null
-      }}
-    >
-      {/* Eyebrow */}
-      <div className="flex items-center justify-between px-6 md:px-16 pt-5 md:pt-10 shrink-0">
+    <section className="relative flex flex-col flex-1 overflow-hidden">
+      {/* Eyebrow — desktop only */}
+      <div className="hidden md:flex items-center justify-between px-16 pt-10 shrink-0">
         <p className="font-mono text-sm text-accent select-none">
           ~ % ls projects/<span className="cursor-blink text-accent/50 ml-0.5">_</span>
         </p>
-        <p className="hidden md:block font-mono text-xs text-accent/50">
-          {'[←][→] browse   ·   [enter] open'}
-        </p>
-        <p className="md:hidden font-mono text-xs text-accent/50">swipe to browse</p>
+        <p className="font-mono text-xs text-accent/50">{'[←][→] browse   ·   [enter] open'}</p>
       </div>
 
-      {/* Tabs + card + info — centered as a unit with fixed 24px gaps */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-6 px-6 overflow-hidden">
+      {/* Tabs + card + info — centered */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 md:gap-6 px-6 overflow-hidden">
         {/* Tabs */}
-        <div className="flex sm:justify-center gap-2 w-full max-w-[720px] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0">
-          {CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat.value
-            return (
-              <button
-                key={cat.value}
-                onClick={() => setActiveCategory(cat.value)}
-                className={`shrink-0 font-mono text-xs px-4 py-2.5 rounded border transition-colors ${
-                  isActive
-                    ? 'bg-accent/12 border-accent/80 text-accent/95'
-                    : 'border-border/30 text-foreground/35 hover:border-border/50 hover:text-foreground/55'
-                }`}
-              >
-                {cat.label} ({categoryCount(cat.value)})
-              </button>
-            )
-          })}
+        <div className="relative w-full max-w-[720px] shrink-0">
+          <div className="flex sm:justify-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat.value
+              return (
+                <button
+                  key={cat.value}
+                  onClick={() => setActiveCategory(cat.value)}
+                  className={`shrink-0 font-mono text-xs px-4 py-2.5 rounded border transition-colors ${
+                    isActive
+                      ? 'bg-accent/12 border-accent/80 text-accent/95'
+                      : 'border-border/30 text-foreground/35 hover:border-border/50 hover:text-foreground/55'
+                  }`}
+                >
+                  {cat.label} ({categoryCount(cat.value)})
+                </button>
+              )
+            })}
+          </div>
+          {/* Fade indicating more tabs — mobile only */}
+          <div className="md:hidden absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent pointer-events-none" />
         </div>
 
         {/* Card */}
@@ -228,10 +216,10 @@ export default function ProjectsCarousel() {
             <motion.div
               key={current.id}
               className="relative z-10"
-              initial={{ opacity: 0, x: direction * 48, filter: 'blur(8px)' }}
-              animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, x: direction * -48, filter: 'blur(8px)' }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              initial={{ opacity: 0, x: direction * 48 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction * -48 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
             >
               <FocusedCard project={current} />
             </motion.div>
@@ -245,7 +233,7 @@ export default function ProjectsCarousel() {
         </div>
 
         {/* Info + nav */}
-        <div className="flex flex-col items-center gap-2 md:gap-3 text-center shrink-0">
+        <div className="flex flex-col items-center gap-2 md:gap-3 text-center shrink-0 mt-3 md:mt-0">
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current.id + '-info'}
@@ -257,11 +245,11 @@ export default function ProjectsCarousel() {
             >
               <h2 className="text-h3 md:text-h2 text-foreground/95">{current.title}</h2>
               <p className="font-serif italic text-base text-foreground/70">{current.subtitle}</p>
-              <p className="font-mono text-sm text-foreground/40">
+              <p className="hidden md:block font-mono text-sm text-foreground/40">
                 <span className="text-syntax-key/90">role:</span>{' '}
                 <span className="text-syntax-string/80">&quot;{current.role}&quot;</span>
               </p>
-              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
+              <div className="hidden md:flex flex-wrap justify-center gap-1.5 md:gap-2">
                 {current.stack.map((s, i) => (
                   <span
                     key={s}
@@ -284,11 +272,11 @@ export default function ProjectsCarousel() {
               <button
                 onClick={goPrev}
                 aria-label="Previous project"
-                className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
+                className="font-mono text-base text-accent/80 border border-accent/40 rounded-full w-11 h-11 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
               >
                 ←
               </button>
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1.5 py-2">
                 {filtered.map((_, i) => (
                   <button
                     key={i}
@@ -308,7 +296,7 @@ export default function ProjectsCarousel() {
               <button
                 onClick={goNext}
                 aria-label="Next project"
-                className="font-mono text-sm text-accent/80 border border-accent/40 rounded-full px-3.5 py-1.5 hover:border-accent hover:text-accent transition-colors"
+                className="font-mono text-base text-accent/80 border border-accent/40 rounded-full w-11 h-11 flex items-center justify-center hover:border-accent hover:text-accent transition-colors"
               >
                 →
               </button>

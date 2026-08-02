@@ -83,8 +83,9 @@
 
 :root {
   /* Geometry */
-  --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
+  --grain-dot-size: 28px;
   --navbar-h: 90px;
+  scroll-padding-top: var(--navbar-h);
 }
 
 @utility h-screen-nav {

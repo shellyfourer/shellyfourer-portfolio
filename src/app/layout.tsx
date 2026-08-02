@@ -18,7 +18,8 @@ const bricolageGrotesque = Bricolage_Grotesque({
 const BASE_URL = 'https://shellyfourer.com'
 
 export const viewport: Viewport = {
-  viewportFit: 'cover',
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export const metadata: Metadata = {
@@ -95,8 +96,7 @@ export default function RootLayout({
         <CustomCursor />
         <GrainOverlay />
         <Header />
-        <div className="shrink-0 h-11" aria-hidden />
-        <main className="flex-1 flex flex-col">{children}</main>
+        <main className="relative z-0 flex-1 flex flex-col">{children}</main>
         <Footer />
         <Analytics />
       </body>
