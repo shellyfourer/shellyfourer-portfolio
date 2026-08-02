@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { motion } from 'motion/react'
 import { usePathname, useRouter } from 'next/navigation'
@@ -20,6 +20,9 @@ type MenuOverlayProps = { onClose: () => void }
 export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   const pathname = usePathname()
   const router = useRouter()
+  // Navigation is deferred until the overlay unmounts and the scroll lock is
+  // released, otherwise the body's `position: fixed` swallows the scroll.
+  const pendingNavRef = useRef<(() => void) | null>(null)
   useEffect(() => {
     const scrollY = window.scrollY
     const body = document.body
@@ -33,22 +36,25 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       body.style.top = ''
       body.style.width = ''
       window.scrollTo(0, scrollY)
+      pendingNavRef.current?.()
     }
   }, [])
 
   function handleNav(section: string | null) {
+    pendingNavRef.current = () => {
+      if (section === null) {
+        if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
+        else router.push('/')
+        return
+      }
+      if (pathname === '/') {
+        document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        sessionStorage.setItem('scrollToSection', section)
+        router.push('/')
+      }
+    }
     onClose()
-    if (section === null) {
-      if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' })
-      else router.push('/')
-      return
-    }
-    if (pathname === '/') {
-      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' })
-    } else {
-      sessionStorage.setItem('scrollToSection', section)
-      router.push('/')
-    }
   }
 
   return createPortal(
