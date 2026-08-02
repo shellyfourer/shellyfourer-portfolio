@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
 import { GitBranch } from 'lucide-react'
 import { HamburgerMenu } from '@/components/shared/HamburgerMenu'
 import { NavTabs } from '@/components/shared/NavTabs'
@@ -20,19 +21,13 @@ export default function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] select-none bg-surface/30 backdrop-blur-xl will-change-transform">
-      {/* top rim: sits just below the safe area, at the visible glass edge */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 top-[env(safe-area-inset-top)] h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none"
-      />
-      {/* bottom border: animated shimmer */}
+    <header className="sticky top-0 z-[60] select-none bg-surface/30 backdrop-blur-xl">
       <div
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-px glass-shimmer pointer-events-none"
       />
 
-      <div className="relative flex flex-col text-foreground pt-[env(safe-area-inset-top)]">
+      <div className="relative flex flex-col text-foreground">
         <div className="flex items-center gap-4 p-3 border-b border-border/15">
           <div className="hidden md:flex items-center gap-2">
             <span className={`${macDotClass} bg-danger`} />

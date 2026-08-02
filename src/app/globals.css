@@ -83,18 +83,9 @@
 
 :root {
   /* Geometry */
-  --grain-dot-size: 28px; /* GrainOverlay dot-grid cell size */
+  --grain-dot-size: 28px;
   --navbar-h: 90px;
-  /* Mobile header base height (logo row only, no NavTabs) = 57px measured.
-     Add env(safe-area-inset-top) for notch/Dynamic Island devices. */
-  --header-spacer: calc(env(safe-area-inset-top, 0px) + 57px);
-}
-
-@media (min-width: 768px) {
-  :root {
-    /* Desktop: header includes NavTabs row, matches --navbar-h */
-    --header-spacer: var(--navbar-h);
-  }
+  scroll-padding-top: var(--navbar-h);
 }
 
 @utility h-screen-nav {
