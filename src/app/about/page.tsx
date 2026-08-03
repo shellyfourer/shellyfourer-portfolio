@@ -17,6 +17,14 @@ export const metadata: Metadata = {
     description:
       'Half artist, half engineer. Software engineering student working across TypeScript/Next.js, Java/Spring Boot, and C++. Full-stack developer at Roket Agency.',
     url: 'https://shellyfourer.com/about',
+    images: [
+      {
+        url: '/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Shelly Fourer - Software Engineer & Creative',
+      },
+    ],
   },
   twitter: {
     title: 'About Shelly Fourer - Software Engineer & Artist',
