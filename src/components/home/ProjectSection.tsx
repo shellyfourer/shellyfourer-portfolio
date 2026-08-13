@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { projects } from '@/lib/projects'
 
-const featured = projects.find((p) => p.id === 'trainwithlyon')!
-const sideProjects = ['makeyourown', 'tax-manager', 'kristina-fourer'].map(
+const featured = projects.find((p) => p.id === 'anybatch')!
+const sideProjects = ['trainwithlyon', 'makeyourown', 'kristina-fourer'].map(
   (id) => projects.find((p) => p.id === id)!
 )
 
@@ -46,7 +46,9 @@ export default function ProjectSection() {
                 {featured.filepath}
               </span>
               <div className="ml-auto flex items-center gap-1.5 shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-success/80" />
+                <span
+                  className={`w-1.5 h-1.5 rounded-full ${featured.status === 'live' ? 'bg-success/80' : 'bg-warning/70'}`}
+                />
                 <span className="font-mono text-[10px] text-foreground/50">{featured.status}</span>
               </div>
             </div>

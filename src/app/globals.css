@@ -84,12 +84,31 @@
 :root {
   /* Geometry */
   --grain-dot-size: 28px;
-  --navbar-h: calc(90px + env(safe-area-inset-top));
+
+  /* Mobile header is just the top bar (NavTabs are hidden below md). */
+  --navbar-h: calc(58px + env(safe-area-inset-top));
   scroll-padding-top: var(--navbar-h);
+}
+
+/* From md up the NavTabs row appears, so the header is taller. */
+@media (min-width: 768px) {
+  :root {
+    --navbar-h: calc(90px + env(safe-area-inset-top));
+  }
 }
 
 @utility h-screen-nav {
   height: calc(100svh - var(--navbar-h));
+
+  /* Landscape phones / short viewports: never lock a section to the viewport
+     height. There isn't enough vertical room, so a fixed height would clip the
+     content (overflow-hidden) or let it overflow and overlap the next section.
+     Fall back to content height with the viewport as a minimum instead. */
+  @media (max-height: 600px) {
+    height: auto;
+    min-height: calc(100svh - var(--navbar-h));
+    padding-block: 3rem;
+  }
 }
 
 @utility min-h-screen-nav {
