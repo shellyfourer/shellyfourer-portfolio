@@ -6,7 +6,7 @@ import imgPortfolio from '../../public/projects/shellyfourer.png'
 import imgMakeYourOwn from '../../public/projects/makeyourown.png'
 import imgPinkpharma from '../../public/projects/pinkpharma.png'
 import imgFilladerm from '../../public/projects/filladerm.png'
-// import img1stop from '../../public/1stop.png'
+import imgAnybatch from '../../public/projects/anybatch.png'
 // import imgKelioniuIntelektas from '../../public/kelioniuintelektas.png'
 // import imgCrossSellPms from '../../public/cross-sell-pms.png'
 // import imgPacman from '../../public/pacman.png'
@@ -32,6 +32,21 @@ export type Project = {
 }
 
 export const projects: Project[] = [
+  {
+    id: 'anybatch',
+    title: 'anybatch.com',
+    subtitle: 'Coming soon',
+    role: 'development @ roket.lt',
+    stack: ['Next.js', 'TypeScript', 'NestJS'],
+    category: 'e-commerce',
+    filepath: '~/projects/e-commerce/anybatch.tsx',
+    url: 'anybatch.com',
+    href: 'https://anybatch.com',
+    image: imgAnybatch,
+    version: 'v1.0.0-wip',
+    status: 'wip',
+  },
+
   // designed+built
   {
     id: 'trainwithlyon',
@@ -193,19 +208,6 @@ export const projects: Project[] = [
     version: 'v1.0.0',
     status: 'live',
   },
-  {
-    id: 'confidential',
-    title: 'confidential',
-    subtitle: 'custom website — details withheld',
-    role: 'development @ roket.lt',
-    stack: ['Next.js', 'TypeScript', 'NestJS'],
-    category: 'e-commerce',
-    filepath: '~/projects/e-commerce/confidential.tsx',
-    url: '[redacted]',
-    version: 'v1.0.0-wip',
-    status: 'wip',
-  },
-
   // the-lab
   {
     id: 'pacman-clone',
