@@ -1,4 +1,4 @@
-import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { FaEnvelope, FaGithub, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 
 export type Social = {
@@ -42,6 +42,14 @@ export const socials: Social[] = [
     href: 'https://instagram.com/byshellyfourer',
     Icon: FaInstagram,
     ariaLabel: 'Instagram',
+  },
+  {
+    key: 'youtube',
+    label: 'youtube',
+    handle: '@byshellyfourer',
+    href: 'https://youtube.com/@byshellyfourer',
+    Icon: FaYoutube,
+    ariaLabel: 'YouTube',
   },
 ]
 
