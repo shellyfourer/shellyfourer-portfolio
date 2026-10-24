@@ -1,0 +1,210 @@
+---
+title: 'I Reverse-Engineered Uber to See How a $200B Company Prices Your Ride'
+description: "I decompiled the Uber rider app and read its pricing code. Here's what your phone actually sends, how your fare is modeled as a hidden range, and the honest line between what I could prove and what stays on Uber's servers."
+date: '2026-10-24'
+author: 'Shelly Fourer'
+tags: ['reverse-engineering', 'uber', 'pricing', 'android', 'how-apps-make-money']
+coverImage: '/blog/uber-teardown/cover.webp'
+draft: false
+---
+
+> **TL;DR** — I decompiled the Uber rider app (v4.653.10004). Before Uber shows you a price, your phone sends ~50 signals about you. What comes back isn't a single number — it's a **range** (`minFare`, `maxFare`, `pointEstimateFare`), and Uber shows you one point inside it. Fares run through an **A/B-testing** system. Your fare and your driver's pay are calculated by **separate algorithms**. I could see all of that in the code. The one thing I _couldn't_ see — the exact formula that picks your number — runs on Uber's servers, and I'm not going to pretend otherwise.
+
+## Why I did this
+
+Uber is worth around **$200 billion**. Last year riders paid it about **$193 billion** in gross bookings, and it kept roughly **$52 billion** in revenue. ([Uber FY2025 results](https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Fourth-Quarter-and-Full-Year-2025/default.aspx))
+
+On a $100 ride, your driver takes home around $70, and Uber keeps the rest — before tips. I wanted to know _how_ a company builds the number you see, and whether there's anything in the app that explains why the same route never seems to cost the same twice.
+
+So I pulled apart the actual app.
+
+## How I did it (methodology)
+
+Everything here is from **lawful static analysis of the shipped app** — no bypassing auth, no touching Uber's servers, no private data.
+
+1. **Got the APK.** The Uber rider app (`v4.653.10004`, stable) from APKMirror — the same binary any Android user installs.
+2. **Decompiled it with [jadx](https://github.com/skylot/jadx) 1.5.6.** The app is ~205 MB of code across 23 DEX files — about 173,000 Java classes once decompiled.
+3. **Analyzed the pricing module** (`com.ubercab.presidio.pricing.core`) and the request/response models, plus string analysis across all the bytecode.
+4. **Cross-checked the web app** with network capture, and the financials against Uber's SEC filings and an academic study.
+
+Every class and field name below is real and quoted from the decompiled source.
+
+## Finding 1 — Before you see a price, your phone sends ~50 things about you
+
+When you request a ride, the app builds a `BuyerDemandRequest` and ships it off. It carries who you are, where you are, where you're going, and a `DeviceData` object with **50+ fields**. A sample of what's in `DeviceData`:
+
+```java
+// com.uber.model.core.generated.rtapi.models.deviceData.DeviceData
+public class DeviceData {
+    private Double  batteryLevel;      // your battery level
+    private String  connectedVpn;      // are you on a VPN
+    private Boolean rooted;            // is your phone rooted
+    private Boolean emulator;          // are you an emulator
+    private Boolean mockGpsOn;         // are you faking GPS
+    private String  imsi;              // SIM subscriber id
+    private Double  deviceLatitude;
+    private Double  deviceLongitude;
+    private UserInteractionData userInteractionData; // your tap actions
+    // ...50+ fields total
+}
+```
+
+**The honest part:** this `DeviceData` is built by Uber's **fraud** module (`com.ubercab.fraud`). It's there to catch fake accounts, stolen cards, and bots — which is standard for any app that moves money. A viral video recently claimed Uber "scans your phone to overcharge you." The fingerprinting is real, but it lives in a package literally named _fraud_, and nothing in the client shows it feeding the price. I'll come back to this.
+
+## Finding 2 — Your fare isn't a number. It's a range.
+
+This is the one that surprised me. The object Uber's server sends back for a fare estimate looks like this:
+
+```java
+// com.uber.model.core.generated.rtapi.models.auditablecontent.AuditableFareEstimateRange
+public class AuditableFareEstimateRange {
+    private final double minFare;            // the lowest your fare could be
+    private final double maxFare;            // the highest your fare could be
+    private final Double pointEstimateFare;  // the ONE number they show you
+}
+```
+
+Your fare has a **minimum**, a **maximum**, and a **point estimate** — the single number that actually appears on your screen. You never see the range. You see the point. This model is referenced across 13+ classes in the app (`fareRangeMin`, `fareRangeMax`, `pointEstimateString`, `updatedFareRange`), so it's not dead code — it's how fares are represented.
+
+What I **can** say: the price you see was selected from a band Uber's server already computed.
+What I **cannot** say: how the point inside that band is chosen. That math is server-side.
+
+## Finding 3 — Fares run through an A/B-testing system
+
+Your fare request carries an `ExperimentalFeaturesSpecification`, and the bytecode is full of fare-specific experiment keys:
+
+```
+b_xp_fares_treatment
+b_xp_fares_cache_invalidation
+bXpProfilesFareBinding
+DEMAND_SHAPING_FARE_EXPLAINER
+```
+
+`xp` is Uber's prefix for experiments. In plain terms: **fare presentation is A/B tested**, the same way a store tests a button color. Different users can get different fare _experiences_. (What I can't prove: that they get different _prices_ for it. Experiments on presentation ≠ proven price discrimination.)
+
+## Finding 4 — Your price and your driver's pay are two separate algorithms
+
+Since Uber's 2023 pricing change, the amount you pay and the amount your driver earns are **computed independently**. A [2025 academic study](https://arxiv.org/html/2506.15278v1) tracked 114 London drivers before and after and found:
+
+- Uber's median take rate rose from **25% to 29%**, with some trips exceeding **50%**.
+- Uber's surplus per driver-hour rose **38%**.
+- On higher-value fares, drivers earned _less_ per minute.
+
+So you can pay more on the exact trip your driver earns less on — and Uber keeps the gap. On some rides, Uber now takes more than the driver does.
+
+## Finding 5 — Your quoted price is signed and expires
+
+```java
+// BackwardCompatibleUpfrontFareSignatureData
+public class UpfrontFareSignatureData {
+    private final String signature;   // cryptographic signature of your fare
+    private final Double issuedAt;    // when the price was issued
+    private final Double expiresAt;   // when the price expires
+}
+```
+
+Once your number is chosen, Uber **cryptographically signs it** and stamps an **expiry**. Your price locks to you for a few minutes, then refreshes. That's not a glitch — it's the design. It's also why your estimate changes if you sit on the screen too long.
+
+## Finding 6 — Uber also built a "wait and save" nudge
+
+The flip side of surge. Uber's app has a demand-shaping feature:
+
+```java
+// com.uber.model.core.generated.rtapi.services.marketplacerider.DemandShapingStatus
+public class DemandShapingStatus {
+    private final int    timeToRequestSec;   // how long to wait
+    private final String savingsValue;       // how much you'd save by waiting
+    private final String counterFooter;      // the countdown
+}
+```
+
+Surge says "pay more now." Demand shaping says "wait N seconds, save $X." Both are Uber steering the marketplace to balance its own supply and demand — using your price as the lever.
+
+## What I could NOT prove (and why that matters)
+
+This is the part most "Uber exposed" videos skip, and skipping it is how they get things wrong.
+
+- **The fare formula is server-side.** The app receives a range and a point. It does not compute them. I cannot show you the equation that picks your number, because it isn't in the app.
+- **Battery / device data → price is unproven.** Yes, your battery level is in the `DeviceData` sent with ride requests. But that object is built by the fraud module, and no client code links it to pricing. "It's collected" is true. "It sets your price" is not something I can show.
+- **A/B tested presentation ≠ proven price discrimination.** The experiment system is real. Whether two identical riders get two different prices is not visible from the client.
+
+If someone tells you they "proved Uber charges you more because of your phone," ask them to show the server code. They can't — nobody outside Uber can.
+
+## So what is Uber, really?
+
+Based on what's actually in the app: Uber isn't just a ride company. It's a **pricing machine** that happens to move you from A to B. It reads ~50 signals about you, models your fare as a hidden range, A/B tests the presentation, signs and time-boxes the number, and pays your driver on a separate formula. $52 billion a year, one quietly-chosen number at a time.
+
+## For builders: the monetization patterns here
+
+If you're building anything that charges money, these are real, legitimate patterns worth understanding (and the reason this teardown is more than outrage bait):
+
+- **Range pricing** — model a price as a band, not a point, and choose where to land.
+- **Price experimentation** — A/B test what converts, carefully and legally.
+- **Decoupling the two sides of a marketplace** — what the buyer pays and what the supplier earns don't have to be the same formula.
+- **Time-boxed, signed quotes** — lock a price to a session so it can't be tampered with or stale.
+
+## Questions people asked
+
+**Isn't a price range normal? Every estimate has a min and max.**
+A displayed _estimate range_ to the user is normal. What's notable here is that the app receives a `minFare`, a `maxFare`, **and** a separate `pointEstimateFare` — a single chosen point — and that point is what you're shown and charged against. You see the point, not the band it came from. That's the part worth knowing.
+
+**Does my battery level actually change my price?**
+I can't show that it does, and I won't claim it. `batteryLevel` is a real field in the `DeviceData` sent with ride requests — but that object is assembled by Uber's fraud module (`com.ubercab.fraud`), and no code in the app links it to the fare. "It's collected" is true. "It sets your price" is not something the app proves.
+
+**Why can't you just show the formula that picks my number?**
+Because it isn't in the app. The client sends your request and receives a range with a chosen point. The logic that computes those numbers runs on Uber's servers, which I did not access and can't see. Anyone showing you "Uber's pricing formula" from a decompile is showing you the _client's_ handling of the result, not the formula.
+
+**Is this the same on iPhone?**
+This teardown is the Android app (`v4.653.10004`). The iOS app is a separate binary I didn't analyze here. The server behavior is the same account either way, but I only claim what I verified on Android.
+
+**Does using a VPN change my price?**
+`connectedVpn` is one of the fields sent in `DeviceData` — so Uber knows whether you're on a VPN. Whether it affects price, same answer as battery: not shown in the client, not something I'll claim.
+
+**Is any of this illegal?**
+Nothing here shows illegal behavior. Dynamic pricing, device-based fraud detection, and A/B testing are all legal and common. The point of the teardown isn't "gotcha, it's illegal" — it's "here is how the machine is actually built."
+
+**Why would Uber run pricing on servers instead of the app?**
+Control and secrecy. Server-side pricing can be changed instantly for everyone, can't be inspected by people like me, and keeps the actual model private. The client only ever gets the result.
+
+## How I know this is real
+
+**The app.** Uber rider `v4.653.10004`, the stable release, pulled as an `.apkm` bundle from APKMirror — the same binary any Android user installs.
+
+- Bundle SHA-256: `b2c3ba8d991fe867f8bc8e675f2146f4bf2b87927c4d95174ed6d202ea23587b`
+- `base.apk` SHA-256: `de844ba8bbf781c068862bb95a05224ce59bd017466087617599388b0cb08d19`
+- Size: 196 MB of code across 23 DEX files.
+
+**The decompile.** [jadx](https://github.com/skylot/jadx) 1.5.6 produced ~173,000 Java classes. Every field and class name quoted in this post is from that output — not paraphrased.
+
+**The findings are load-bearing, not stray strings.** The fare-range model (`AuditableFareEstimateRange`, `pointEstimateFare`, `fareRangeMin/Max`) is referenced across **13 classes** — it's how fares are represented, not dead code. The device data object is wired into the `SurgeRequest` the app builds. The experiment keys (`b_xp_fares_treatment`, `ExperimentalFeaturesSpecification`) sit on the fare request path.
+
+**You can reproduce it.** Download the same version from APKMirror, verify the hash, and decompile:
+
+```bash
+# verify you have the same binary
+shasum -a 256 base.apk
+# -> de844ba8bbf781c068862bb95a05224ce59bd017466087617599388b0cb08d19
+
+# decompile
+jadx --no-res base.apk -d uber-out
+
+# find the fare-range model yourself
+grep -rl "AuditableFareEstimateRange\|pointEstimateFare" uber-out/sources
+```
+
+**Where the trail ends.** The fare value itself is computed on Uber's servers. I did not touch those servers, and I can't show you the formula — because it isn't in the app. Every claim in this post is about what the app _sends_ and how it _models_ the result. That line — between what I verified and what stays server-side — is the whole point.
+
+## Sources
+
+- [Uber FY2025 results](https://investor.uber.com/news-events/news/press-release-details/2026/Uber-Announces-Results-for-Fourth-Quarter-and-Full-Year-2025/default.aspx) — gross bookings, revenue
+- [Uber 10-K (SEC EDGAR)](https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm)
+- [Dynamic pricing study, arXiv:2506.15278](https://arxiv.org/html/2506.15278v1) — take-rate and driver-pay data
+- [Real-time Data Infrastructure at Uber, arXiv:2104.00087](https://arxiv.org/pdf/2104.00087) — surge pipeline
+- [jadx](https://github.com/skylot/jadx) — the decompiler used
+- App analyzed: Uber rider v4.653.10004, `base.apk` SHA-256 `de844ba8bbf781c068862bb95a05224ce59bd017466087617599388b0cb08d19`
+
+_Decompiled code is used here for analysis, commentary, and interoperability research. All identifiers are quoted from the shipped app for the purpose of explaining its behavior._
+
+---
+
+_Want the next one? I'm decompiling Shopify next — [follow / subscribe]._

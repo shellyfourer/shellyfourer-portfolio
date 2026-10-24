@@ -40,8 +40,6 @@ function parsePost(filename: string): Post {
 }
 
 function isPublished(post: Post): boolean {
-  if (post.frontmatter.draft) return false
-  // In development show drafts; in production hide them
   if (process.env.NODE_ENV === 'development') return true
   return !post.frontmatter.draft
 }
@@ -71,10 +69,5 @@ export function getPost(slug: string): Post | null {
 }
 
 export function getAllSlugs(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) return []
-
-  return fs
-    .readdirSync(BLOG_DIR)
-    .filter((f) => f.endsWith('.mdx'))
-    .map((f) => f.replace(/\.mdx$/, ''))
+  return getAllPosts().map((p) => p.slug)
 }
