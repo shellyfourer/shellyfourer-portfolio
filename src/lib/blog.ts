@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
@@ -56,7 +57,8 @@ export function getAllPosts(): PostMeta[] {
     .map(({ slug, frontmatter, readingTime }) => ({ slug, frontmatter, readingTime }))
 }
 
-export function getPost(slug: string): Post | null {
+// Cached per request so generateMetadata and the page render share one read.
+export const getPost = cache((slug: string): Post | null => {
   const filePath = path.join(BLOG_DIR, `${slug}.mdx`)
   if (!fs.existsSync(filePath)) return null
 
@@ -66,7 +68,7 @@ export function getPost(slug: string): Post | null {
   if (post.frontmatter.draft && process.env.NODE_ENV !== 'development') return null
 
   return post
-}
+})
 
 export function getAllSlugs(): string[] {
   return getAllPosts().map((p) => p.slug)
