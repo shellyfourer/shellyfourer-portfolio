@@ -35,7 +35,27 @@ export const mdxComponents: MDXRemoteProps['components'] = {
   a: Anchor,
   strong: (props) => <strong className="text-foreground/95 font-semibold" {...props} />,
   em: (props) => <em className="font-serif italic text-foreground/85" {...props} />,
+  del: (props) => <del className="text-foreground/40" {...props} />,
   hr: (props) => <hr className="border-border/30 my-10" {...props} />,
+  // GFM tables
+  table: (props) => (
+    <div className="my-6 -mx-6 md:mx-0 overflow-x-auto">
+      <table className="w-full min-w-[32rem] text-sm border-collapse" {...props} />
+    </div>
+  ),
+  thead: (props) => <thead className="border-b border-border/40" {...props} />,
+  th: (props) => (
+    <th
+      className="text-left font-medium text-foreground/90 px-4 py-2.5 align-top"
+      {...props}
+    />
+  ),
+  td: (props) => (
+    <td
+      className="text-foreground/70 px-4 py-2.5 align-top border-t border-border/20"
+      {...props}
+    />
+  ),
   // Fenced code block — rehype-pretty-code emits a styled <pre data-language=...>
   pre: (props) => (
     <pre

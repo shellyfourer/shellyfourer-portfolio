@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import rehypePrettyCode from 'rehype-pretty-code'
 import type { Options as PrettyCodeOptions } from 'rehype-pretty-code'
+import remarkGfm from 'remark-gfm'
 import { getPost, getAllSlugs } from '@/lib/blog'
 import { mdxComponents } from '@/components/blog/MDXComponents'
 import { BASE_URL } from '@/lib/site'
@@ -26,26 +27,31 @@ export async function generateMetadata({
   const post = getPost(slug)
   if (!post) return {}
 
-  const { title, description, coverImage, tags, date, author } = post.frontmatter
-  const ogImage = coverImage ?? '/og.jpg'
+  const fm = post.frontmatter
+  const url = fm.canonicalUrl ?? `${BASE_URL}/blog/${slug}`
+  const ogImage = fm.ogImage ?? fm.coverImage ?? '/og.jpg'
 
   return {
-    title,
-    description,
-    keywords: tags,
+    title: fm.title,
+    description: fm.description,
+    keywords: fm.keywords ?? fm.tags,
+    authors: [{ name: fm.author }],
+    alternates: { canonical: url },
     openGraph: {
       type: 'article',
-      title,
-      description,
-      url: `${BASE_URL}/blog/${slug}`,
-      publishedTime: date,
-      authors: [author],
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+      title: fm.title,
+      description: fm.description,
+      url,
+      publishedTime: fm.date,
+      modifiedTime: fm.lastModified ?? fm.date,
+      authors: [fm.author],
+      tags: fm.tags,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: fm.title }],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: fm.title,
+      description: fm.description,
       images: [ogImage],
     },
   }
@@ -63,8 +69,43 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     day: 'numeric',
   })
 
+  const url = frontmatter.canonicalUrl ?? `${BASE_URL}/blog/${slug}`
+  const image = frontmatter.ogImage ?? frontmatter.coverImage
+
+  const jsonLd: Record<string, unknown>[] = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: frontmatter.title,
+      description: frontmatter.description,
+      datePublished: frontmatter.date,
+      dateModified: frontmatter.lastModified ?? frontmatter.date,
+      author: { '@type': 'Person', name: frontmatter.author },
+      keywords: (frontmatter.keywords ?? frontmatter.tags).join(', '),
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      ...(image ? { image: `${BASE_URL}${image}` } : {}),
+    },
+    ...(frontmatter.faq && frontmatter.faq.length > 0
+      ? [
+          {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: frontmatter.faq.map((item) => ({
+              '@type': 'Question',
+              name: item.question,
+              acceptedAnswer: { '@type': 'Answer', text: item.answer },
+            })),
+          },
+        ]
+      : []),
+  ]
+
   return (
     <main className="w-full min-w-0 px-6 md:px-16 py-20 max-w-4xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header */}
       <div className="flex flex-col gap-6 mb-12">
         <div className="flex items-center gap-3">
@@ -95,6 +136,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           components={mdxComponents}
           options={{
             mdxOptions: {
+              remarkPlugins: [remarkGfm],
               rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
             },
           }}

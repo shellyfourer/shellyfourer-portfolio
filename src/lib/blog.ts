@@ -6,6 +6,11 @@ import readingTime from 'reading-time'
 
 const BLOG_DIR = path.join(process.cwd(), 'content/blog')
 
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
 export type PostFrontmatter = {
   title: string
   description: string
@@ -14,6 +19,12 @@ export type PostFrontmatter = {
   tags: string[]
   coverImage?: string
   draft?: boolean
+  // SEO / AI metadata (optional)
+  keywords?: string[]
+  canonicalUrl?: string
+  ogImage?: string
+  lastModified?: string
+  faq?: FaqItem[]
 }
 
 export type Post = {
