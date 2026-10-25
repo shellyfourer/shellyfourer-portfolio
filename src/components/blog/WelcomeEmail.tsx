@@ -12,9 +12,9 @@ export function WelcomeEmail() {
 
       <p>
         I don&apos;t only write about reverse engineering, but also about the things nobody explains
-        in tutorials: the &quot;who owns this?&quot; bugs, why your UI is lying to you, how to
-        think about systems, and what it actually looks like to be young and building a career in
-        this industry at the same time.
+        in tutorials: the &quot;who owns this?&quot; bugs, why your UI is lying to you, how to think
+        about systems, and what it actually looks like to be young and building a career in this
+        industry at the same time.
       </p>
 
       <p>

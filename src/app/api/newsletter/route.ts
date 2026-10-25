@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     // In Spring you'd use threads or CompletableFuture to do the same thing.
     const [{ error: contactError }, { error: emailError }] = await Promise.all([
       // Add the subscriber to our Resend audience (acts as our contact list).
-    // Resend returns 409 if the contact already exists — we treat that as success.
+      // Resend returns 409 if the contact already exists — we treat that as success.
       resend.contacts.create({
         email,
         firstName,
