@@ -16,16 +16,10 @@ function Anchor({ href = '', ...props }: ComponentPropsWithoutRef<'a'>) {
 }
 
 export const mdxComponents: MDXRemoteProps['components'] = {
-  h2: (props) => (
-    <h2 className="text-h2 text-foreground/95 font-medium mt-14 mb-4" {...props} />
-  ),
-  h3: (props) => (
-    <h3 className="text-h3 text-foreground/90 font-medium mt-10 mb-3" {...props} />
-  ),
+  h2: (props) => <h2 className="text-h2 text-foreground/95 font-medium mt-14 mb-4" {...props} />,
+  h3: (props) => <h3 className="text-h3 text-foreground/90 font-medium mt-10 mb-3" {...props} />,
   p: (props) => <p className="text-base text-foreground/80 leading-relaxed mb-5" {...props} />,
-  ul: (props) => (
-    <ul className="list-disc pl-6 mb-5 space-y-1.5 text-foreground/80" {...props} />
-  ),
+  ul: (props) => <ul className="list-disc pl-6 mb-5 space-y-1.5 text-foreground/80" {...props} />,
   ol: (props) => (
     <ol className="list-decimal pl-6 mb-5 space-y-1.5 text-foreground/80" {...props} />
   ),
