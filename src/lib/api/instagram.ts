@@ -11,7 +11,5 @@ export async function fetchInstagramPosts(): Promise<InstagramPost[]> {
 
   // Trial reels are not shared to feed — filter them out.
   // Non-video posts don't have is_shared_to_feed, so we only apply the check to VIDEO type.
-  return posts
-    .filter((p) => p.media_type !== 'VIDEO' || p.is_shared_to_feed === true)
-    .slice(0, 4)
+  return posts.filter((p) => p.media_type !== 'VIDEO' || p.is_shared_to_feed === true).slice(0, 4)
 }
