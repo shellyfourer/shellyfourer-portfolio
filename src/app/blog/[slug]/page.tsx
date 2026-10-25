@@ -64,7 +64,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
   })
 
   return (
-    <main className="px-6 md:px-16 py-20 max-w-4xl mx-auto">
+    <main className="w-full min-w-0 px-6 md:px-16 py-20 max-w-4xl mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-6 mb-12">
         <div className="flex items-center gap-3">
@@ -75,9 +75,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           )}
         </div>
 
-        <h1 className="text-h2 text-foreground/95 leading-tight">{frontmatter.title}</h1>
+        <h1 className="text-h2 text-foreground/95 leading-tight break-words">
+          {frontmatter.title}
+        </h1>
 
-        <div className="flex items-center gap-3 font-mono text-xs text-foreground/35">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs text-foreground/35">
           <span>{date}</span>
           <span>·</span>
           <span>{readingTime}</span>
@@ -87,7 +89,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       </div>
 
       {/* Body */}
-      <article>
+      <article className="min-w-0">
         <MDXRemote
           source={content}
           components={mdxComponents}
