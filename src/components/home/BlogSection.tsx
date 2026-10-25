@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/blog'
+import { NewsletterForm } from '@/components/blog/NewsletterForm'
 
 function DraftCard({ className, title, meta }: { className: string; title: string; meta: string }) {
   return (
@@ -45,8 +46,9 @@ export default function BlogSection() {
           )}
         </div>
 
-        {/* Right — floating cards */}
-        <div className="relative h-72">
+        {/* Right — floating cards + newsletter */}
+        <div className="flex flex-col gap-10">
+          <div className="relative h-72">
           {/* Pill — tail command */}
           <div className="-rotate-[1.5deg] absolute top-0 left-0" aria-hidden="true">
             <div className="bg-surface-raised/90 border border-border/30 rounded-xl px-5 py-3.5 font-mono text-sm text-foreground/60 whitespace-nowrap">
@@ -59,7 +61,7 @@ export default function BlogSection() {
           {/* Pointer nudging toward the latest post */}
           {latest && (
             <div
-              className="hidden lg:flex items-center gap-3 absolute -bottom-16 left-[-70px] text-accent/70"
+              className="hidden lg:flex items-center gap-3 absolute -bottom-6 left-[-70px] text-accent/70"
               aria-hidden="true"
             >
               <span className="font-serif italic text-lg text-accent/70 whitespace-nowrap">
@@ -106,6 +108,11 @@ export default function BlogSection() {
             title="next one's in the works"
             meta="wip · thoughts/02.mdx"
           />
+
+          </div>
+          <div className="lg:rotate-[1.5deg] lg:self-start lg:ml-40 w-full lg:w-[340px]">
+            <NewsletterForm compact />
+          </div>
         </div>
       </div>
     </section>

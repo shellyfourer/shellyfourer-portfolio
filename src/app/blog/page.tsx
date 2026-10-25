@@ -3,6 +3,7 @@ import ExploreRail from '@/components/shared/ExploreRail'
 import { SectionReveal } from '@/components/shared/SectionReveal'
 import BlogHero from '@/components/blog/BlogHero'
 import PostList from '@/components/blog/PostList'
+import { NewsletterForm } from '@/components/blog/NewsletterForm'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -41,6 +42,11 @@ export default function BlogPage() {
         <BlogHero />
         <SectionReveal>
           <PostList />
+        </SectionReveal>
+        <SectionReveal>
+          <div className="px-6 md:px-16 py-12 max-w-4xl mx-auto w-full">
+            <NewsletterForm />
+          </div>
         </SectionReveal>
       </div>
     </div>

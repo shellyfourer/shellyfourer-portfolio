@@ -6,6 +6,7 @@ import type { Options as PrettyCodeOptions } from 'rehype-pretty-code'
 import remarkGfm from 'remark-gfm'
 import { getPost, getAllSlugs } from '@/lib/blog'
 import { mdxComponents } from '@/components/blog/MDXComponents'
+import { NewsletterForm } from '@/components/blog/NewsletterForm'
 import { BASE_URL } from '@/lib/site'
 
 const prettyCodeOptions: PrettyCodeOptions = {
@@ -151,6 +152,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           }}
         />
       </article>
+
+      <div className="mt-16">
+        <NewsletterForm />
+      </div>
     </main>
   )
 }
