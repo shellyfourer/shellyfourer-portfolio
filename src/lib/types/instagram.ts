@@ -7,4 +7,5 @@ export interface InstagramPost {
   caption?: string
   like_count?: number
   comments_count?: number
+  is_shared_to_feed?: boolean
 }

@@ -6,7 +6,8 @@ const API = 'https://www.googleapis.com/youtube/v3'
 // Uploads that run this long or shorter are treated as Shorts and hidden.
 // The Data API exposes no direct "isShort" flag and the /shorts/ redirect
 // trick isn't reliable server-side, so duration is the deterministic signal.
-const SHORTS_MAX_SECONDS = 60
+// YouTube Shorts can now be up to 3 minutes, so we filter anything under 3 min.
+const SHORTS_MAX_SECONDS = 180
 
 type Thumbnail = { url: string }
 
