@@ -6,6 +6,7 @@ import Footer from '@/components/shared/Footer'
 import { CustomCursor } from '@/components/shared/CustomCursor'
 import { GrainOverlay } from '@/components/shared/GrainOverlay'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import React from 'react'
 
 const bricolageGrotesque = Bricolage_Grotesque({
@@ -137,6 +138,7 @@ export default function RootLayout({
         <main className="relative z-0 flex-1 flex flex-col pt-[var(--navbar-h)]">{children}</main>
         <Footer />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
