@@ -28,13 +28,13 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
     }
   }
 
-  const inputClass = `flex-1 min-w-0 bg-foreground/5 border border-foreground/10 rounded-lg px-3 ${compact ? 'py-1.5 text-xs' : 'py-2 text-sm'} outline-none focus:border-accent transition-colors placeholder:text-foreground/30`
+  const inputClass = `flex-1 min-w-0 bg-foreground/5 border border-foreground/10 rounded-lg px-3 ${compact ? 'py-1.5 text-xs' : 'py-2 text-sm'} text-foreground outline-none focus:border-accent transition-colors placeholder:text-foreground/30`
 
   return (
     <div className={`border border-foreground/10 rounded-xl ${compact ? 'p-4' : 'p-6 md:p-8'} flex flex-col gap-3`}>
       <div className="flex flex-col gap-0.5">
         <p className={`font-mono ${compact ? 'text-xs' : 'text-sm'} text-accent`}>// newsletter</p>
-        <h3 className={`${compact ? 'text-base' : 'text-xl'} font-semibold`}>Get new posts in your inbox</h3>
+        <h3 className={`${compact ? 'text-base' : 'text-xl'} font-semibold text-foreground mt-0 mb-0`}>Get new posts in your inbox</h3>
         <p className={`${compact ? 'text-xs' : 'text-sm'} text-foreground/55`}>No spam. Unsubscribe any time.</p>
       </div>
 

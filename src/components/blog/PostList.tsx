@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/blog'
 import { PostCardFeatured, PostCardSmall } from '@/components/blog/PostCard'
+import { NewsletterForm } from '@/components/blog/NewsletterForm'
 
 export default function PostList() {
   const posts = getAllPosts()
@@ -24,14 +25,16 @@ export default function PostList() {
       {posts.length === 0 ? (
         <p className="font-mono text-sm text-foreground/35">No posts yet.</p>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_1fr] gap-6 w-full items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,420px)_minmax(0,0.5fr)] gap-6 w-full items-start">
           <PostCardFeatured post={featured} />
-          {rest.length > 0 && (
+          {rest.length > 0 ? (
             <div className="flex flex-col gap-4">
               {rest.map((post) => (
                 <PostCardSmall key={post.slug} post={post} />
               ))}
             </div>
+          ) : (
+            <NewsletterForm />
           )}
         </div>
       )}
