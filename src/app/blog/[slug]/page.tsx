@@ -85,6 +85,15 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       mainEntityOfPage: { '@type': 'WebPage', '@id': url },
       ...(image ? { image: `${BASE_URL}${image}` } : {}),
     },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
+        { '@type': 'ListItem', position: 3, name: frontmatter.title, item: url },
+      ],
+    },
     ...(frontmatter.faq && frontmatter.faq.length > 0
       ? [
           {

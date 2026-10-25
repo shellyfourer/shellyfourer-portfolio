@@ -25,11 +25,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Shelly Fourer - Software Engineer & Creative',
+    default: 'Shelly Fourer | Software Engineer & Creative',
     template: '%s | Shelly Fourer',
   },
   description:
-    'Software Engineering student and creative developer. I work across three ecosystems: TypeScript/Next.js for web and agency work, Java/Spring Boot for backend systems, and C++ for fundamentals and systems programming. Also an artist.',
+    'Software engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++. Also an artist.',
   keywords: [
     'software engineer',
     'software engineering student',
@@ -55,12 +55,13 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Shelly Fourer', url: BASE_URL }],
   creator: 'Shelly Fourer',
+  alternates: { canonical: BASE_URL },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: BASE_URL,
     siteName: 'Shelly Fourer',
-    title: 'Shelly Fourer - Software Engineer & Creative',
+    title: 'Shelly Fourer | Software Engineer & Creative',
     description:
       'Software Engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++ - and an artist. Thinking in code, feeling in color.',
     images: [
@@ -68,15 +69,16 @@ export const metadata: Metadata = {
         url: '/og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shelly Fourer - Software Engineer & Creative',
+        alt: 'Shelly Fourer | Software Engineer & Creative',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Shelly Fourer - Software Engineer & Creative',
+    title: 'Shelly Fourer | Software Engineer & Creative',
     description:
-      'Software Engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++ - and an artist. Thinking in code, feeling in color.',
+      'Software engineering student and creative developer. TypeScript/Next.js, Java/Spring Boot, C++ - and an artist. Thinking in code, feeling in color.',
+    site: '@byshellyfourer',
     creator: '@byshellyfourer',
     images: ['/og.jpg'],
   },
@@ -92,6 +94,28 @@ export const metadata: Metadata = {
   },
 }
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Shelly Fourer',
+  url: BASE_URL,
+  sameAs: [
+    'https://github.com/shellyfourer',
+    'https://www.linkedin.com/in/shelly-fourer',
+    'https://twitter.com/byshellyfourer',
+  ],
+  jobTitle: 'Software Engineer',
+  knowsAbout: ['TypeScript', 'Next.js', 'Java', 'Spring Boot', 'C++', 'React', 'PostgreSQL'],
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Shelly Fourer',
+  url: BASE_URL,
+  author: { '@type': 'Person', name: 'Shelly Fourer' },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -102,6 +126,10 @@ export default function RootLayout({
       <body
         className={`${bricolageGrotesque.variable} antialiased bg-background flex flex-col min-h-svh`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([personJsonLd, websiteJsonLd]) }}
+        />
         <CustomCursor />
         <GrainOverlay />
 

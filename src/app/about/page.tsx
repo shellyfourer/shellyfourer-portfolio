@@ -11,9 +11,11 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Half artist, half engineer. Software engineering student working across TypeScript/Next.js, Java/Spring Boot, and C++. Full-stack developer at Roket Agency, with a background in fine arts, music, and theater.',
+    'Half artist, half engineer. Software engineering student working across TypeScript/Next.js, Java/Spring Boot, and C++. Full-stack developer at Roket Agency.',
+  alternates: { canonical: 'https://shellyfourer.com/about' },
   openGraph: {
-    title: 'About Shelly Fourer - Software Engineer & Artist',
+    type: 'website',
+    title: 'About Shelly Fourer | Software Engineer & Artist',
     description:
       'Half artist, half engineer. Software engineering student working across TypeScript/Next.js, Java/Spring Boot, and C++. Full-stack developer at Roket Agency.',
     url: 'https://shellyfourer.com/about',
@@ -22,14 +24,16 @@ export const metadata: Metadata = {
         url: '/og.jpg',
         width: 1200,
         height: 630,
-        alt: 'Shelly Fourer - Software Engineer & Creative',
+        alt: 'Shelly Fourer | Software Engineer & Creative',
       },
     ],
   },
   twitter: {
-    title: 'About Shelly Fourer - Software Engineer & Artist',
+    card: 'summary_large_image',
+    title: 'About Shelly Fourer | Software Engineer & Artist',
     description:
       'Half artist, half engineer. Software engineering student, full-stack developer at Roket Agency, and creative problem solver.',
+    images: ['/og.jpg'],
   },
 }
 

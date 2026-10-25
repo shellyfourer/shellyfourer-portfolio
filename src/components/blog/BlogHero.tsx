@@ -25,7 +25,7 @@ export default function BlogHero() {
         </AnimatedHeadline>
 
         <AnimatedFadeIn
-          className="text-base text-foreground/55 leading-relaxed text-center max-w-xl"
+          className="text-base text-foreground/55 leading-relaxed text-center"
           delay={0.3}
         >
           Thoughts on software engineering, reverse engineering, creative development, and building

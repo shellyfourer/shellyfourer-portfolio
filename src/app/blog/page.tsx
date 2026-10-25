@@ -8,11 +8,28 @@ export const metadata: Metadata = {
   title: 'Blog',
   description:
     'Thoughts on software engineering, reverse engineering, creative development, and building things.',
+  alternates: { canonical: 'https://shellyfourer.com/blog' },
   openGraph: {
-    title: 'Blog — Shelly Fourer',
+    type: 'website',
+    title: 'Blog | Shelly Fourer',
     description:
       'Thoughts on software engineering, reverse engineering, creative development, and building things.',
     url: 'https://shellyfourer.com/blog',
+    images: [
+      {
+        url: '/og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Shelly Fourer | Blog',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Blog | Shelly Fourer',
+    description:
+      'Thoughts on software engineering, reverse engineering, creative development, and building things.',
+    images: ['/og.jpg'],
   },
 }
 
