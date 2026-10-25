@@ -45,16 +45,10 @@ export const mdxComponents: MDXRemoteProps['components'] = {
   ),
   thead: (props) => <thead className="border-b border-border/40" {...props} />,
   th: (props) => (
-    <th
-      className="text-left font-medium text-foreground/90 px-4 py-2.5 align-top"
-      {...props}
-    />
+    <th className="text-left font-medium text-foreground/90 px-4 py-2.5 align-top" {...props} />
   ),
   td: (props) => (
-    <td
-      className="text-foreground/70 px-4 py-2.5 align-top border-t border-border/20"
-      {...props}
-    />
+    <td className="text-foreground/70 px-4 py-2.5 align-top border-t border-border/20" {...props} />
   ),
   // Fenced code block — rehype-pretty-code emits a styled <pre data-language=...>
   pre: (props) => (
