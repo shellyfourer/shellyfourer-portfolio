@@ -24,7 +24,7 @@ export function PostCardFeatured({ post }: { post: PostMeta }) {
             alt={frontmatter.title}
             fill
             className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-200"
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
       ) : (

@@ -35,7 +35,9 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
       className={`border border-foreground/10 rounded-xl ${compact ? 'p-4' : 'p-6 md:p-8'} flex flex-col gap-3`}
     >
       <div className="flex flex-col gap-0.5">
-        <p className={`font-mono ${compact ? 'text-xs' : 'text-sm'} text-accent`}>// newsletter</p>
+        <p className={`font-mono ${compact ? 'text-xs' : 'text-sm'} text-accent`}>
+          {'// newsletter'}
+        </p>
         <h3
           className={`${compact ? 'text-base' : 'text-xl'} font-semibold text-foreground mt-0 mb-0`}
         >
