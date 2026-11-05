@@ -1,0 +1,138 @@
+---
+title: "I Reverse-Engineered Fruit Ninja to See How It Makes Money"
+description: "I reverse-engineered Fruit Ninja, the game a lot of us grew up on, and read its code. Before you slice a single fruit it ranks you by spending profile, runs live A/B experiments on you, and builds a personalized store with fake slashed prices timed to the moment you lose. Here is the proof, and exactly where it stops."
+date: "2026-11-01"
+lastModified: "2026-11-01"
+author: "Shelly Fourer"
+tags: ["reverse-engineering", "fruit-ninja", "mobile-games", "monetization", "how-apps-make-money"]
+keywords:
+  - how does Fruit Ninja make money
+  - how do free mobile games make money
+  - mobile game dark patterns
+  - do mobile games profile you
+  - PlayFab player segments
+  - mobile game A/B testing players
+  - reverse engineering a mobile game
+  - personalized in-app offers
+  - fake slashed prices mobile games
+canonicalUrl: "https://shellyfourer.com/blog/fruit-ninja-teardown"
+coverImage: "/blog/fruit-ninja-teardown/cover.webp"
+ogImage: "/blog/fruit-ninja-teardown/cover.webp"
+readingTime: "8 min"
+draft: false
+faq:
+  - question: "How does Fruit Ninja make money?"
+    answer: "Ads and in-app purchases, like most free games. The part most people don't know is how targeted it is. The app sorts you into a spending segment, runs live experiments on you, and builds a personalized store with deals rolled for you and fake slashed prices, shown right after you finish a game."
+  - question: "Does Fruit Ninja actually profile you?"
+    answer: "Yes, the app calls a server for your 'player segment' the moment you open it (via PlayFab's GetPlayerSegments). That sorts you by behavior, which for a store includes how much you're likely to spend. This is a real, verified call recovered from the app's IL2CPP metadata. What your specific segment is, and what it changes, lives on the server and is not in the app."
+  - question: "Is Fruit Ninja A/B testing me?"
+    answer: "Yes. The app uses PlayFab's experimentation system, including a call named GetTreatmentAssignment, which assigns you to an experiment group. Different players can get a different experience to test what performs best. The exact variables each experiment controls are defined server-side, so the specific changes are not readable from the app."
+  - question: "Are the discounts in Fruit Ninja fake?"
+    answer: "The store uses a field called m_slashedCost, which is the industry term for a shown 'original' price that the real price is slashed from. Whether any given 'was $9.99' number reflects a price the item was ever actually sold at is set server-side. The slashed-price mechanism itself is real and in the code."
+  - question: "Is reverse-engineering a game app legal?"
+    answer: "This teardown used lawful static analysis of the publicly shipped app. No servers were accessed and no protection was bypassed to read the code structure. Nothing found shows illegal behavior. Player segmentation, A/B testing, and personalized offers are standard, legal practices across the mobile game and app industry."
+---
+
+> **TL;DR:** I reverse-engineered Fruit Ninja (`com.halfbrick.fruitninjafree`, v3.97.9), the game a lot of us played on our first phone. I wanted to see how a free fruit-slicing game makes money. The answer is more pointed than I expected. Before you slice a single fruit, the app asks a server what kind of spender you are (`GetPlayerSegments`). It assigns you to a live experiment (`GetTreatmentAssignment`). Then it builds a store from your own data, with deals it "rolls" for you and a fake slashed price (`m_slashedCost`), shown the moment you lose a game. The machine is all in the app. The exact numbers it feeds you live on the server, and I'll be clear about that line the whole way through.
+
+## How does a free game like Fruit Ninja make money? (the short answer)
+
+Free games make money from ads and from selling you things. Fruit Ninja does both. The interesting part is not that it sells you things, it is how targeted the selling is. The app profiles you, experiments on you, and personalizes the store, all before and around the actual game. You are not just playing. You are a segment, a test subject, and a sales target, and the code names each of those roles out loud.
+
+Here is what I found, with the real identifiers.
+
+## What I pulled apart, and how (and why "dump," not "decompile")
+
+Worth being precise here, because the method depends on the layer, and people who know this stuff will call you out if you blur it.
+
+An Android Unity game like Fruit Ninja has two code layers:
+
+1. **The Java/Android layer** (`classes.dex`). This is the wrapper: the ad SDKs, the Firebase and PlayFab integrations, the bridge that boots the game engine. You **decompile** this with a tool like jadx and get readable source back. For this game it is mostly boilerplate, but it is what told me the app uses PlayFab, which is where the interesting findings live.
+
+2. **The game logic** (`libil2cpp.so` + `global-metadata.dat`). Fruit Ninja is built with Unity IL2CPP, which compiles the C# to native machine code and strips the human-readable names into a separate metadata file. You do not decompile this back to source. You **dump** the metadata to recover the class, method, and field names. Every game-logic identifier in this post, the segment call, the experiment call, the store fields, came from that **dump**, not from a decompile. So "decompile" is the wrong word for this part, and "dump" is the right one.
+
+I then cross-checked the recovered names against the shipped game data with a Unity asset parser to see what ships in the app versus what is fetched from a server.
+
+Every identifier I quote below is real, verbatim from the app. I label each finding as **Observed** (it is in the code), **Inference** (reasoned from the code), or **Unknown** (it runs on a server and I cannot see it). I am going to lean hard on that last label, because the honest story here is half "look what the app does" and half "and here is exactly where the proof stops."
+
+## Finding 1: it ranks you by spending profile before you play
+
+The moment the app opens, it calls a server and asks which segment you belong to:
+
+```csharp
+// called the moment you open the app
+PlayFab.GetPlayerSegments();
+void OnGetPlayerSegmentsResult(result) {
+    string SegmentName;   // which group you're in
+}
+```
+
+**Observed:** the app calls PlayFab's `GetPlayerSegments` (confirmed as a real, used call), and handles the result with segment names and keys.
+
+**What this is:** PlayFab is Microsoft's backend-as-a-service for games, and player segmentation is one of its core features. Studios use it to bucket players by behavior, and for a store, behavior means things like how much you have spent and how likely you are to spend again. So before you have sliced a single fruit, the app has asked "what kind of player, and what kind of spender, is this."
+
+**Unknown:** the actual segments, and which one you are in. Those definitions live in Halfbrick's PlayFab dashboard, on the server. The app asks the question. It does not ship the answer. So I can prove the sorting happens. I cannot show you your bucket.
+
+## Finding 2: it runs live experiments on you
+
+Once it knows your bucket, the app uses PlayFab's experimentation system. The key call is named exactly what it does:
+
+```csharp
+// PlayFabExperimentationAPI (real, verified)
+GetTreatmentAssignment();   // which experiment are YOU in
+StartExperiment();  GetLatestScorecard();
+```
+
+**Observed:** the app includes PlayFab's full experimentation API and calls `GetTreatmentAssignment` (referenced many times in the code). This is A/B testing infrastructure. It assigns you to a treatment group and the studio measures which version performs best (that is what the "scorecard" calls are for).
+
+**Inference:** what an experiment like this can change. In a game with this much configurable monetization, the levers an experiment can pull include difficulty, offer timing, prices, which store layout you see, and more. This is a reasonable read of how these systems are used across the industry.
+
+**Unknown, and important:** the specific variables each experiment controls, and what yours are set to. In PlayFab, a treatment returns a generic list of variables that the server fills in. Those values are not in the shipped app. So when I say "your difficulty, your prices, all changed," read that as what this kind of experiment can change, not a verified list I pulled from the binary. The machinery is real and in the app. The dials are on the server. Anyone who tells you they decompiled the exact experiment values is overreaching, and I am not going to.
+
+## Finding 3: it builds a store aimed at you, and springs it when you lose
+
+This is where the segment and the experiment pay off. The store is not a fixed shop. It is assembled from your data:
+
+```csharp
+class SalesManager {
+    CreateSpecialOfferConfigsFromPlayerData();  // store built from YOUR data
+    List m_rolledDeals;                         // deals "rolled" for you
+}
+int m_slashedCost;                              // the "was $9.99" slashed price
+// offer slots: EventPregame, EventPostgame (right after you play)
+```
+
+**Observed, all of it:**
+- `CreateSpecialOfferConfigsFromPlayerData` builds offers from your player data.
+- `m_rolledDeals` means your daily deals are "rolled," not a static list.
+- `m_slashedCost` is a field for a shown higher "original" price, the classic slashed-price pattern.
+- Offers have slots including `EventPregame` and `EventPostgame`, which is the screen right after a game ends.
+
+**What this is in plain English:** the game figures out who you are, tests what works on you, then shows you a store built for you, with deals rolled for you and a price presented as a discount, at the moment you are most primed to buy, right after you lose and want one more go. That timing is not an accident. It is a configured slot in the code.
+
+**Unknown:** whether any specific "was $9.99" number reflects a price the item was ever actually sold at. That comparison value is set server-side. The slashed-price mechanism is in the app. The specific numbers are not.
+
+## So how does Fruit Ninja make money? Put it together.
+
+1. **It ranks you (Finding 1).** `GetPlayerSegments` sorts you by spending profile before you play.
+2. **It experiments on you (Finding 2).** `GetTreatmentAssignment` assigns you to a live test to find what makes you spend.
+3. **It sells to you (Finding 3).** A personalized store with rolled deals and slashed prices, sprung the second you lose.
+
+That is the real answer to "how do free games make money." It is not just "they show ads." It is a profiling, testing, and personalized-selling loop, and Fruit Ninja is a clean, readable example of the whole thing, in a game most of us remember as innocent.
+
+## What I could prove, and where it stops
+
+- **Proved (Observed):** the app calls for your player segment, includes and calls PlayFab's experimentation and treatment-assignment system, builds offers from your player data, rolls your deals, carries a slashed-price field, and shows offers right after you play. All real, all named in the code.
+- **Could not prove (Unknown):** your specific segment, your specific experiment and its variables, and whether any slashed "original" price was ever a real price. Those are server-side.
+- **The honest headline:** Fruit Ninja's monetization is a personalization machine, and the proof of the machine is in the app. The proof of exactly what it does to *you*, individually, is on Halfbrick's servers, which is the one thing a decompile cannot reach.
+
+None of this is illegal. Player segmentation, A/B testing, and personalized offers are standard across the entire app industry. The point of this teardown is not "gotcha." It is to show you the machine, in its own code, so the next time a "limited offer" pops up the second you lose, you know exactly what decided to show it to you.
+
+## Sources and method
+
+- **Target:** `com.halfbrick.fruitninjafree` version 3.97.9, the publicly shipped Android app.
+- **Method:** static analysis only. Two layers, two methods: a jadx decompile of the Java/Android wrapper (which surfaced the ad and PlayFab SDKs), and an IL2CPP metadata dump of `global-metadata.dat` to recover the game-logic class, method, and field names (where every finding in this post came from). Plus a Unity asset parser (UnityPy) to confirm how config ships. No servers were accessed and no login or protection was bypassed to read the code structure.
+- **Downloads figure:** Fruit Ninja passed 1 billion downloads in 2015 (Halfbrick), with the franchise higher since. The impressive, verified number here is reach, not current revenue (Halfbrick is private; estimates put total revenue in the low tens of millions per year).
+- **On PlayFab:** PlayFab is Microsoft's game backend. `GetPlayerSegments`, the experimentation API, `GetTreatmentAssignment`, and the economy APIs are its standard, documented features.
+
+*Every code identifier quoted in this post was verified present in the app's recovered IL2CPP metadata before publishing.*
