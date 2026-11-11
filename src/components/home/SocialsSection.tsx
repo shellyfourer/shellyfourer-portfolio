@@ -18,7 +18,7 @@ export async function SocialsSection() {
       id="socials"
       className="flex flex-col justify-center gap-8
         px-6 xl:pl-16 xl:pr-40
-        min-h-screen-nav py-20 md:py-0 md:h-screen-nav"
+        min-h-screen-nav py-20"
     >
       {/* Heading */}
       <div className="flex flex-col gap-5">
