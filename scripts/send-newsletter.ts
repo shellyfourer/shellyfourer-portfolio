@@ -33,7 +33,10 @@ async function getContacts(): Promise<string[]> {
   let cursor: string | undefined
 
   do {
-    const res = await resend.contacts.list({ audienceId: SEGMENT_ID, ...(cursor ? { after: cursor } : {}) })
+    const res = await resend.contacts.list({
+      audienceId: SEGMENT_ID,
+      ...(cursor ? { after: cursor } : {}),
+    })
     if (res.error) throw new Error(res.error.message)
     const page = res.data?.data ?? []
     contacts.push(...page.filter((c) => !c.unsubscribed).map((c) => c.email))

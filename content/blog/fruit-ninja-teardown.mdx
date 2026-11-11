@@ -1,10 +1,10 @@
 ---
-title: "I Reverse-Engineered Fruit Ninja to See How It Makes Money"
-description: "I reverse-engineered Fruit Ninja, the game a lot of us grew up on, and read its code. Before you slice a single fruit it ranks you by spending profile, runs live A/B experiments on you, and builds a personalized store with fake slashed prices timed to the moment you lose. Here is the proof, and exactly where it stops."
-date: "2026-11-01"
-lastModified: "2026-11-01"
-author: "Shelly Fourer"
-tags: ["reverse-engineering", "fruit-ninja", "mobile-games", "monetization", "how-apps-make-money"]
+title: 'I Reverse-Engineered Fruit Ninja to See How It Makes Money'
+description: 'I reverse-engineered Fruit Ninja, the game a lot of us grew up on, and read its code. Before you slice a single fruit it ranks you by spending profile, runs live A/B experiments on you, and builds a personalized store with fake slashed prices timed to the moment you lose. Here is the proof, and exactly where it stops.'
+date: '2026-11-01'
+lastModified: '2026-11-01'
+author: 'Shelly Fourer'
+tags: ['reverse-engineering', 'fruit-ninja', 'mobile-games', 'monetization', 'how-apps-make-money']
 keywords:
   - how does Fruit Ninja make money
   - how do free mobile games make money
@@ -15,22 +15,22 @@ keywords:
   - reverse engineering a mobile game
   - personalized in-app offers
   - fake slashed prices mobile games
-canonicalUrl: "https://shellyfourer.com/blog/fruit-ninja-teardown"
-coverImage: "/blog/fruit-ninja-teardown/cover.webp"
-ogImage: "/blog/fruit-ninja-teardown/cover.webp"
-readingTime: "8 min"
+canonicalUrl: 'https://shellyfourer.com/blog/fruit-ninja-teardown'
+coverImage: '/blog/fruit-ninja-teardown/cover.webp'
+ogImage: '/blog/fruit-ninja-teardown/cover.webp'
+readingTime: '8 min'
 draft: false
 faq:
-  - question: "How does Fruit Ninja make money?"
+  - question: 'How does Fruit Ninja make money?'
     answer: "Ads and in-app purchases, like most free games. The part most people don't know is how targeted it is. The app sorts you into a spending segment, runs live experiments on you, and builds a personalized store with deals rolled for you and fake slashed prices, shown right after you finish a game."
-  - question: "Does Fruit Ninja actually profile you?"
+  - question: 'Does Fruit Ninja actually profile you?'
     answer: "Yes, the app calls a server for your 'player segment' the moment you open it (via PlayFab's GetPlayerSegments). That sorts you by behavior, which for a store includes how much you're likely to spend. This is a real, verified call recovered from the app's IL2CPP metadata. What your specific segment is, and what it changes, lives on the server and is not in the app."
-  - question: "Is Fruit Ninja A/B testing me?"
+  - question: 'Is Fruit Ninja A/B testing me?'
     answer: "Yes. The app uses PlayFab's experimentation system, including a call named GetTreatmentAssignment, which assigns you to an experiment group. Different players can get a different experience to test what performs best. The exact variables each experiment controls are defined server-side, so the specific changes are not readable from the app."
-  - question: "Are the discounts in Fruit Ninja fake?"
+  - question: 'Are the discounts in Fruit Ninja fake?'
     answer: "The store uses a field called m_slashedCost, which is the industry term for a shown 'original' price that the real price is slashed from. Whether any given 'was $9.99' number reflects a price the item was ever actually sold at is set server-side. The slashed-price mechanism itself is real and in the code."
-  - question: "Is reverse-engineering a game app legal?"
-    answer: "This teardown used lawful static analysis of the publicly shipped app. No servers were accessed and no protection was bypassed to read the code structure. Nothing found shows illegal behavior. Player segmentation, A/B testing, and personalized offers are standard, legal practices across the mobile game and app industry."
+  - question: 'Is reverse-engineering a game app legal?'
+    answer: 'This teardown used lawful static analysis of the publicly shipped app. No servers were accessed and no protection was bypassed to read the code structure. Nothing found shows illegal behavior. Player segmentation, A/B testing, and personalized offers are standard, legal practices across the mobile game and app industry.'
 ---
 
 > **TL;DR:** I reverse-engineered Fruit Ninja (`com.halfbrick.fruitninjafree`, v3.97.9), the game a lot of us played on our first phone. I wanted to see how a free fruit-slicing game makes money. The answer is more pointed than I expected. Before you slice a single fruit, the app asks a server what kind of spender you are (`GetPlayerSegments`). It assigns you to a live experiment (`GetTreatmentAssignment`). Then it builds a store from your own data, with deals it "rolls" for you and a fake slashed price (`m_slashedCost`), shown the moment you lose a game. The machine is all in the app. The exact numbers it feeds you live on the server, and I'll be clear about that line the whole way through.
@@ -103,6 +103,7 @@ int m_slashedCost;                              // the "was $9.99" slashed price
 ```
 
 **Observed, all of it:**
+
 - `CreateSpecialOfferConfigsFromPlayerData` builds offers from your player data.
 - `m_rolledDeals` means your daily deals are "rolled," not a static list.
 - `m_slashedCost` is a field for a shown higher "original" price, the classic slashed-price pattern.
@@ -124,7 +125,7 @@ That is the real answer to "how do free games make money." It is not just "they 
 
 - **Proved (Observed):** the app calls for your player segment, includes and calls PlayFab's experimentation and treatment-assignment system, builds offers from your player data, rolls your deals, carries a slashed-price field, and shows offers right after you play. All real, all named in the code.
 - **Could not prove (Unknown):** your specific segment, your specific experiment and its variables, and whether any slashed "original" price was ever a real price. Those are server-side.
-- **The honest headline:** Fruit Ninja's monetization is a personalization machine, and the proof of the machine is in the app. The proof of exactly what it does to *you*, individually, is on Halfbrick's servers, which is the one thing a decompile cannot reach.
+- **The honest headline:** Fruit Ninja's monetization is a personalization machine, and the proof of the machine is in the app. The proof of exactly what it does to _you_, individually, is on Halfbrick's servers, which is the one thing a decompile cannot reach.
 
 None of this is illegal. Player segmentation, A/B testing, and personalized offers are standard across the entire app industry. The point of this teardown is not "gotcha." It is to show you the machine, in its own code, so the next time a "limited offer" pops up the second you lose, you know exactly what decided to show it to you.
 
@@ -135,4 +136,4 @@ None of this is illegal. Player segmentation, A/B testing, and personalized offe
 - **Downloads figure:** Fruit Ninja passed 1 billion downloads in 2015 (Halfbrick), with the franchise higher since. The impressive, verified number here is reach, not current revenue (Halfbrick is private; estimates put total revenue in the low tens of millions per year).
 - **On PlayFab:** PlayFab is Microsoft's game backend. `GetPlayerSegments`, the experimentation API, `GetTreatmentAssignment`, and the economy APIs are its standard, documented features.
 
-*Every code identifier quoted in this post was verified present in the app's recovered IL2CPP metadata before publishing.*
+_Every code identifier quoted in this post was verified present in the app's recovered IL2CPP metadata before publishing._
